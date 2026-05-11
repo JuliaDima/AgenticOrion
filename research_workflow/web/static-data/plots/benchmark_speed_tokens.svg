@@ -20,17 +20,11 @@
 <line class="axis" x1="68" y1="432" x2="736" y2="432"/>
 <rect x="178.3" y="318.3" width="52.0" height="113.7" rx="4" fill="#0d9488" opacity="0.92"/>
 <text class="val" x="204.3" y="313.3" text-anchor="middle">6.18</text>
-<line x1="204.3" y1="279.7" x2="204.3" y2="357.0" stroke="#0f172a" stroke-width="1.8"/>
-<line x1="186.1" y1="279.7" x2="222.5" y2="279.7" stroke="#0f172a" stroke-width="1.8"/>
-<line x1="186.1" y1="357.0" x2="222.5" y2="357.0" stroke="#0f172a" stroke-width="1.8"/>
 <rect x="239.7" y="286.6" width="52.0" height="145.4" rx="4" fill="#c74732" opacity="0.92"/>
 <text class="val" x="265.7" y="281.6" text-anchor="middle">7.90</text>
 <text class="lbl" x="235.0" y="450.0" text-anchor="middle">Wall time / 10s</text>
 <rect x="512.3" y="179.6" width="52.0" height="252.4" rx="4" fill="#0d9488" opacity="0.92"/>
 <text class="val" x="538.3" y="174.6" text-anchor="middle">13.72</text>
-<line x1="538.3" y1="172.3" x2="538.3" y2="186.9" stroke="#0f172a" stroke-width="1.8"/>
-<line x1="520.1" y1="172.3" x2="556.5" y2="172.3" stroke="#0f172a" stroke-width="1.8"/>
-<line x1="520.1" y1="186.9" x2="556.5" y2="186.9" stroke="#0f172a" stroke-width="1.8"/>
 <rect x="573.7" y="293.2" width="52.0" height="138.8" rx="4" fill="#c74732" opacity="0.92"/>
 <text class="val" x="599.7" y="288.2" text-anchor="middle">7.54</text>
 <text class="lbl" x="569.0" y="450.0" text-anchor="middle">Tokens / 1k</text>
