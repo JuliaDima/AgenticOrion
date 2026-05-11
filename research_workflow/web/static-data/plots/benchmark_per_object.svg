@@ -8,7 +8,7 @@
 <rect x="186" y="32" width="12" height="12" rx="3" fill="#7c3aed"/>
 <text class="leg-text" x="203" y="43">Blind multi-agent</text>
 <rect x="304" y="32" width="12" height="12" rx="3" fill="#c74732"/>
-<text class="leg-text" x="321" y="43">Single mock</text>
+<text class="leg-text" x="321" y="43">Single agent</text>
 <line class="grid" x1="68" y1="432.0" x2="1376" y2="432.0"/>
 <text class="ylbl" x="62" y="436.0" text-anchor="end">0.0</text>
 <line class="grid" x1="68" y1="340.0" x2="1376" y2="340.0"/>

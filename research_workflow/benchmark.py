@@ -465,8 +465,8 @@ def _build_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-_SERIES_COLORS   = ["#0d9488", "#7c3aed", "#64748b", "#f59e0b", "#3b82f6"]
-_SERIES_DEFAULTS = ["Multi-agent", "Blind multi-agent", "Single agent", "Series 4", "Series 5"]
+_SERIES_COLORS   = ["#0d9488", "#c74732", "#7c3aed", "#f59e0b", "#3b82f6"]
+_SERIES_DEFAULTS = ["Multi-agent", "Single agent", "Blind multi-agent", "Series 4", "Series 5"]
 
 # Lighter fill variants for hover-like visual depth (10% opacity overlay baked in)
 _SERIES_COLORS_LIGHT = ["#ccfbf1", "#ede9fe", "#f1f5f9", "#fef3c7", "#dbeafe"]
@@ -929,9 +929,9 @@ def main() -> None:
     summary = payload["summary"]
     print("Agentic Orion benchmark")
     print(f"  Objects compared: {summary['objects_compared']}")
-    print(f"  Speedup multi vs serial single mock: {summary['comparison']['avg_speedup_multi_vs_single']}x")
+    print(f"  Speedup multi vs serial single agent: {summary['comparison']['avg_speedup_multi_vs_single']}x")
     print(f"  Characterization gain: +{summary['comparison']['characterization_gain']}")
-    print(f"  Token ratio multi/single mock: {summary['comparison']['token_ratio_multi_over_single']}x")
+    print(f"  Token ratio multi/single agent: {summary['comparison']['token_ratio_multi_over_single']}x")
     print(f"  Results: {RESULTS_PATH}")
 
 
