@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OrionSpectrum Multi-Agent Triage</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">O</div>
+          <div>
+            <h1>OrionSpectrum</h1>
+            <p>The pursuer of multi-wavelentgh knowledge.</p>
+          </div>
+        </div>
+
+        <section class="control-block">
+          <label for="packetSelect">Observation packet</label>
+          <select id="packetSelect"></select>
+          <button id="runButton" class="primary-button">Run selected packet</button>
+          <p id="runStatus" class="muted"></p>
+        </section>
+
+        <section class="control-block grow">
+          <div class="section-title">Runs</div>
+          <div id="runList" class="run-list"></div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">LangGraph workflow observatory</p>
+            <h2 id="objectTitle">Loading runs...</h2>
+          </div>
+          <div class="status-pill" id="statusPill">idle</div>
+        </header>
+
+        <section class="overview">
+          <div class="sky-panel">
+            <canvas id="skyCanvas" width="720" height="300"></canvas>
+            <div class="sky-overlay">
+              <p id="missionLabel">Mission</p>
+              <h3 id="verdictLabel">No run selected</h3>
+              <span id="summaryLabel"></span>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <div class="metric-card">
+              <span>Interest</span>
+              <strong id="interestMetric">--</strong>
+              <small>scientific attention score</small>
+            </div>
+            <div class="metric-card">
+              <span>Wall time</span>
+              <strong id="wallMetric">--</strong>
+              <small>end-to-end execution</small>
+            </div>
+            <div class="metric-card">
+              <span>Parallel speedup</span>
+              <strong id="speedMetric">--</strong>
+              <small>fan-out efficiency</small>
+            </div>
+            <div class="metric-card">
+              <span>Consumption</span>
+              <strong id="tokenMetric">--</strong>
+              <small>tokens and estimated cost</small>
+            </div>
+          </div>
+        </section>
+
+        <nav class="tabs" aria-label="Dashboard views">
+          <button class="tab active" data-tab="workflow">Workflow</button>
+          <button class="tab" data-tab="science">Science</button>
+          <button class="tab" data-tab="performance">Performance</button>
+          <button class="tab" data-tab="data">Data</button>
+          <button class="tab" data-tab="report">Report</button>
+        </nav>
+
+        <section id="workflow" class="tab-panel active">
+          <div class="panel-header">
+            <div>
+              <h3>Agent Interaction Graph</h3>
+              <p>Click an agent to inspect its trace, outputs, tools, timing, and influence.</p>
+            </div>
+          </div>
+          <div class="workflow-layout">
+            <div class="graph-stage">
+              <svg id="agentGraph" viewBox="0 0 1180 560" role="img" aria-label="OrionSpectrum LangGraph"></svg>
+            </div>
+            <aside class="agent-inspector" id="agentInspector">
+              <p class="eyebrow">Selected agent</p>
+              <h3>Choose a node</h3>
+              <p class="muted">The panel will show call summaries, reasoning outputs, tools, timing, tokens, and downstream influence.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section id="science" class="tab-panel">
+          <div class="science-grid">
+            <article class="panel">
+              <h3>Branch Scores</h3>
+              <canvas id="radarCanvas" width="520" height="360"></canvas>
+            </article>
+            <article class="panel">
+              <h3>Competing Hypotheses</h3>
+              <div id="hypothesesList" class="stack-list"></div>
+            </article>
+            <article class="panel wide">
+              <h3>Agreement, Disagreement, and Open Questions</h3>
+              <div id="debateList" class="debate-grid"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="performance" class="tab-panel">
+          <div class="science-grid">
+            <article class="panel wide">
+              <h3>Execution Timeline</h3>
+              <div id="timeline" class="timeline"></div>
+            </article>
+            <article class="panel">
+              <h3>Token Use</h3>
+              <canvas id="tokenCanvas" width="520" height="320"></canvas>
+            </article>
+            <article class="panel">
+              <h3>Influence Map</h3>
+              <div id="influenceMap" class="influence-map"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="data" class="tab-panel">
+          <div class="science-grid">
+            <article class="panel wide">
+              <h3>Light Curve</h3>
+              <canvas id="lightcurveCanvas" width="900" height="360"></canvas>
+            </article>
+            <article class="panel">
+              <h3>Classifier Probabilities</h3>
+              <div id="probabilityBars" class="probability-bars"></div>
+            </article>
+            <article class="panel">
+              <h3>Packet Metadata</h3>
+              <pre id="packetMetadata" class="json-block"></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="report" class="tab-panel">
+          <article class="panel report-panel">
+            <h3>Synthesis Report</h3>
+            <div id="reportContent" class="report-content"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
