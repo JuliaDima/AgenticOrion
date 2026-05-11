@@ -845,6 +845,12 @@ def _write_plots(
             per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, single_char]})
             per_obj_errors.append([_packet_sigma(pidx), 0.0])
     has_blind_char = any(len(g["values"]) == 3 for g in per_obj_groups)
+    if has_blind_char:
+        # Pad groups without a blind run so single-agent stays in position 2 (red)
+        for g, e in zip(per_obj_groups, per_obj_errors):
+            if len(g["values"]) == 2:
+                g["values"] = [g["values"][0], 0.0, g["values"][1]]
+                e[:] = [e[0], 0.0, 0.0]
     _svg_bar_chart(
         "Per-object Characterization Score",
         per_obj_groups,

@@ -22,8 +22,9 @@
 <line class="axis" x1="68" y1="432" x2="1376" y2="432"/>
 <rect x="86.5" y="105.2" width="21.4" height="326.8" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="97.2" y="100.2" text-anchor="middle">0.89</text>
-<rect x="111.8" y="307.6" width="21.4" height="124.4" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="122.5" y="302.6" text-anchor="middle">0.34</text>
+<rect x="111.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="137.1" y="307.6" width="21.4" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="147.8" y="302.6" text-anchor="middle">0.34</text>
 <text class="lbl" transform="translate(122.5,442) rotate(-35)" text-anchor="end">P01</text>
 <rect x="195.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="206.2" y="109.4" text-anchor="middle">0.86</text>
@@ -41,18 +42,21 @@
 <text class="lbl" transform="translate(340.5,442) rotate(-35)" text-anchor="end">P03</text>
 <rect x="413.5" y="146.8" width="21.4" height="285.2" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="424.2" y="141.8" text-anchor="middle">0.78</text>
-<rect x="438.8" y="333.0" width="21.4" height="99.0" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="449.5" y="328.0" text-anchor="middle">0.27</text>
+<rect x="438.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="464.1" y="333.0" width="21.4" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="474.8" y="328.0" text-anchor="middle">0.27</text>
 <text class="lbl" transform="translate(449.5,442) rotate(-35)" text-anchor="end">P04</text>
 <rect x="522.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="533.2" y="109.4" text-anchor="middle">0.86</text>
-<rect x="547.8" y="307.6" width="21.4" height="124.4" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="558.5" y="302.6" text-anchor="middle">0.34</text>
+<rect x="547.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="573.1" y="307.6" width="21.4" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="583.8" y="302.6" text-anchor="middle">0.34</text>
 <text class="lbl" transform="translate(558.5,442) rotate(-35)" text-anchor="end">P05</text>
 <rect x="631.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="642.2" y="109.4" text-anchor="middle">0.86</text>
-<rect x="656.8" y="317.2" width="21.4" height="114.8" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="667.5" y="312.2" text-anchor="middle">0.31</text>
+<rect x="656.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="682.1" y="317.2" width="21.4" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="692.8" y="312.2" text-anchor="middle">0.31</text>
 <text class="lbl" transform="translate(667.5,442) rotate(-35)" text-anchor="end">P06</text>
 <rect x="740.5" y="128.4" width="21.4" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="751.2" y="123.4" text-anchor="middle">0.82</text>
@@ -63,8 +67,9 @@
 <text class="lbl" transform="translate(776.5,442) rotate(-35)" text-anchor="end">P07</text>
 <rect x="849.5" y="128.4" width="21.4" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="860.2" y="123.4" text-anchor="middle">0.82</text>
-<rect x="874.8" y="333.0" width="21.4" height="99.0" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="885.5" y="328.0" text-anchor="middle">0.27</text>
+<rect x="874.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="900.1" y="333.0" width="21.4" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="910.8" y="328.0" text-anchor="middle">0.27</text>
 <text class="lbl" transform="translate(885.5,442) rotate(-35)" text-anchor="end">P08</text>
 <rect x="958.5" y="195.0" width="21.4" height="237.0" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="969.2" y="190.0" text-anchor="middle">0.64</text>
@@ -75,8 +80,9 @@
 <text class="lbl" transform="translate(994.5,442) rotate(-35)" text-anchor="end">P09</text>
 <rect x="1067.5" y="185.8" width="21.4" height="246.2" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="1078.2" y="180.8" text-anchor="middle">0.67</text>
-<rect x="1092.8" y="365.4" width="21.4" height="66.6" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="1103.5" y="360.4" text-anchor="middle">0.18</text>
+<rect x="1092.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="1118.1" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1128.8" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(1103.5,442) rotate(-35)" text-anchor="end">P10</text>
 <rect x="1176.5" y="204.2" width="21.4" height="227.8" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="1187.2" y="199.2" text-anchor="middle">0.62</text>
@@ -87,8 +93,9 @@
 <text class="lbl" transform="translate(1212.5,442) rotate(-35)" text-anchor="end">P11</text>
 <rect x="1285.5" y="181.4" width="21.4" height="250.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="1296.2" y="176.4" text-anchor="middle">0.68</text>
-<rect x="1310.8" y="365.4" width="21.4" height="66.6" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="1321.5" y="360.4" text-anchor="middle">0.18</text>
+<rect x="1310.8" y="430.0" width="21.4" height="2.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<rect x="1336.1" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1346.8" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(1321.5,442) rotate(-35)" text-anchor="end">P12</text>
 <text class="ylbl" transform="translate(13,248.0) rotate(-90)" text-anchor="middle">Higher is better  (error bars = 1σ across repeated runs per packet)</text>
 </svg>

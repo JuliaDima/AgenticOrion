@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T16:13:08.233406+00:00",
+  "generated_at": "2026-05-11T16:14:03.435234+00:00",
   "methodology": {
     "multi_agent": "Actual latest successful packet runs from SQLite traces.",
     "single_agent_mock": "Single-agent baseline: one generalist performs the same characterization serially. Wall time = sum of all agent call durations (measured from DB); no parallel fan-out.",
