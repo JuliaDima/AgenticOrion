@@ -82,6 +82,24 @@ class WorkflowLogger:
                     timestamp      TEXT,
                     state_snapshot TEXT
                 );
+
+                CREATE TABLE IF NOT EXISTS final_states (
+                    run_id      TEXT PRIMARY KEY,
+                    timestamp   TEXT,
+                    total_wall_ms REAL,
+                    state_json  TEXT
+                );
+
+                CREATE TABLE IF NOT EXISTS run_metrics (
+                    run_id            TEXT PRIMARY KEY,
+                    timestamp         TEXT,
+                    input_tokens      INTEGER,
+                    output_tokens     INTEGER,
+                    total_tokens      INTEGER,
+                    estimated_cost_usd REAL,
+                    pricing_model     TEXT,
+                    per_agent_json    TEXT
+                );
             """)
 
     # ------------------------------------------------------------------
@@ -167,6 +185,50 @@ class WorkflowLogger:
                    VALUES (?, ?, ?, ?, ?)""",
                 (run_id, from_node, to_node, _now(),
                  json.dumps(snapshot, default=str)[:4000]),
+            )
+
+    def log_final_state(
+        self,
+        run_id: str,
+        state: dict,
+        total_wall_ms: float,
+    ) -> None:
+        """Persist the complete final state for the browser dashboard."""
+        with self._db_lock, self._conn() as c:
+            c.execute(
+                """INSERT OR REPLACE INTO final_states
+                   (run_id, timestamp, total_wall_ms, state_json)
+                   VALUES (?, ?, ?, ?)""",
+                (run_id, _now(), total_wall_ms, json.dumps(state, default=str)),
+            )
+
+    def log_run_metrics(
+        self,
+        run_id: str,
+        input_tokens: int,
+        output_tokens: int,
+        estimated_cost_usd: float,
+        pricing_model: str,
+        per_agent: list[dict],
+    ) -> None:
+        """Persist aggregate token/cost metrics for a workflow run."""
+        total_tokens = input_tokens + output_tokens
+        with self._db_lock, self._conn() as c:
+            c.execute(
+                """INSERT OR REPLACE INTO run_metrics
+                   (run_id, timestamp, input_tokens, output_tokens, total_tokens,
+                    estimated_cost_usd, pricing_model, per_agent_json)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    run_id,
+                    _now(),
+                    input_tokens,
+                    output_tokens,
+                    total_tokens,
+                    estimated_cost_usd,
+                    pricing_model,
+                    json.dumps(per_agent, default=str),
+                ),
             )
 
 

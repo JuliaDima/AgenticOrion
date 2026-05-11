@@ -2,3 +2,8 @@ research_workflow/__pycache__
 research_workflow/agents/__pycache__
 info.md
 packets
+orion-spectrum.md
+openai_API_key.md
+.DS_Store
+data_fetching/__pycache__
+research_workflow/.env
