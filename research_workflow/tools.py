@@ -1,5 +1,5 @@
 """
-Tool implementations for the OrionSpectrum workflow.
+Tool implementations for the Agentic Orion workflow.
 
 - search_arxiv: ArXiv full-text search (used by context_retriever)
 - execute_python: sandboxed subprocess execution (used by code_executor)

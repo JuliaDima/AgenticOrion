@@ -1,5 +1,5 @@
 """
-Local OrionSpectrum dashboard server.
+Local Agentic Orion dashboard server.
 
 Usage:
     python web_server.py --port 8765
@@ -88,7 +88,7 @@ AGENTS = [
     {
         "id": "synthesis",
         "label": "Synthesis",
-        "role": "Produces the final traceable OrionSpectrum scientific report.",
+        "role": "Produces the final traceable Agentic Orion scientific report.",
         "group": "report",
     },
 ]
@@ -553,18 +553,18 @@ class OrionHandler(SimpleHTTPRequestHandler):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Serve the OrionSpectrum local dashboard")
+    parser = argparse.ArgumentParser(description="Serve the Agentic Orion local dashboard")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
 
     server = ThreadingHTTPServer((args.host, args.port), OrionHandler)
-    print(f"OrionSpectrum dashboard: http://{args.host}:{args.port}")
+    print(f"Agentic Orion dashboard: http://{args.host}:{args.port}")
     print("Press Ctrl-C to stop.")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopping OrionSpectrum dashboard.")
+        print("\nStopping Agentic Orion dashboard.")
     finally:
         server.server_close()
 

@@ -20,7 +20,7 @@ from state import ResearchState
 _MODEL = "gpt-4o-mini"
 
 _SYSTEM = """\
-You are the OrionSpectrum Astrophysical Interpretation Agent.
+You are the Agentic Orion Astrophysical Interpretation Agent.
 
 Your role: given an astronomical observation packet and its characterization,
 assess whether this observation can be explained by known astrophysical phenomena.

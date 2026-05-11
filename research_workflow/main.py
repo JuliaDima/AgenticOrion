@@ -1,7 +1,7 @@
 """
-OrionSpectrum — entry point.
+Agentic Orion — entry point.
 
-Runs one or all observation packets through the OrionSpectrum multi-agent triage workflow.
+Runs one or all observation packets through the Agentic Orion multi-agent triage workflow.
 
 Usage
 -----
@@ -12,7 +12,7 @@ Usage
     python main.py --experiment RETRO
     python main.py --experiment CTRL
 
-Each run logs to research_workflow.db and prints the final OrionSpectrum report.
+Each run logs to research_workflow.db and prints the final Agentic Orion report.
 """
 
 import argparse
@@ -89,7 +89,7 @@ def print_coverage_summary() -> None:
         "\nOrion triage throughput estimate:\n"
         "  ~30–90s per packet (wall time with parallel branches, GPT-4 class LLM)\n"
         "  With 4 parallel agent instances: ~4x throughput\n"
-        "  Rubin LSST @ 10M alerts/night → need ~2800/s; OrionSpectrum targets human-expert triage\n"
+        "  Rubin LSST @ 10M alerts/night → need ~2800/s; Agentic Orion targets human-expert triage\n"
         "  of the top-N anomalies (broker pre-filtered to ~100–10,000/night)\n"
         "  At 60s/packet × 4 workers: ~240 packets/hour = ~5,760/day\n"
         "  Sufficient to triage ALeRCE/Fink anomaly-flagged subsets, all JWST daily\n"
@@ -103,7 +103,7 @@ def print_coverage_summary() -> None:
 # ---------------------------------------------------------------------------
 
 def run_packet(packet_index: int, verbose: bool = True) -> ResearchState:
-    """Run one observation packet through the full OrionSpectrum workflow."""
+    """Run one observation packet through the full Agentic Orion workflow."""
     if packet_index < 1 or packet_index > len(OBSERVATION_PACKETS):
         raise ValueError(f"packet_index must be 1–{len(OBSERVATION_PACKETS)}")
 
@@ -272,7 +272,7 @@ def _print_report(state: ResearchState, total_wall_ms: float) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="OrionSpectrum — automated scientific triage for astronomical observation packets"
+        description="Agentic Orion — automated scientific triage for astronomical observation packets"
     )
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--packet", type=int, metavar="N", help="Run packet N (1–12)")

@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -55,6 +59,23 @@ select {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.brand-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.brand-button:focus-visible {
+  outline: 2px solid #176c72;
+  outline-offset: 6px;
+  border-radius: 8px;
 }
 
 .brand-mark {
@@ -217,6 +238,14 @@ select {
   margin-bottom: 18px;
 }
 
+.home-mode .overview {
+  grid-template-columns: 1fr;
+}
+
+.home-mode .kpi-grid {
+  display: none;
+}
+
 .sky-panel {
   position: relative;
   min-height: 300px;
@@ -226,18 +255,62 @@ select {
   box-shadow: var(--shadow);
 }
 
+.home-mode .sky-panel {
+  min-height: clamp(240px, 30vh, 330px);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(38, 53, 58, 0.42), transparent 28%),
+    linear-gradient(180deg, #03080b 0%, #0a1115 58%, #020303 100%);
+}
+
 .sky-panel canvas {
   width: 100%;
   height: 100%;
   display: block;
 }
 
+.hero-photo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 1180px);
+  height: 100%;
+  display: none;
+  object-fit: cover;
+  object-position: center center;
+  transform: translateX(-50%);
+}
+
+.sky-panel.has-photo .hero-photo {
+  display: block;
+}
+
+.sky-panel.has-photo canvas {
+  visibility: hidden;
+}
+
+.sky-panel.has-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.92) 12%, rgba(0, 0, 0, 0.18) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.18) 75%, rgba(0, 0, 0, 0.92) 88%, rgba(0, 0, 0, 0.96) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.58));
+  pointer-events: none;
+  z-index: 1;
+}
+
 .sky-overlay {
   position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: 22px;
+  z-index: 2;
+  left: clamp(22px, 3.2vw, 42px);
+  right: clamp(22px, 3.2vw, 42px);
+  top: 50%;
+  transform: translateY(-50%);
   color: #fff;
+  display: grid;
+  justify-items: center;
+  text-align: center;
 }
 
 .sky-overlay p,
@@ -247,26 +320,49 @@ select {
 }
 
 .sky-overlay p {
-  color: #bad4d7;
+  color: #fff;
   font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .sky-overlay h3 {
+  color: #fff;
   margin-top: 6px;
-  font-size: clamp(28px, 5vw, 56px);
-  line-height: 0.96;
+  max-width: 760px;
+  font-size: clamp(28px, 3.8vw, 46px);
+  line-height: 1;
   letter-spacing: 0;
 }
 
 .sky-overlay span {
   display: block;
-  max-width: 760px;
-  margin-top: 12px;
-  color: #d8e5e7;
-  font-size: 14px;
+  max-width: 720px;
+  margin-top: 10px;
+  color: #fff;
+  font-size: clamp(12px, 1vw, 15px);
   line-height: 1.45;
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.hero-facts span {
+  display: inline-flex;
+  max-width: 100%;
+  border: 1px solid rgba(216, 229, 231, 0.28);
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: rgba(0, 0, 0, 0.46);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .kpi-grid {
@@ -333,6 +429,158 @@ select {
   display: block;
 }
 
+.project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.project-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.project-stat {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.project-stat strong {
+  display: block;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+.project-stat span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.graph-explainer {
+  display: grid;
+  gap: 10px;
+}
+
+.graph-explainer div {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.graph-explainer strong {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: #1d3339;
+  color: #fff;
+  font-size: 13px;
+}
+
+.graph-explainer span {
+  color: #39434d;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#projectGraph {
+  display: block;
+  width: 100%;
+  min-height: 680px;
+}
+
+.project-edge {
+  fill: none;
+  stroke: #b2bdc7;
+  stroke-width: 2.4;
+}
+
+.project-graph-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) 360px;
+  gap: 16px;
+  align-items: start;
+}
+
+.project-node-card {
+  cursor: pointer;
+}
+
+.project-node-card .project-node {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1.5;
+}
+
+.project-node-card.active .project-node,
+.project-node-card:hover .project-node {
+  stroke: #101820;
+  stroke-width: 3;
+}
+
+.project-agent-inspector {
+  position: sticky;
+  top: 20px;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: #fbfcfd;
+}
+
+.project-agent-inspector h3 {
+  margin: 0;
+}
+
+.coverage-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.coverage-item {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.coverage-item strong,
+.coverage-item span {
+  display: block;
+}
+
+.coverage-item strong {
+  font-size: 13px;
+}
+
+.coverage-item span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coverage-item small {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.coverage-item em {
+  border-radius: 999px;
+  padding: 3px 6px;
+  background: #edf2f3;
+  color: #2d3741;
+  font-size: 11px;
+  font-style: normal;
+}
+
 .panel-header {
   display: flex;
   align-items: end;
@@ -369,7 +617,7 @@ select {
 
 #agentGraph {
   width: 100%;
-  min-height: 560px;
+  min-height: 820px;
   display: block;
 }
 
@@ -609,11 +857,14 @@ select {
 
   .overview,
   .workflow-layout,
-  .science-grid {
+  .science-grid,
+  .project-grid {
     grid-template-columns: 1fr;
   }
 
-  .debate-grid {
+  .debate-grid,
+  .coverage-list,
+  .project-graph-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -630,6 +881,10 @@ select {
 
   .timeline-row,
   .prob-row {
+    grid-template-columns: 1fr;
+  }
+
+  .project-stats {
     grid-template-columns: 1fr;
   }
 

@@ -1,5 +1,5 @@
 """
-OrionSpectrum LangGraph workflow.
+Agentic Orion LangGraph workflow.
 
 Architecture:
   START → supervisor → observation_characterizer

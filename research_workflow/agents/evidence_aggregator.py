@@ -4,7 +4,7 @@ Evidence Aggregation / Debate Agent.
 Receives all 4 parallel branch outputs, compares them, identifies agreement
 and disagreement, ranks hypotheses, and decides whether code analysis is needed.
 
-This is the scientific heart of OrionSpectrum: it performs the "debate" step where
+This is the scientific heart of Agentic Orion: it performs the "debate" step where
 competing interpretations are weighed against each other.
 """
 
@@ -23,7 +23,7 @@ from state import ResearchState
 _MODEL = "gpt-4o"
 
 _SYSTEM = """\
-You are the OrionSpectrum Evidence Aggregation and Debate Agent.
+You are the Agentic Orion Evidence Aggregation and Debate Agent.
 
 You receive the outputs of four parallel scientific analysis branches:
 1. Astrophysical Interpretation — what astrophysical object could this be?

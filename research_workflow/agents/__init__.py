@@ -1,4 +1,4 @@
-# OrionSpectrum agent modules
+# Agentic Orion agent modules
 from .supervisor import supervisor_node
 from .observation_characterizer import observation_characterizer_node
 from .astrophysical_interpreter import astrophysical_interpreter_node

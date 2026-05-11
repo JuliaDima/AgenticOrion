@@ -17,7 +17,7 @@ from state import ResearchState
 _MODEL = "gpt-4o-mini"
 
 _SYSTEM = """\
-You are the OrionSpectrum workflow supervisor for scientific triage of astronomical observations.
+You are the Agentic Orion workflow supervisor for scientific triage of astronomical observations.
 
 Given an observation packet, produce a structured routing decision:
 1. Confirm the mission and primary observation modality.

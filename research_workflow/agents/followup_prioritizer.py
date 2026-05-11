@@ -20,7 +20,7 @@ from state import ResearchState
 _MODEL = "gpt-4o-mini"
 
 _SYSTEM = """\
-You are the OrionSpectrum Follow-Up Prioritization Agent.
+You are the Agentic Orion Follow-Up Prioritization Agent.
 
 Given a triage verdict and ranked hypotheses from the evidence aggregation step,
 recommend the most scientifically valuable follow-up actions.

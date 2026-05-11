@@ -5,10 +5,101 @@ const state = {
   current: null,
   selectedAgent: null,
   staticMode: false,
+  activeTab: "project",
 };
 
 const $ = (id) => document.getElementById(id);
 const STATIC_DATA_ROOT = "static-data";
+const PROJECT_NODE_DETAILS = {
+  packet: {
+    title: "Observation Packet",
+    group: "input",
+    purpose: "A compact, curated astronomy packet containing object identifiers, mission context, modalities, metadata, local data products, and archive query hints.",
+    reads: "packet.json, manifest metadata, CSV/JSON/FITS data products when available",
+    writes: "Initial ResearchState",
+    influences: "Defines every downstream prompt and which evidence streams are available.",
+  },
+  supervisor: {
+    title: "Supervisor",
+    group: "routing",
+    purpose: "Confirms mission and primary modality, then decides whether lightweight code analysis could improve the triage.",
+    reads: "mission, modalities, labels, packet summary, data availability",
+    writes: "mission, primary_modality, needs_code",
+    influences: "Controls whether code_executor is reachable later in the graph.",
+  },
+  observation_characterizer: {
+    title: "Observation Characterizer",
+    group: "preamble",
+    purpose: "Summarizes the observation, extracts salient features, and lists missing evidence, uncertainties, and data-quality notes.",
+    reads: "full packet plus local packet data summaries",
+    writes: "observation_characterization",
+    influences: "Provides the shared context used by all four parallel branches.",
+  },
+  astrophysical_interpreter: {
+    title: "Astrophysical Interpreter",
+    group: "parallel branch",
+    purpose: "Tests known astrophysical explanations and assigns evidence-backed plausibility to candidate classes.",
+    reads: "packet metadata and characterization",
+    writes: "candidate classes, best explanation, astrophysical confidence",
+    influences: "Raises or lowers confidence in real astrophysical hypotheses.",
+  },
+  artefact_checker: {
+    title: "Artefact Checker",
+    group: "parallel branch",
+    purpose: "Assesses whether detector, telescope, calibration, image-subtraction, or pipeline effects could explain the signal.",
+    reads: "modality, labels, data-quality notes, salient features",
+    writes: "artefact modes, artefact probability, recommended quality checks",
+    influences: "Can penalize astrophysical confidence and redirect follow-up toward validation checks.",
+  },
+  novelty_assessor: {
+    title: "Novelty Assessor",
+    group: "parallel branch",
+    purpose: "Scores rarity, novelty, uncertainty, follow-up value, and time sensitivity.",
+    reads: "packet summary, labels, missing evidence, uncertainties",
+    writes: "novelty/rareness/follow-up scores and scientific-interest rationale",
+    influences: "Contributes the attention-allocation score used by aggregation.",
+  },
+  context_retriever: {
+    title: "Context Retriever",
+    group: "parallel branch",
+    purpose: "Retrieves and summarizes literature, catalogue context, historical analogues, and mission-specific failure modes.",
+    reads: "mission, object class, packet labels, arXiv query hints",
+    writes: "related papers, context summaries, known failure modes",
+    influences: "Grounds branch debate in external scientific context.",
+  },
+  evidence_aggregator: {
+    title: "Evidence Aggregator",
+    group: "debate",
+    purpose: "Performs the fan-in debate: compares branch outputs, ranks hypotheses, surfaces agreement/disagreement, and sets the triage verdict.",
+    reads: "all four parallel branch outputs and parallel timing",
+    writes: "ranked hypotheses, confidence updates, interest score, verdict",
+    influences: "Determines the scientific priority and whether code analysis remains useful.",
+  },
+  followup_prioritizer: {
+    title: "Follow-up Prioritizer",
+    group: "action",
+    purpose: "Ranks follow-up actions by discriminating power, urgency, feasibility, and scientific value.",
+    reads: "triage verdict, ranked hypotheses, unresolved questions",
+    writes: "priority actions, facilities, time-sensitivity note",
+    influences: "Turns the triage result into an observing/checking plan.",
+  },
+  code_executor: {
+    title: "Code Executor",
+    group: "optional analysis",
+    purpose: "When requested, generates and runs lightweight Python metrics over local data products.",
+    reads: "available local files, top hypotheses, unresolved questions",
+    writes: "code, stdout/stderr, quantitative metrics",
+    influences: "Adds measurable evidence such as rise rates, amplitudes, or catalogue summaries.",
+  },
+  synthesis: {
+    title: "Synthesis",
+    group: "report",
+    purpose: "Produces the final traceable Markdown report for scientific review.",
+    reads: "all agent outputs, timing, tools, code output, and references",
+    writes: "synthesis_report",
+    influences: "Packages the run into a readable, auditable scientific summary.",
+  },
+};
 
 function fmtMs(ms) {
   if (!ms && ms !== 0) return "--";
@@ -75,32 +166,100 @@ async function fetchJson(url, options) {
 }
 
 async function init() {
-  drawSky();
+  bindHeroPhotos();
   state.workflow = await fetchJson("/api/workflow");
   state.packets = await fetchJson("/api/packets");
   populatePackets();
+  renderProject();
   await refreshRuns();
   bindEvents();
-  if (state.runs[0]) {
-    await loadRun(state.runs[0].run_id);
+  const requestedTab = normalizeRoute(window.location.hash?.replace("#", ""));
+  if (requestedTab === "project") {
+    showHome(false);
   } else {
-    renderWorkflow();
+    await activateTab(requestedTab, false);
   }
 }
 
-function bindEvents() {
-  $("runButton").addEventListener("click", runSelectedPacket);
-  document.querySelectorAll(".tab").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
-      document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.remove("active"));
-      button.classList.add("active");
-      $(button.dataset.tab).classList.add("active");
-    });
+function bindHeroPhotos() {
+  [
+    ["overviewHeroImage", ".sky-panel"],
+  ].forEach(([imageId, panelSelector]) => {
+    const img = $(imageId);
+    const panel = img?.closest(panelSelector);
+    if (!img || !panel) return;
+    const markLoaded = () => {
+      if (img.naturalWidth > 0) panel.classList.add("has-photo");
+    };
+    img.addEventListener("load", markLoaded);
+    img.addEventListener("error", () => panel.classList.remove("has-photo"));
+    if (img.complete) markLoaded();
   });
 }
 
+function bindEvents() {
+  $("homeButton").addEventListener("click", () => showHome(true));
+  $("runButton")?.addEventListener("click", runSelectedPacket);
+  document.querySelectorAll(".tab").forEach((button) => {
+    button.addEventListener("click", () => activateTab(button.dataset.tab));
+  });
+  window.addEventListener("hashchange", () => {
+    const tab = normalizeRoute(window.location.hash.replace("#", ""));
+    if (tab === "project") {
+      showHome(false);
+    } else if (document.getElementById(tab)) {
+      activateTab(tab, false);
+    }
+  });
+}
+
+async function activateTab(tabName, updateHash = true) {
+  tabName = normalizeRoute(tabName);
+  if (tabName === "project" || !state.current) {
+    showHome(updateHash);
+    return;
+  }
+  state.activeTab = tabName;
+  setPageMode("object");
+  setObjectTabsVisible(true);
+  document.querySelectorAll(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === tabName));
+  document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === tabName));
+  if (updateHash) history.replaceState(null, "", `#${tabName}`);
+}
+
+function normalizeRoute(route) {
+  if (!route || route === "home" || route === "project") return "project";
+  return route;
+}
+
+function showHome(updateHash = true) {
+  state.current = null;
+  state.selectedAgent = null;
+  state.activeTab = "project";
+  setPageMode("home");
+  setObjectTabsVisible(false);
+  document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === "project"));
+  if (updateHash) history.replaceState(null, "", "#home");
+  renderProjectLandingHeader();
+  renderProject();
+  renderWorkflow();
+  renderInspector(null);
+  renderRunList();
+}
+
+function setObjectTabsVisible(visible) {
+  const tabs = $("objectTabs");
+  if (tabs) tabs.hidden = !visible;
+}
+
+function setPageMode(mode) {
+  document.body.classList.toggle("home-mode", mode === "home");
+  document.body.classList.toggle("object-mode", mode === "object");
+}
+
 function populatePackets() {
+  if (!$("packetSelect")) return;
   $("packetSelect").innerHTML = state.packets
     .map((packet) => {
       const label = `P${String(packet.index).padStart(2, "0")} | ${packet.mission}`;
@@ -134,20 +293,21 @@ function renderRunList() {
   });
 }
 
-async function loadRun(runId) {
+async function loadRun(runId, switchToWorkflow = true) {
   state.current = await fetchJson(`/api/runs/${runId}`);
   state.selectedAgent = state.current.agents.find((agent) => agent.id === "evidence_aggregator") || state.current.agents[0];
+  if (switchToWorkflow) activateTab("workflow");
   renderAll();
 }
 
 async function runSelectedPacket() {
   if (state.staticMode || window.location.hostname.endsWith("github.io")) {
-    $("runStatus").textContent = "GitHub Pages is static. Run packets from the local dashboard.";
+    if ($("runStatus")) $("runStatus").textContent = "GitHub Pages is static. Run packets from the local dashboard.";
     return;
   }
-  const packetIndex = Number($("packetSelect").value || 1);
-  $("runButton").disabled = true;
-  $("runStatus").textContent = "Running workflow. This can take about a minute.";
+  const packetIndex = Number($("packetSelect")?.value || 1);
+  if ($("runButton")) $("runButton").disabled = true;
+  if ($("runStatus")) $("runStatus").textContent = "Running workflow. This can take about a minute.";
   try {
     state.current = await fetchJson("/api/run", {
       method: "POST",
@@ -156,18 +316,20 @@ async function runSelectedPacket() {
     });
     await refreshRuns();
     state.selectedAgent = state.current.agents.find((agent) => agent.id === "evidence_aggregator") || state.current.agents[0];
+    activateTab("workflow");
     renderAll();
-    $("runStatus").textContent = "Run complete.";
+    if ($("runStatus")) $("runStatus").textContent = "Run complete.";
   } catch (err) {
-    $("runStatus").textContent = err.message;
+    if ($("runStatus")) $("runStatus").textContent = err.message;
   } finally {
-    $("runButton").disabled = false;
+    if ($("runButton")) $("runButton").disabled = false;
   }
 }
 
 function renderAll() {
   renderRunList();
   renderHeader();
+  renderProject();
   renderWorkflow();
   renderInspector(state.selectedAgent);
   renderScience();
@@ -186,11 +348,20 @@ function renderHeader() {
   const verdict = agg.triage_verdict || run.triage_verdict || "Trace summary";
   const interest = agg.overall_interest_score ?? novel.overall_interest_score ?? run.interest_score;
 
+  setMetricLabels([
+    ["Interest", "scientific attention score"],
+    ["Wall time", "end-to-end execution"],
+    ["Parallel speedup", "fan-out efficiency"],
+    ["Consumption", "tokens and estimated cost"],
+  ]);
   $("objectTitle").textContent = `${run.object_id || "Observation"} | ${packet.experiment_type || "workflow run"}`;
   $("statusPill").textContent = run.status || "idle";
   $("missionLabel").textContent = packet.mission || run.query || "Mission";
   $("verdictLabel").textContent = verdict;
   $("summaryLabel").textContent = packet.short_summary || metrics.metric_note || "Existing database trace without full final state. Run a packet from the dashboard to persist complete structured outputs.";
+  renderHeroFacts(packet, run, agg, novel, metrics);
+  document.querySelector(".sky-panel")?.classList.remove("has-photo");
+  drawObjectHero();
   $("interestMetric").textContent = interest !== null && interest !== undefined ? fmtNum(Number(interest)) : "--";
   $("wallMetric").textContent = fmtMs(metrics.total_wall_ms || run.duration_ms);
   $("speedMetric").textContent = metrics.speedup ? `${fmtNum(metrics.speedup)}x` : "--";
@@ -199,22 +370,87 @@ function renderHeader() {
     : (run.status === "running" ? "pending" : (metrics.consumption_note ? "not logged" : "--"));
 }
 
+function renderProjectLandingHeader() {
+  const packets = state.packets || [];
+  const runs = state.runs || [];
+  const missions = new Set(packets.map((p) => p.mission).filter(Boolean));
+  const completed = runs.filter((r) => r.status === "success").length;
+  const totalTokens = runs.reduce((sum, r) => sum + (Number(r.total_tokens) || 0), 0);
+  setMetricLabels([
+    ["Objects", "curated observation packets"],
+    ["Missions", "survey/instrument families"],
+    ["Completed", "successful logged runs"],
+    ["Tokens", "logged model consumption"],
+  ]);
+  $("objectTitle").textContent = "Agentic Orion";
+  $("statusPill").textContent = "overview";
+  $("missionLabel").textContent = "";
+  $("verdictLabel").textContent = "Multi-agent attention allocation for next-generation deep-space discovery";
+  $("summaryLabel").textContent = "Agentic Orion receives compact observation packets, decomposes each scientific question across specialized LangGraph agents, and returns a traceable triage report for human inspection.";
+  $("heroFacts").innerHTML = [
+    `${packets.length} curated objects`,
+    `${missions.size} mission streams`,
+    `${runs.length} archived runs`,
+    `${completed} completed analyses`,
+    totalTokens ? `${totalTokens.toLocaleString()} logged model tokens` : "model tokens pending",
+  ].map((fact) => `<span>${escapeHtml(fact)}</span>`).join("");
+  $("interestMetric").textContent = String(packets.length || "--");
+  $("wallMetric").textContent = String(missions.size || "--");
+  $("speedMetric").textContent = String(completed || "--");
+  $("tokenMetric").textContent = totalTokens ? `${totalTokens.toLocaleString()} tok` : "pending";
+  const overviewImg = $("overviewHeroImage");
+  if (overviewImg?.naturalWidth > 0) {
+    document.querySelector(".sky-panel")?.classList.add("has-photo");
+  }
+  const canvas = $("skyCanvas");
+  drawProjectMissionHero(canvas.getContext("2d"), canvas.width, canvas.height);
+}
+
+function setMetricLabels(labels) {
+  document.querySelectorAll(".metric-card").forEach((card, index) => {
+    const label = labels[index];
+    if (!label) return;
+    const span = card.querySelector("span");
+    const small = card.querySelector("small");
+    if (span) span.textContent = label[0];
+    if (small) small.textContent = label[1];
+  });
+}
+
+function renderHeroFacts(packet, run, agg, novel, metrics) {
+  const ids = packet.object_or_event_id || {};
+  const labels = packet.initial_pipeline_labels || [];
+  const facts = [
+    ids.redshift !== undefined ? `z ${ids.redshift}` : null,
+    ids.host_redshift !== undefined ? `host z ${ids.host_redshift}` : null,
+    ids.lens_z !== undefined && ids.source_z !== undefined ? `lens z ${ids.lens_z} / source z ${ids.source_z}` : null,
+    ids.DM_pc_cm3 !== undefined ? `DM ${ids.DM_pc_cm3} pc cm-3` : null,
+    packet.modality?.length ? packet.modality.join(" + ") : null,
+    labels[0],
+    agg.ranked_hypotheses?.[0]?.hypothesis || run.triage_verdict,
+    metrics.total_tokens ? `${Number(metrics.total_tokens).toLocaleString()} tokens` : null,
+    novel.time_sensitive ? "time-sensitive" : null,
+  ].filter(Boolean).slice(0, 5);
+  $("heroFacts").innerHTML = facts.map((fact) => `<span>${escapeHtml(fact)}</span>`).join("");
+}
+
 const graphPositions = {
-  START: [40, 260],
-  supervisor: [170, 245],
-  observation_characterizer: [365, 245],
-  astrophysical_interpreter: [610, 70],
-  artefact_checker: [610, 190],
-  novelty_assessor: [610, 310],
-  context_retriever: [610, 430],
-  evidence_aggregator: [845, 245],
-  followup_prioritizer: [1035, 185],
-  code_executor: [1035, 335],
-  synthesis: [1035, 455],
+  START: [291, 20],
+  supervisor: [291, 125],
+  observation_characterizer: [291, 230],
+  astrophysical_interpreter: [22, 360],
+  artefact_checker: [202, 360],
+  novelty_assessor: [382, 360],
+  context_retriever: [562, 360],
+  evidence_aggregator: [291, 500],
+  followup_prioritizer: [181, 620],
+  code_executor: [401, 620],
+  synthesis: [291, 750],
 };
 
 function renderWorkflow() {
   const svg = $("agentGraph");
+  svg.setAttribute("viewBox", "0 0 760 880");
   const agents = state.current?.agents || state.workflow?.agents || [];
   const byId = Object.fromEntries(agents.map((agent) => [agent.id, agent]));
   const edgeMarkup = (state.workflow?.edges || [])
@@ -223,7 +459,7 @@ function renderWorkflow() {
       const [x2, y2] = graphPositions[to] || [0, 0];
       const strong = ["astrophysical_interpreter", "artefact_checker", "novelty_assessor", "context_retriever"].includes(from);
       const cls = strong ? "edge influence-strong" : "edge";
-      return `<path class="${cls}" d="M ${x1 + 120} ${y1 + 42} C ${x1 + 175} ${y1 + 42}, ${x2 - 45} ${y2 + 42}, ${x2} ${y2 + 42}" />`;
+      return `<path class="${cls}" d="M ${x1 + 89} ${y1 + 84} C ${x1 + 89} ${y1 + 126}, ${x2 + 89} ${y2 - 46}, ${x2 + 89} ${y2}" />`;
     })
     .join("");
 
@@ -262,7 +498,8 @@ function renderWorkflow() {
 
   svg.querySelectorAll(".node-card").forEach((node) => {
     node.addEventListener("click", () => {
-      const agent = state.current?.agents?.find((item) => item.id === node.dataset.agent);
+      const agent = state.current?.agents?.find((item) => item.id === node.dataset.agent)
+        || state.workflow?.agents?.find((item) => item.id === node.dataset.agent);
       if (agent) {
         state.selectedAgent = agent;
         renderWorkflow();
@@ -273,36 +510,59 @@ function renderWorkflow() {
 }
 
 function renderInspector(agent) {
-  if (!agent) return;
+  if (!agent) {
+    $("agentInspector").innerHTML = `
+      <p class="eyebrow">General workflow</p>
+      <h3>LangGraph architecture</h3>
+      <p class="muted">This view shows the static graph design. Select a node to read its role, or select a run from the sidebar to inspect object-specific reasoning traces, timings, tools, and token use.</p>
+      <div class="inspector-section">
+        <h4>Execution Shape</h4>
+        ${kv("Preamble", "Supervisor then observation characterizer")}
+        ${kv("Parallel fan-out", "Astrophysical, artefact, novelty, and context agents")}
+        ${kv("Fan-in", "Evidence aggregator debates branch outputs")}
+        ${kv("Output", "Follow-up plan, optional code execution, synthesis report")}
+      </div>
+    `;
+    return;
+  }
   const call = agent.call || {};
   const tokens = agent.tokens || {};
   const timing = agent.timing || {};
   const outputs = agent.outputs || {};
   const influence = getInfluence(agent.id);
+  const hasRunTrace = Boolean(state.current && call.agent_name);
   $("agentInspector").innerHTML = `
     <p class="eyebrow">${escapeHtml(agent.group || "agent")}</p>
     <h3>${escapeHtml(agent.label || agent.id)}</h3>
     <p class="muted">${escapeHtml(agent.role || "")}</p>
     <div class="inspector-section">
-      <h4>Trace</h4>
-      ${kv("Started", shortTime(call.start_time || timing.timestamp))}
-      ${kv("Duration", fmtMs(call.duration_ms || timing.duration_ms))}
-      ${kv("Status", call.error ? "error" : "ok")}
-      ${kv("Input", call.input_summary || "No call summary available")}
-      ${kv("Output", call.output_summary || "No output summary available")}
+      <h4>${hasRunTrace ? "Trace" : "General Role"}</h4>
+      ${hasRunTrace ? `
+        ${kv("Started", shortTime(call.start_time || timing.timestamp))}
+        ${kv("Duration", fmtMs(call.duration_ms || timing.duration_ms))}
+        ${kv("Status", call.error ? "error" : "ok")}
+        ${kv("Input", call.input_summary || "No call summary available")}
+        ${kv("Output", call.output_summary || "No output summary available")}
+      ` : `
+        ${kv("Purpose", agent.role || "Workflow node")}
+        ${kv("Group", agent.group || "agent")}
+        ${kv("Trace data", "Select a run to inspect live outputs")}
+      `}
     </div>
     <div class="inspector-section">
       <h4>Consumption</h4>
-      ${kv("Input tokens", tokens.input_tokens?.toLocaleString?.() || "0")}
-      ${kv("Output tokens", tokens.output_tokens?.toLocaleString?.() || "0")}
-      ${kv("Total tokens", tokens.total_tokens?.toLocaleString?.() || "0")}
-      ${kv("Influence", `${fmtNum(influence)} / 1.00`)}
+      ${hasRunTrace ? `
+        ${kv("Input tokens", tokens.input_tokens?.toLocaleString?.() || "0")}
+        ${kv("Output tokens", tokens.output_tokens?.toLocaleString?.() || "0")}
+        ${kv("Total tokens", tokens.total_tokens?.toLocaleString?.() || "0")}
+        ${kv("Influence", `${fmtNum(influence)} / 1.00`)}
+      ` : `<p class="muted">Token and influence metrics are run-specific and hidden in the general graph.</p>`}
     </div>
-    <div class="inspector-section">
+    <div class="inspector-section" ${hasRunTrace ? "" : "hidden"}>
       <h4>Structured Output</h4>
       <pre class="json-block">${escapeHtml(JSON.stringify(outputs, null, 2) || "{}")}</pre>
     </div>
-    <div class="inspector-section">
+    <div class="inspector-section" ${hasRunTrace ? "" : "hidden"}>
       <h4>Tools</h4>
       ${renderToolList(agent.tools || [])}
     </div>
@@ -425,6 +685,43 @@ function renderReport() {
   $("reportContent").innerHTML = markdownLite(report);
 }
 
+function renderProject() {
+  const packets = state.packets || [];
+  const runs = state.runs || [];
+
+  if ($("coverageList")) $("coverageList").innerHTML = packets.map((p) => `
+    <div class="coverage-item">
+      <strong>P${String(p.index).padStart(2, "0")} · ${escapeHtml(p.mission)}</strong>
+      <span>${escapeHtml(p.experiment || "UNKNOWN")} · ${(p.modalities || []).map(escapeHtml).join(" + ")}</span>
+      <small>${(p.labels || []).map((label) => `<em>${escapeHtml(label)}</em>`).join("")}</small>
+    </div>
+  `).join("");
+
+  drawProjectGraph();
+  renderProjectAgentInspector("packet");
+}
+
+function renderProjectAgentInspector(nodeId) {
+  const detail = PROJECT_NODE_DETAILS[nodeId] || PROJECT_NODE_DETAILS.packet;
+  const inspector = $("projectAgentInspector");
+  if (!inspector) return;
+  inspector.innerHTML = `
+    <p class="eyebrow">${escapeHtml(detail.group)}</p>
+    <h3>${escapeHtml(detail.title)}</h3>
+    <p class="muted">${escapeHtml(detail.purpose)}</p>
+    <div class="inspector-section">
+      <h4>General Contract</h4>
+      ${kv("Reads", detail.reads)}
+      ${kv("Writes", detail.writes)}
+      ${kv("Influence", detail.influences)}
+    </div>
+    <div class="inspector-section">
+      <h4>Scope</h4>
+      <p class="muted">This is architecture-level information. Select an object run in the sidebar to inspect real prompts, outputs, timings, tools, and tokens.</p>
+    </div>
+  `;
+}
+
 function markdownLite(md) {
   const lines = escapeHtml(md).split("\n");
   let html = "";
@@ -462,18 +759,251 @@ function markdownLite(md) {
   return html;
 }
 
-function drawSky() {
+function drawObjectHero() {
   const canvas = $("skyCanvas");
   const ctx = canvas.getContext("2d");
-  const w = canvas.width;
-  const h = canvas.height;
+  const packet = state.current?.packet || {};
+  const mission = String(packet.mission || "").toLowerCase();
+  const modalities = packet.modality || [];
+  const labels = packet.initial_pipeline_labels || [];
+  const rows = state.current?.data_products?.lightcurve || [];
+
+  if (rows.length && (modalities.includes("light_curve") || modalities.includes("alert"))) {
+    drawTransientHero(ctx, canvas.width, canvas.height, packet, rows);
+  } else if (mission.includes("frb") || labels.some((label) => String(label).toLowerCase().includes("frb"))) {
+    drawFrbHero(ctx, canvas.width, canvas.height, packet);
+  } else if (mission.includes("euclid") || labels.some((label) => String(label).toLowerCase().includes("lens"))) {
+    drawLensHero(ctx, canvas.width, canvas.height, packet);
+  } else if (mission.includes("jwst") || mission.includes("nircam")) {
+    drawDeepFieldHero(ctx, canvas.width, canvas.height, packet);
+  } else if (labels.some((label) => String(label).toLowerCase().includes("artefact") || String(label).toLowerCase().includes("bogus"))) {
+    drawArtefactHero(ctx, canvas.width, canvas.height, packet);
+  } else {
+    drawSurveyHero(ctx, canvas.width, canvas.height);
+  }
+}
+
+function heroBackground(ctx, w, h, stops = ["#07131b", "#15323b", "#321e1d"]) {
   ctx.clearRect(0, 0, w, h);
   const grad = ctx.createLinearGradient(0, 0, w, h);
-  grad.addColorStop(0, "#0e1820");
-  grad.addColorStop(0.55, "#18303a");
-  grad.addColorStop(1, "#421f1a");
+  stops.forEach((stop, i) => grad.addColorStop(i / Math.max(1, stops.length - 1), stop));
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
+}
+
+function drawStars(ctx, w, h, count = 80, seed = 7) {
+  let x = seed;
+  for (let i = 0; i < count; i++) {
+    x = (x * 9301 + 49297) % 233280;
+    const px = (x / 233280) * w;
+    x = (x * 9301 + 49297) % 233280;
+    const py = (x / 233280) * h;
+    x = (x * 9301 + 49297) % 233280;
+    const r = 0.6 + (x / 233280) * 1.7;
+    ctx.globalAlpha = 0.35 + (r / 2.3) * 0.55;
+    ctx.fillStyle = "#eef7f8";
+    ctx.beginPath();
+    ctx.arc(px, py, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawTransientHero(ctx, w, h, packet, rows) {
+  heroBackground(ctx, w, h, ["#07131b", "#132f36", "#471f17"]);
+  drawStars(ctx, w, h, 45, packet.packet_index || 5);
+  const points = rows
+    .filter((r) => Number.isFinite(r.mjd) && Number.isFinite(r.magpsf))
+    .map((r) => ({ x: r.mjd, y: r.magpsf, fid: r.fid }));
+  if (!points.length) return drawSurveyHero(ctx, w, h);
+  const minX = Math.min(...points.map((p) => p.x));
+  const maxX = Math.max(...points.map((p) => p.x));
+  const minY = Math.min(...points.map((p) => p.y));
+  const maxY = Math.max(...points.map((p) => p.y));
+  const left = 72, top = 34, plotW = w * 0.58, plotH = h - 86;
+  const sx = (x) => left + ((x - minX) / Math.max(1, maxX - minX)) * plotW;
+  const sy = (y) => top + ((y - minY) / Math.max(0.1, maxY - minY)) * plotH;
+
+  ctx.strokeStyle = "rgba(216,229,231,0.18)";
+  for (let i = 0; i < 6; i++) {
+    const y = top + (plotH / 5) * i;
+    ctx.beginPath();
+    ctx.moveTo(left, y);
+    ctx.lineTo(left + plotW, y);
+    ctx.stroke();
+  }
+  ctx.fillStyle = "rgba(216,229,231,0.7)";
+  ctx.font = "12px system-ui";
+  ctx.fillText("packet light curve", left, top + plotH + 28);
+
+  const byFilter = new Map();
+  points.forEach((p) => {
+    const key = String(p.fid || "unknown");
+    if (!byFilter.has(key)) byFilter.set(key, []);
+    byFilter.get(key).push(p);
+  });
+  ["#80d0d5", "#f06b4f", "#f4c15f"].forEach((color, idx) => {
+    const series = Array.from(byFilter.values())[idx];
+    if (!series) return;
+    series.sort((a, b) => a.x - b.x);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    series.forEach((p, i) => {
+      const x = sx(p.x), y = sy(p.y);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = color;
+    series.slice(0, 28).forEach((p) => {
+      ctx.beginPath();
+      ctx.arc(sx(p.x), sy(p.y), 3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  });
+
+  const peak = points.reduce((best, p) => (p.y < best.y ? p : best), points[0]);
+  ctx.strokeStyle = "rgba(255,255,255,0.58)";
+  ctx.setLineDash([6, 6]);
+  ctx.beginPath();
+  ctx.moveTo(sx(peak.x), top);
+  ctx.lineTo(sx(peak.x), top + plotH);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = "rgba(255,255,255,0.88)";
+  ctx.fillText(`peak ${peak.y.toFixed(2)} mag`, sx(peak.x) + 10, top + 18);
+
+  ctx.save();
+  ctx.translate(w * 0.78, h * 0.43);
+  const glow = ctx.createRadialGradient(0, 0, 4, 0, 0, 116);
+  glow.addColorStop(0, "rgba(255,255,255,0.95)");
+  glow.addColorStop(0.18, "rgba(244,193,95,0.8)");
+  glow.addColorStop(1, "rgba(244,193,95,0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(0, 0, 116, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = "rgba(128,208,213,0.55)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 108, 34, -0.2, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawFrbHero(ctx, w, h) {
+  heroBackground(ctx, w, h, ["#06131c", "#102840", "#211f3d"]);
+  const left = 54, top = 32, plotW = w * 0.66, plotH = h - 70;
+  for (let x = 0; x < plotW; x += 8) {
+    for (let y = 0; y < plotH; y += 8) {
+      const dx = (x - plotW * 0.52) / plotW;
+      const sweep = Math.exp(-Math.pow(dx * 10 + (y / plotH - 0.5) * 4, 2));
+      const noise = ((x * 17 + y * 31) % 29) / 29;
+      const a = Math.min(1, 0.12 + sweep * 0.92 + noise * 0.16);
+      ctx.fillStyle = `rgba(${Math.floor(45 + a * 110)}, ${Math.floor(130 + a * 90)}, ${Math.floor(160 + a * 80)}, ${a})`;
+      ctx.fillRect(left + x, top + y, 8, 8);
+    }
+  }
+  ctx.strokeStyle = "rgba(255,255,255,0.32)";
+  ctx.strokeRect(left, top, plotW, plotH);
+  ctx.fillStyle = "rgba(216,229,231,0.78)";
+  ctx.font = "12px system-ui";
+  ctx.fillText("dynamic spectrum / dispersion sweep", left, top + plotH + 24);
+  ctx.save();
+  ctx.translate(w * 0.83, h * 0.48);
+  ctx.strokeStyle = "rgba(240,107,79,0.85)";
+  ctx.lineWidth = 3;
+  for (let i = 0; i < 5; i++) {
+    ctx.beginPath();
+    ctx.arc(0, 0, 22 + i * 20, -0.65, 0.65);
+    ctx.stroke();
+  }
+  ctx.fillStyle = "#eef7f8";
+  ctx.beginPath();
+  ctx.arc(0, 0, 8, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawLensHero(ctx, w, h, packet) {
+  heroBackground(ctx, w, h, ["#07131b", "#142b34", "#1f2632"]);
+  drawStars(ctx, w, h, 120, 19);
+  const cx = w * 0.67, cy = h * 0.46;
+  ctx.fillStyle = "rgba(239,222,177,0.95)";
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 38, 52, 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = "rgba(128,208,213,0.88)";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 142, 58, -0.12, 0.16 * Math.PI, 1.08 * Math.PI);
+  ctx.stroke();
+  ctx.strokeStyle = "rgba(240,107,79,0.78)";
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 126, 48, -0.12, 1.18 * Math.PI, 1.85 * Math.PI);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,0.84)";
+  [[-190, -66, 2], [-250, 38, 1.5], [-90, 72, 2.2], [170, -52, 1.4], [210, 76, 2]].forEach(([dx, dy, r]) => {
+    ctx.beginPath();
+    ctx.arc(cx + dx, cy + dy, r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.fillStyle = "rgba(216,229,231,0.78)";
+  ctx.font = "12px system-ui";
+  const meta = packet.metadata || {};
+  const lens = meta.lens_z !== undefined ? `lens z=${meta.lens_z}` : "photometric lens candidate";
+  const source = meta.source_z !== undefined ? `source z=${meta.source_z}` : "arc morphology unresolved";
+  ctx.fillText(`${lens} · ${source}`, 54, h - 34);
+}
+
+function drawDeepFieldHero(ctx, w, h) {
+  heroBackground(ctx, w, h, ["#050b12", "#111b2a", "#2c1630"]);
+  drawStars(ctx, w, h, 170, 31);
+  const cx = w * 0.68, cy = h * 0.48;
+  for (let i = 0; i < 20; i++) {
+    const angle = i * 1.9;
+    const r = 48 + (i % 5) * 24;
+    ctx.fillStyle = i % 3 === 0 ? "rgba(240,107,79,0.78)" : "rgba(128,208,213,0.72)";
+    ctx.beginPath();
+    ctx.ellipse(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r * 0.65, 3 + (i % 4), 1.5 + (i % 3), angle, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.strokeStyle = "rgba(244,193,95,0.95)";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(cx - 46, cy - 46, 92, 92);
+  ctx.fillStyle = "rgba(216,229,231,0.8)";
+  ctx.font = "12px system-ui";
+  ctx.fillText("deep field candidate stamp / high-redshift context", 54, h - 34);
+}
+
+function drawArtefactHero(ctx, w, h) {
+  heroBackground(ctx, w, h, ["#081018", "#1d2931", "#2a1d24"]);
+  drawStars(ctx, w, h, 55, 43);
+  ctx.strokeStyle = "rgba(216,229,231,0.22)";
+  for (let x = 80; x < w; x += 72) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+  ctx.fillStyle = "rgba(128,208,213,0.3)";
+  ctx.beginPath();
+  ctx.ellipse(w * 0.67, h * 0.45, 150, 42, 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = "rgba(240,107,79,0.72)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(w * 0.28, h * 0.18);
+  ctx.bezierCurveTo(w * 0.48, h * 0.46, w * 0.66, h * 0.12, w * 0.85, h * 0.58);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(216,229,231,0.8)";
+  ctx.font = "12px system-ui";
+  ctx.fillText("detector/pipeline artefact inspection view", 54, h - 34);
+}
+
+function drawSurveyHero(ctx, w, h) {
+  heroBackground(ctx, w, h, ["#0e1820", "#18303a", "#421f1a"]);
   const stars = [
     [64, 54, 1.2], [140, 132, 1.7], [250, 82, 1.1], [344, 176, 2],
     [470, 48, 1.4], [585, 118, 1.1], [668, 70, 1.8], [520, 230, 1.5],
@@ -502,6 +1032,107 @@ function drawSky() {
   ctx.fillStyle = "rgba(23, 108, 114, 0.48)";
   ctx.arc(530, 160, 46, 0, Math.PI * 2);
   ctx.fill();
+}
+
+function drawProjectMissionHero(ctx, w, h, experiments = null) {
+  heroBackground(ctx, w, h, ["#07131b", "#0f2b3f", "#11151c"]);
+  drawStars(ctx, w, h * 0.72, 140, 71);
+  const screenX = 72, screenY = 28, screenW = w - 144, screenH = h * 0.58;
+  ctx.fillStyle = "rgba(8,19,28,0.72)";
+  ctx.fillRect(screenX, screenY, screenW, screenH);
+  ctx.strokeStyle = "rgba(128,208,213,0.36)";
+  ctx.strokeRect(screenX, screenY, screenW, screenH);
+  ctx.save();
+  ctx.translate(w * 0.47, screenY + screenH * 0.48);
+  const asteroid = ctx.createRadialGradient(-16, -18, 4, 0, 0, 88);
+  asteroid.addColorStop(0, "#e5e2d6");
+  asteroid.addColorStop(0.42, "#9f9d92");
+  asteroid.addColorStop(1, "#54585a");
+  ctx.fillStyle = asteroid;
+  ctx.beginPath();
+  for (let i = 0; i < 18; i++) {
+    const a = (Math.PI * 2 * i) / 18;
+    const r = 72 + Math.sin(i * 2.4) * 14 + Math.cos(i * 1.7) * 8;
+    const x = Math.cos(a) * r;
+    const y = Math.sin(a) * r * 0.78;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "rgba(40,44,46,0.45)";
+  [[-28, -14, 13], [22, 18, 10], [38, -28, 7], [-54, 22, 8], [0, 42, 6]].forEach(([x, y, r]) => {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.restore();
+  for (let i = 0; i < 8; i++) {
+    const x = screenX + 40 + i * 106;
+    ctx.strokeStyle = "rgba(128,208,213,0.22)";
+    ctx.strokeRect(x, screenY + screenH + 18, 74, 46);
+    ctx.beginPath();
+    ctx.moveTo(x + 8, screenY + screenH + 50);
+    ctx.lineTo(x + 24, screenY + screenH + 36);
+    ctx.lineTo(x + 46, screenY + screenH + 42);
+    ctx.lineTo(x + 66, screenY + screenH + 26);
+    ctx.stroke();
+  }
+  ctx.fillStyle = "rgba(0,0,0,0.55)";
+  ctx.fillRect(0, h * 0.74, w, h * 0.26);
+  ctx.fillStyle = "rgba(216,229,231,0.72)";
+  ctx.font = "12px system-ui";
+  const exp = experiments ? Object.entries(experiments || {}).map(([k, v]) => `${k}:${v}`).join("  ") : "LangGraph mission-control overview";
+  ctx.fillText(`asteroid operations room · ${exp}`, 84, h - 26);
+}
+
+function drawProjectGraph() {
+  const svg = $("projectGraph");
+  if (!svg) return;
+  svg.setAttribute("viewBox", "0 0 760 760");
+  const nodes = [
+    ["packet", "Packet", 324, 20, "#1d3339"],
+    ["supervisor", "Supervisor", 324, 100, "#176c72"],
+    ["observation_characterizer", "Characterizer", 324, 180, "#176c72"],
+    ["astrophysical_interpreter", "Astro", 84, 290, "#c74732"],
+    ["artefact_checker", "Artefact", 244, 290, "#805b10"],
+    ["novelty_assessor", "Novelty", 404, 290, "#19724f"],
+    ["context_retriever", "Context", 564, 290, "#3b6579"],
+    ["evidence_aggregator", "Aggregator", 324, 410, "#1d3339"],
+    ["followup_prioritizer", "Follow-up", 220, 520, "#176c72"],
+    ["code_executor", "Code", 428, 520, "#805b10"],
+    ["synthesis", "Report", 324, 640, "#1d3339"],
+  ];
+  const edges = [
+    [0, 1], [1, 2], [2, 3], [2, 4], [2, 5], [2, 6],
+    [3, 7], [4, 7], [5, 7], [6, 7], [7, 8], [7, 9], [8, 10], [9, 10],
+  ];
+  svg.innerHTML = `
+    <defs>
+      <marker id="projectArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L9,3 z" fill="#8b98a3"></path>
+      </marker>
+    </defs>
+    <g marker-end="url(#projectArrow)">
+      ${edges.map(([a, b]) => {
+        const from = nodes[a], to = nodes[b];
+        return `<path class="project-edge" d="M ${from[2] + 56} ${from[3] + 48} C ${from[2] + 56} ${from[3] + 82}, ${to[2] + 56} ${to[3] - 34}, ${to[2] + 56} ${to[3]}"></path>`;
+      }).join("")}
+    </g>
+    ${nodes.map(([id, label, x, y, color]) => `
+      <g class="project-node-card" data-node="${id}" transform="translate(${x}, ${y})">
+        <rect class="project-node" width="112" height="48" rx="8" fill="${color}"></rect>
+        <text x="56" y="30" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">${label}</text>
+      </g>
+    `).join("")}
+  `;
+  svg.querySelectorAll(".project-node-card").forEach((node) => {
+    node.addEventListener("click", () => {
+      svg.querySelectorAll(".project-node-card").forEach((item) => item.classList.remove("active"));
+      node.classList.add("active");
+      renderProjectAgentInspector(node.dataset.node);
+    });
+  });
 }
 
 function drawRadar() {

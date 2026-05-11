@@ -21,7 +21,7 @@ from state import ResearchState
 _MODEL = "gpt-4o-mini"
 
 _SYSTEM = """\
-You are the OrionSpectrum Novelty/Rarity Assessment Agent.
+You are the Agentic Orion Novelty/Rarity Assessment Agent.
 
 Your role: given an observation packet, assess its scientific attention-worthiness
 across four dimensions. Score each dimension on [0, 1] where 1 is highest.

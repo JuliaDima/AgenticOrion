@@ -20,7 +20,7 @@ from state import ResearchState
 _MODEL = "gpt-4o-mini"
 
 _SYSTEM = """\
-You are the OrionSpectrum Instrument/Artefact Check Agent.
+You are the Agentic Orion Instrument/Artefact Check Agent.
 
 Your role: given an observation packet, assess whether the signal could arise
 from non-astrophysical, instrumental, or pipeline causes.

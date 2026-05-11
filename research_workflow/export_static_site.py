@@ -14,8 +14,10 @@ from pathlib import Path
 from web_server import AGENTS, EDGES, _read_manifest, list_runs, run_detail
 
 ROOT = Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parent
 WEB_ROOT = ROOT / "web"
 STATIC_ROOT = WEB_ROOT / "static-data"
+ASSET_ROOT = WEB_ROOT / "assets"
 
 
 def _write_json(path: Path, payload) -> None:
@@ -26,6 +28,7 @@ def _write_json(path: Path, payload) -> None:
 def main() -> None:
     if STATIC_ROOT.exists():
         shutil.rmtree(STATIC_ROOT)
+    ASSET_ROOT.mkdir(parents=True, exist_ok=True)
 
     runs = list_runs()
     _write_json(STATIC_ROOT / "workflow.json", {"agents": AGENTS, "edges": EDGES})
@@ -36,6 +39,10 @@ def main() -> None:
         detail = run_detail(run["run_id"])
         if detail:
             _write_json(STATIC_ROOT / "runs" / f"{run['run_id']}.json", detail)
+
+    main_image = REPO_ROOT / "assets" / "main_page.png"
+    if main_image.exists():
+        shutil.copy2(main_image, ASSET_ROOT / "main_page.png")
 
     # Disable Jekyll processing so assets and JSON paths are served literally.
     (WEB_ROOT / ".nojekyll").write_text("", encoding="utf-8")

@@ -3,26 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>OrionSpectrum Multi-Agent Triage</title>
+    <title>Agentic Orion Multi-Agent Triage</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="brand">
+        <button id="homeButton" class="brand brand-button" type="button" aria-label="Open Agentic Orion overview">
           <div class="brand-mark">O</div>
           <div>
-            <h1>OrionSpectrum</h1>
-            <p>The pursuer of multi-wavelentgh knowledge.</p>
+            <h1>Agentic Orion</h1>
+            <p>The multi-agent pursuer of multi-wavelength knowledge.</p>
           </div>
-        </div>
-
-        <section class="control-block">
-          <label for="packetSelect">Observation packet</label>
-          <select id="packetSelect"></select>
-          <button id="runButton" class="primary-button">Run selected packet</button>
-          <p id="runStatus" class="muted"></p>
-        </section>
+        </button>
 
         <section class="control-block grow">
           <div class="section-title">Runs</div>
@@ -41,11 +34,13 @@
 
         <section class="overview">
           <div class="sky-panel">
+            <img id="overviewHeroImage" class="hero-photo" src="assets/main_page.png" alt="Illustrated mission control room with astronomical display screens" />
             <canvas id="skyCanvas" width="720" height="300"></canvas>
             <div class="sky-overlay">
               <p id="missionLabel">Mission</p>
               <h3 id="verdictLabel">No run selected</h3>
               <span id="summaryLabel"></span>
+              <div id="heroFacts" class="hero-facts"></div>
             </div>
           </div>
           <div class="kpi-grid">
@@ -72,15 +67,45 @@
           </div>
         </section>
 
-        <nav class="tabs" aria-label="Dashboard views">
-          <button class="tab active" data-tab="workflow">Workflow</button>
+        <nav id="objectTabs" class="tabs" aria-label="Object run views" hidden>
+          <button class="tab" data-tab="workflow">Workflow</button>
           <button class="tab" data-tab="science">Science</button>
           <button class="tab" data-tab="performance">Performance</button>
           <button class="tab" data-tab="data">Data</button>
           <button class="tab" data-tab="report">Report</button>
         </nav>
 
-        <section id="workflow" class="tab-panel active">
+        <section id="project" class="tab-panel active">
+          <div class="project-grid">
+            <article class="panel">
+              <h3>How The LangGraph Is Built</h3>
+              <div class="graph-explainer">
+                <div><strong>1</strong><span>Supervisor routes mission, modality, and code need.</span></div>
+                <div><strong>2</strong><span>Characterizer extracts data features and missing evidence.</span></div>
+                <div><strong>3</strong><span>Four branches run in parallel: astrophysics, artefacts, novelty, and context.</span></div>
+                <div><strong>4</strong><span>Aggregator debates the branches and updates confidence.</span></div>
+                <div><strong>5</strong><span>Follow-up, optional code execution, and synthesis produce an auditable report.</span></div>
+              </div>
+            </article>
+            <article class="panel wide">
+              <h3>LangGraph Topology</h3>
+              <div class="project-graph-layout">
+                <svg id="projectGraph" viewBox="0 0 760 760" role="img" aria-label="LangGraph construction overview"></svg>
+                <aside id="projectAgentInspector" class="project-agent-inspector">
+                  <p class="eyebrow">Agent role</p>
+                  <h3>Select a node</h3>
+                  <p class="muted">Click any LangGraph node to inspect what that stage does in the general workflow.</p>
+                </aside>
+              </div>
+            </article>
+            <article class="panel wide">
+              <h3>Objects Covered So Far</h3>
+              <div id="coverageList" class="coverage-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="workflow" class="tab-panel">
           <div class="panel-header">
             <div>
               <h3>Agent Interaction Graph</h3>
@@ -89,7 +114,7 @@
           </div>
           <div class="workflow-layout">
             <div class="graph-stage">
-              <svg id="agentGraph" viewBox="0 0 1180 560" role="img" aria-label="OrionSpectrum LangGraph"></svg>
+              <svg id="agentGraph" viewBox="0 0 1180 560" role="img" aria-label="Agentic Orion LangGraph"></svg>
             </div>
             <aside class="agent-inspector" id="agentInspector">
               <p class="eyebrow">Selected agent</p>

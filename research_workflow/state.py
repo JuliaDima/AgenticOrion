@@ -1,5 +1,5 @@
 """
-OrionSpectrum shared state — flows through the entire LangGraph workflow.
+Agentic Orion shared state — flows through the entire LangGraph workflow.
 
 Fields written by parallel branches use Annotated reducers so LangGraph
 can merge concurrent updates correctly.
@@ -49,7 +49,7 @@ class ResearchState(TypedDict):
     code_to_execute: Optional[str]
     code_execution_output: Optional[dict]
 
-    # ── Final OrionSpectrum report ────────────────────────────────────────────────
+    # ── Final Agentic Orion report ────────────────────────────────────────────────
     synthesis_report: Optional[str]
 
     # ── Bookkeeping — Annotated so parallel writes are merged ─────────────
