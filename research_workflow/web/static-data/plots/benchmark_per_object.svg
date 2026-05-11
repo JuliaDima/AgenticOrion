@@ -4,11 +4,9 @@
 <rect x="1" y="1" width="1398" height="518" fill="none" stroke="#e2e8f0" stroke-width="1" rx="10"/>
 <text class="title" x="68" y="22">Per-object Characterization Score</text>
 <rect x="68" y="32" width="12" height="12" rx="3" fill="#176c72"/>
-<text class="leg-text" x="85" y="43">Labeled multi-agent</text>
+<text class="leg-text" x="85" y="43">Multi-agent</text>
 <rect x="186" y="32" width="12" height="12" rx="3" fill="#c74732"/>
-<text class="leg-text" x="203" y="43">Blind multi-agent</text>
-<rect x="304" y="32" width="12" height="12" rx="3" fill="#c74732"/>
-<text class="leg-text" x="321" y="43">Single mock</text>
+<text class="leg-text" x="203" y="43">Single agent</text>
 <line class="grid" x1="68" y1="432.0" x2="1376" y2="432.0"/>
 <text class="ylbl" x="62" y="436.0" text-anchor="end">0.0</text>
 <line class="grid" x1="68" y1="340.0" x2="1376" y2="340.0"/>
@@ -20,75 +18,65 @@
 <line class="grid" x1="68" y1="64.0" x2="1376" y2="64.0"/>
 <text class="ylbl" x="62" y="68.0" text-anchor="end">1.0</text>
 <line class="axis" x1="68" y1="432" x2="1376" y2="432"/>
-<rect x="86.5" y="105.2" width="21.4" height="326.8" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="97.2" y="100.2" text-anchor="middle">0.89</text>
-<rect x="111.8" y="307.6" width="21.4" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="122.5" y="302.6" text-anchor="middle">0.34</text>
+<rect x="85.3" y="105.2" width="34.1" height="326.8" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="102.4" y="100.2" text-anchor="middle">0.89</text>
+<rect x="125.6" y="307.6" width="34.1" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="142.6" y="302.6" text-anchor="middle">0.34</text>
 <text class="lbl" transform="translate(122.5,442) rotate(-35)" text-anchor="end">P01</text>
-<rect x="195.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="206.2" y="109.4" text-anchor="middle">0.86</text>
-<rect x="220.8" y="96.0" width="21.4" height="336.0" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="231.5" y="91.0" text-anchor="middle">0.91</text>
-<rect x="246.1" y="317.2" width="21.4" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="256.8" y="312.2" text-anchor="middle">0.31</text>
+<rect x="194.3" y="114.4" width="34.1" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="211.4" y="109.4" text-anchor="middle">0.86</text>
+<rect x="234.6" y="317.2" width="34.1" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="251.6" y="312.2" text-anchor="middle">0.31</text>
 <text class="lbl" transform="translate(231.5,442) rotate(-35)" text-anchor="end">P02</text>
-<rect x="304.5" y="146.8" width="21.4" height="285.2" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="315.2" y="141.8" text-anchor="middle">0.78</text>
-<rect x="329.8" y="86.8" width="21.4" height="345.2" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="340.5" y="81.8" text-anchor="middle">0.94</text>
-<rect x="355.1" y="317.2" width="21.4" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="365.8" y="312.2" text-anchor="middle">0.31</text>
+<rect x="303.3" y="146.8" width="34.1" height="285.2" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="320.4" y="141.8" text-anchor="middle">0.78</text>
+<rect x="343.6" y="317.2" width="34.1" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="360.6" y="312.2" text-anchor="middle">0.31</text>
 <text class="lbl" transform="translate(340.5,442) rotate(-35)" text-anchor="end">P03</text>
-<rect x="413.5" y="146.8" width="21.4" height="285.2" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="424.2" y="141.8" text-anchor="middle">0.78</text>
-<rect x="438.8" y="333.0" width="21.4" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="449.5" y="328.0" text-anchor="middle">0.27</text>
+<rect x="412.3" y="146.8" width="34.1" height="285.2" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="429.4" y="141.8" text-anchor="middle">0.78</text>
+<rect x="452.6" y="333.0" width="34.1" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="469.6" y="328.0" text-anchor="middle">0.27</text>
 <text class="lbl" transform="translate(449.5,442) rotate(-35)" text-anchor="end">P04</text>
-<rect x="522.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="533.2" y="109.4" text-anchor="middle">0.86</text>
-<rect x="547.8" y="307.6" width="21.4" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="558.5" y="302.6" text-anchor="middle">0.34</text>
+<rect x="521.3" y="114.4" width="34.1" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="538.4" y="109.4" text-anchor="middle">0.86</text>
+<rect x="561.6" y="307.6" width="34.1" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="578.6" y="302.6" text-anchor="middle">0.34</text>
 <text class="lbl" transform="translate(558.5,442) rotate(-35)" text-anchor="end">P05</text>
-<rect x="631.5" y="114.4" width="21.4" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="642.2" y="109.4" text-anchor="middle">0.86</text>
-<rect x="656.8" y="317.2" width="21.4" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="667.5" y="312.2" text-anchor="middle">0.31</text>
+<rect x="630.3" y="114.4" width="34.1" height="317.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="647.4" y="109.4" text-anchor="middle">0.86</text>
+<rect x="670.6" y="317.2" width="34.1" height="114.8" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="687.6" y="312.2" text-anchor="middle">0.31</text>
 <text class="lbl" transform="translate(667.5,442) rotate(-35)" text-anchor="end">P06</text>
-<rect x="740.5" y="128.4" width="21.4" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="751.2" y="123.4" text-anchor="middle">0.82</text>
-<rect x="765.8" y="96.4" width="21.4" height="335.6" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="776.5" y="91.4" text-anchor="middle">0.91</text>
-<rect x="791.1" y="307.6" width="21.4" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="801.8" y="302.6" text-anchor="middle">0.34</text>
+<rect x="739.3" y="128.4" width="34.1" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="756.4" y="123.4" text-anchor="middle">0.82</text>
+<rect x="779.6" y="307.6" width="34.1" height="124.4" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="796.6" y="302.6" text-anchor="middle">0.34</text>
 <text class="lbl" transform="translate(776.5,442) rotate(-35)" text-anchor="end">P07</text>
-<rect x="849.5" y="128.4" width="21.4" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="860.2" y="123.4" text-anchor="middle">0.82</text>
-<rect x="874.8" y="333.0" width="21.4" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="885.5" y="328.0" text-anchor="middle">0.27</text>
+<rect x="848.3" y="128.4" width="34.1" height="303.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="865.4" y="123.4" text-anchor="middle">0.82</text>
+<rect x="888.6" y="333.0" width="34.1" height="99.0" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="905.6" y="328.0" text-anchor="middle">0.27</text>
 <text class="lbl" transform="translate(885.5,442) rotate(-35)" text-anchor="end">P08</text>
-<rect x="958.5" y="195.0" width="21.4" height="237.0" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="969.2" y="190.0" text-anchor="middle">0.64</text>
-<rect x="983.8" y="165.2" width="21.4" height="266.8" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="994.5" y="160.2" text-anchor="middle">0.72</text>
-<rect x="1009.1" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="1019.8" y="360.4" text-anchor="middle">0.18</text>
+<rect x="957.3" y="195.0" width="34.1" height="237.0" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="974.4" y="190.0" text-anchor="middle">0.64</text>
+<rect x="997.6" y="365.4" width="34.1" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1014.6" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(994.5,442) rotate(-35)" text-anchor="end">P09</text>
-<rect x="1067.5" y="185.8" width="21.4" height="246.2" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="1078.2" y="180.8" text-anchor="middle">0.67</text>
-<rect x="1092.8" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="1103.5" y="360.4" text-anchor="middle">0.18</text>
+<rect x="1066.3" y="185.8" width="34.1" height="246.2" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="1083.4" y="180.8" text-anchor="middle">0.67</text>
+<rect x="1106.6" y="365.4" width="34.1" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1123.6" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(1103.5,442) rotate(-35)" text-anchor="end">P10</text>
-<rect x="1176.5" y="204.2" width="21.4" height="227.8" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="1187.2" y="199.2" text-anchor="middle">0.62</text>
-<rect x="1201.8" y="105.2" width="21.4" height="326.8" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="1212.5" y="100.2" text-anchor="middle">0.89</text>
-<rect x="1227.1" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="1237.8" y="360.4" text-anchor="middle">0.18</text>
+<rect x="1175.3" y="204.2" width="34.1" height="227.8" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="1192.4" y="199.2" text-anchor="middle">0.62</text>
+<rect x="1215.6" y="365.4" width="34.1" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1232.6" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(1212.5,442) rotate(-35)" text-anchor="end">P11</text>
-<rect x="1285.5" y="181.4" width="21.4" height="250.6" rx="4" fill="#176c72" opacity="0.92"/>
-<text class="val" x="1296.2" y="176.4" text-anchor="middle">0.68</text>
-<rect x="1310.8" y="365.4" width="21.4" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
-<text class="val" x="1321.5" y="360.4" text-anchor="middle">0.18</text>
+<rect x="1284.3" y="181.4" width="34.1" height="250.6" rx="4" fill="#176c72" opacity="0.92"/>
+<text class="val" x="1301.4" y="176.4" text-anchor="middle">0.68</text>
+<rect x="1324.6" y="365.4" width="34.1" height="66.6" rx="4" fill="#c74732" opacity="0.92"/>
+<text class="val" x="1341.6" y="360.4" text-anchor="middle">0.18</text>
 <text class="lbl" transform="translate(1321.5,442) rotate(-35)" text-anchor="end">P12</text>
 <text class="ylbl" transform="translate(13,248.0) rotate(-90)" text-anchor="middle">Higher is better  (error bars = 1σ across repeated runs per packet)</text>
 </svg>

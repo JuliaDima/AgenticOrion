@@ -827,9 +827,7 @@ def _write_plots(
         quality_path,
         errors=[[sigma_acc, 0.0], [sigma_char, 0.0], [sigma_cal, 0.0]],
     )
-    # Per-object characterization: 3 bars (labeled, blind, single) where blind run exists
-    pairs_for_char = _build_blind_comparison(latest or [])
-    blind_char_by_orig = {p["orig_packet_index"]: p["blind_characterization_score"] for p in pairs_for_char}
+    # Per-object characterization: 2 bars only — multi-agent vs single-agent (no blind)
     labeled_records = [r for r in records if (r.get("experiment_type") or "") != "BLIND"]
     per_obj_groups = []
     per_obj_errors = []
@@ -837,28 +835,16 @@ def _write_plots(
         pidx = record["packet_index"]
         multi_char  = record["multi_agent"]["characterization_score"]
         single_char = record["single_agent_mock"]["characterization_score"]
-        blind_char  = blind_char_by_orig.get(pidx)
-        if blind_char is not None:
-            per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, blind_char, single_char]})
-            per_obj_errors.append([_packet_sigma(pidx), 0.0, 0.0])
-        else:
-            per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, single_char]})
-            per_obj_errors.append([_packet_sigma(pidx), 0.0])
-    has_blind_char = any(len(g["values"]) == 3 for g in per_obj_groups)
-    if has_blind_char:
-        # Pad groups without a blind run so single-agent stays in position 2 (red)
-        for g, e in zip(per_obj_groups, per_obj_errors):
-            if len(g["values"]) == 2:
-                g["values"] = [g["values"][0], 0.0, g["values"][1]]
-                e[:] = [e[0], 0.0, 0.0]
+        per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, single_char]})
+        per_obj_errors.append([_packet_sigma(pidx), 0.0])
     _svg_bar_chart(
         "Per-object Characterization Score",
         per_obj_groups,
         "Higher is better  (error bars = 1σ across repeated runs per packet)",
         object_path,
         errors=per_obj_errors,
-        series_labels=["Labeled multi-agent", "Blind multi-agent", "Single agent"] if has_blind_char else ["Multi-agent", "Single agent"],
-        series_colors=["#176c72", "#7c3aed", "#c74732"] if has_blind_char else ["#176c74", "#c74732"],
+        series_labels=["Multi-agent", "Single agent"],
+        series_colors=["#176c72", "#c74732"],
     )
 
     # ── Blind vs Labeled: interest score (3 bars) ────────────────────────────
