@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-11T15:37:53.465474+00:00",
+  "generated_at": "2026-05-11T15:59:46.065918+00:00",
   "methodology": {
     "multi_agent": "Actual latest successful packet runs from SQLite traces.",
-    "single_agent_mock": "Deterministic offline baseline: one generalist performs the same characterization serially, uses packet labels/local files only, and has no independent branch debate.",
-    "speed": "Single-agent wall time is estimated from serial same-work timing; multi-agent wall time is the logged run wall time.",
+    "single_agent_mock": "Single-agent baseline: one generalist performs the same characterization serially. Wall time = sum of all agent call durations (measured from DB); no parallel fan-out.",
+    "speed": "Single-agent wall time = sum of all logged agent call durations (what the run would cost with no parallelism). Multi-agent wall time = actual end-to-end wall clock from graph.invoke().",
     "tokens": "Multi-agent tokens are logged model tokens; single-agent tokens are deterministic mock estimates from packet complexity and reduced output scope.",
     "quality": "Priority accuracy uses packet experiment labels as coarse expected classes; characterization score rewards evidence channels, hypotheses, debate points, follow-up actions, code metrics, and context.",
     "error_bars": "1\u03c3 computed from within-packet variance across repeated runs. Total runs in DB: 12. Packets with \u22652 runs: 0. Error bars are hidden when a packet has only one run."

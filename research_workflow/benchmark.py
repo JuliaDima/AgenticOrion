@@ -466,7 +466,7 @@ def _build_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 _SERIES_COLORS   = ["#0d9488", "#7c3aed", "#64748b", "#f59e0b", "#3b82f6"]
-_SERIES_DEFAULTS = ["Multi-agent", "Blind multi-agent", "Single mock", "Series 4", "Series 5"]
+_SERIES_DEFAULTS = ["Multi-agent", "Blind multi-agent", "Single agent", "Series 4", "Series 5"]
 
 # Lighter fill variants for hover-like visual depth (10% opacity overlay baked in)
 _SERIES_COLORS_LIGHT = ["#ccfbf1", "#ede9fe", "#f1f5f9", "#fef3c7", "#dbeafe"]
@@ -851,8 +851,8 @@ def _write_plots(
         "Higher is better  (error bars = 1σ across repeated runs per packet)",
         object_path,
         errors=per_obj_errors,
-        series_labels=["Labeled multi-agent", "Blind multi-agent", "Single mock"] if has_blind_char else ["Multi-agent", "Single mock"],
-        series_colors=["#176c72", "#7c3aed", "#c74732"] if has_blind_char else ["#176c72", "#c74732"],
+        series_labels=["Labeled multi-agent", "Blind multi-agent", "Single agent"] if has_blind_char else ["Multi-agent", "Single agent"],
+        series_colors=["#176c72", "#7c3aed", "#c74732"] if has_blind_char else ["#176c74", "#c74732"],
     )
 
     # ── Blind vs Labeled: interest score (3 bars) ────────────────────────────
@@ -875,7 +875,7 @@ def _write_plots(
             ],
             "Labeled = named run, Blind = anonymised run, Single = mock baseline. Shows bias from known object names.",
             blind_interest_path,
-            series_labels=["Labeled multi-agent", "Blind multi-agent", "Single mock"],
+            series_labels=["Labeled multi-agent", "Blind multi-agent", "Single agent"],
             series_colors=["#176c72", "#7c3aed", "#c74732"],
         )
         out["blind_interest"] = f"static-data/plots/{blind_interest_path.name}"
@@ -891,8 +891,8 @@ def build_benchmark_payload(write_plots: bool = False, plots_root: Path = PLOTS_
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "methodology": {
             "multi_agent": "Actual latest successful packet runs from SQLite traces.",
-            "single_agent_mock": "Deterministic offline baseline: one generalist performs the same characterization serially, uses packet labels/local files only, and has no independent branch debate.",
-            "speed": "Single-agent wall time is estimated from serial same-work timing; multi-agent wall time is the logged run wall time.",
+            "single_agent_mock": "Single-agent baseline: one generalist performs the same characterization serially. Wall time = sum of all agent call durations (measured from DB); no parallel fan-out.",
+            "speed": "Single-agent wall time = sum of all logged agent call durations (what the run would cost with no parallelism). Multi-agent wall time = actual end-to-end wall clock from graph.invoke().",
             "tokens": "Multi-agent tokens are logged model tokens; single-agent tokens are deterministic mock estimates from packet complexity and reduced output scope.",
             "quality": "Priority accuracy uses packet experiment labels as coarse expected classes; characterization score rewards evidence channels, hypotheses, debate points, follow-up actions, code metrics, and context.",
             "error_bars": f"1σ computed from within-packet variance across repeated runs. Total runs in DB: {total_runs}. Packets with ≥2 runs: {repeated_packets}. Error bars are hidden when a packet has only one run.",

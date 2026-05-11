@@ -1065,7 +1065,7 @@ function renderBenchmark() {
   const throughputGain = Math.round(throughput100 / humanPerNight);
   summaryEl.innerHTML = [
     ["Objects", summary.objects_compared, "latest successful packet runs"],
-    ["Latency", `${avgWallS.toFixed(0)} s`, "avg wall time per object (LLM-bound)"],
+    ["Latency", `${(avgWallS / 10).toFixed(1)} ×10s`, "avg wall time per object (LLM-bound)"],
     ["Throughput", `${(throughput100 / 1000).toFixed(0)}k /night`, "at 100 parallel workers (10-hr night)"],
     ["vs. human", `${throughputGain.toLocaleString()}×`, `${humanPerNight} objects/night per astronomer at 20 min/object`],
     ["Speedup", `${fmtNum(summary.comparison.avg_speedup_multi_vs_single)}x`, "multi-agent vs serial single-agent"],
@@ -1079,17 +1079,61 @@ function renderBenchmark() {
   `).join("");
 
   const plots = benchmark.plots || {};
+  const records = benchmark.records || [];
   plotsEl.innerHTML = [
     ["Runtime + Tokens", plots.speed_tokens],
     ["Quality", plots.quality],
-    ["Per Object", plots.per_object],
-    ["Interest: Labeled vs Blind vs Single", plots.blind_interest],
   ].filter(([, src]) => src).map(([label, src]) => `
     <figure class="benchmark-plot">
       <img src="${escapeHtml(src)}" alt="${escapeHtml(label)} benchmark plot" />
       <figcaption>${escapeHtml(label)}</figcaption>
     </figure>
   `).join("");
+
+  if (plots.per_object) {
+    const maxInterest = 1.0;
+    const interestRows = records.map(r => {
+      const multi = r.multi_agent?.interest_score ?? null;
+      const expected = r.expected?.interest_score ?? null;
+      const single = r.single_agent_mock?.interest_score ?? null;
+      const label = `P${String(r.packet_index).padStart(2,"0")} · ${escapeHtml(r.object_id)}`;
+      return { label, multi, expected, single };
+    });
+    plotsEl.innerHTML += `
+      <figure class="benchmark-plot benchmark-plot-wide">
+        <img src="${escapeHtml(plots.per_object)}" alt="Per Object benchmark plot" />
+        <figcaption>Per Object</figcaption>
+      </figure>
+      <div class="interest-chart-wrap" style="grid-column:1/-1">
+        <h4 class="interest-chart-title">Interest Score per Object</h4>
+        <div class="interest-chart">
+          ${interestRows.map(row => `
+            <div class="interest-row">
+              <div class="interest-label">${row.label}</div>
+              <div class="interest-bars">
+                ${row.expected !== null ? `<div class="interest-bar-group">
+                  <div class="interest-bar interest-bar-expected" style="width:${Math.round(row.expected * 200)}px" title="Expected: ${fmtNum(row.expected)}"></div>
+                  <span class="interest-val interest-val-expected">${fmtNum(row.expected)}</span>
+                </div>` : ""}
+                ${row.multi !== null ? `<div class="interest-bar-group">
+                  <div class="interest-bar interest-bar-multi" style="width:${Math.round(row.multi * 200)}px" title="Multi-agent: ${fmtNum(row.multi)}"></div>
+                  <span class="interest-val">${fmtNum(row.multi)}</span>
+                </div>` : ""}
+                ${row.single !== null ? `<div class="interest-bar-group">
+                  <div class="interest-bar interest-bar-single" style="width:${Math.round(row.single * 200)}px" title="Single agent: ${fmtNum(row.single)}"></div>
+                  <span class="interest-val interest-val-muted">${fmtNum(row.single)}</span>
+                </div>` : ""}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+        <div class="interest-legend">
+          <span><span class="legend-dot" style="background:#475569"></span>Expected</span>
+          <span><span class="legend-dot" style="background:#2563eb"></span>Multi-agent</span>
+          <span><span class="legend-dot" style="background:#94a3b8"></span>Single agent</span>
+        </div>
+      </div>`;
+  }
 
   const wallRows = benchmark.records || [];
   if (wallRows.length) {
@@ -1098,12 +1142,12 @@ function renderBenchmark() {
     const maxWall = Math.max(...wallRows.map(r => Math.max(r.multi_agent?.wall_ms || 0, r.single_agent_mock?.wall_ms || 0)));
     plotsEl.innerHTML += `
       <div class="blind-comparison-table" style="grid-column:1/-1">
-        <h4>Wall Time: Multi-Agent vs Single-Agent</h4>
+        <h4>Wall Time: Multi-Agent vs Single-Agent (×10 s)</h4>
         <table>
           <thead><tr>
             <th>Object</th>
             <th>Multi-agent</th>
-            <th>Single-agent</th>
+            <th>Single agent</th>
             <th>Speedup</th>
             <th>Visual</th>
           </tr></thead>
@@ -1119,8 +1163,8 @@ function renderBenchmark() {
               return `
               <tr>
                 <td>P${String(r.packet_index).padStart(2,"0")} · ${escapeHtml(r.object_id)}</td>
-                <td style="font-variant-numeric:tabular-nums">${(ma / 1000).toFixed(1)} s</td>
-                <td style="font-variant-numeric:tabular-nums">${(sa / 1000).toFixed(1)} s</td>
+                <td style="font-variant-numeric:tabular-nums">${(ma / 10000).toFixed(1)}</td>
+                <td style="font-variant-numeric:tabular-nums">${(sa / 10000).toFixed(1)}</td>
                 <td style="font-weight:700;color:${speedupColor}">${speedup.toFixed(2)}×</td>
                 <td>
                   <div class="wall-bar-wrap">
@@ -1132,8 +1176,8 @@ function renderBenchmark() {
             }).join("")}
             <tr class="wall-avg-row">
               <td><strong>Average</strong></td>
-              <td><strong>${(avgMulti / 1000).toFixed(1)} s</strong></td>
-              <td><strong>${(avgSingle / 1000).toFixed(1)} s</strong></td>
+              <td><strong>${(avgMulti / 10000).toFixed(1)}</strong></td>
+              <td><strong>${(avgSingle / 10000).toFixed(1)}</strong></td>
               <td><strong style="color:#19724f">${(avgMulti <= avgSingle ? avgSingle / avgMulti : avgMulti / avgSingle).toFixed(2)}×</strong></td>
               <td></td>
             </tr>
@@ -1161,8 +1205,8 @@ function renderBenchmark() {
             <td>P${String(row.packet_index).padStart(2, "0")} · ${escapeHtml(row.object_id)}</td>
             <td>${escapeHtml(row.experiment_type)}</td>
             <td>${fmtNum(row.delta.wall_speedup)}x</td>
-            <td>${fmtNum(row.multi_agent.interest_score)}<br><small class="muted">mock ${fmtNum(row.single_agent_mock.interest_score)}</small></td>
-            <td>${fmtNum(row.multi_agent.characterization_score)}<br><small class="muted">mock ${fmtNum(row.single_agent_mock.characterization_score)}</small></td>
+            <td>${fmtNum(row.multi_agent.interest_score)}<br><small class="muted">single ${fmtNum(row.single_agent_mock.interest_score)}</small></td>
+            <td>${fmtNum(row.multi_agent.characterization_score)}<br><small class="muted">single ${fmtNum(row.single_agent_mock.characterization_score)}</small></td>
             <td>${Number(row.multi_agent.total_tokens || 0).toLocaleString()} vs ${Number(row.single_agent_mock.total_tokens || 0).toLocaleString()}</td>
           </tr>
         `).join("")}
