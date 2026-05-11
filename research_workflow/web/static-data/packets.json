@@ -1,0 +1,247 @@
+[
+  {
+    "index": 1,
+    "packet_dir": "packets/packet_01_AT2018cow",
+    "mission": "Rubin/ZTF-style optical transient",
+    "experiment": "RETRO",
+    "modalities": [
+      "alert",
+      "light_curve",
+      "image_cutout",
+      "spectrum"
+    ],
+    "labels": [
+      "FBOT_candidate",
+      "high_cadence_priority",
+      "ambiguous_class"
+    ],
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv",
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 2,
+    "packet_dir": "packets/packet_02_FRB_20121102A",
+    "mission": "CHIME/FRB",
+    "experiment": "RETRO",
+    "modalities": [
+      "alert",
+      "light_curve",
+      "spectrum"
+    ],
+    "labels": [
+      "repeating_FRB",
+      "high_DM",
+      "confirmed_extragalactic",
+      "extreme_RM"
+    ],
+    "files": [
+      "data/catalog_row.json",
+      "data/catalog_row.csv"
+    ]
+  },
+  {
+    "index": 3,
+    "packet_dir": "packets/packet_03_unknown",
+    "mission": "JWST/NIRCam",
+    "experiment": "RETRO",
+    "modalities": [
+      "image_cutout",
+      "catalogue_entry",
+      "spectrum"
+    ],
+    "labels": [
+      "high_z_candidate",
+      "spectroscopic_confirmed",
+      "early_universe_challenge"
+    ],
+    "files": [
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 4,
+    "packet_dir": "packets/packet_04_EUCL_J081705.61+702348.8",
+    "mission": "Euclid/VIS+NISP",
+    "experiment": "RETRO",
+    "modalities": [
+      "image_cutout",
+      "catalogue_entry"
+    ],
+    "labels": [
+      "confirmed_strong_lens",
+      "grade_A",
+      "cosmological_probe"
+    ],
+    "files": [
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 5,
+    "packet_dir": "packets/packet_05_AT2020ixi",
+    "mission": "ZTF/Rubin-precursor broker (ALeRCE)",
+    "experiment": "TRIAGE",
+    "modalities": [
+      "alert",
+      "light_curve",
+      "image_cutout"
+    ],
+    "labels": [
+      "ambiguous_class",
+      "broker_triage",
+      "follow_up_candidate"
+    ],
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ]
+  },
+  {
+    "index": 6,
+    "packet_dir": "packets/packet_06_SN_2021hpr",
+    "mission": "ZTF/Rubin-precursor broker (Fink)",
+    "experiment": "TRIAGE",
+    "modalities": [
+      "alert",
+      "light_curve",
+      "image_cutout"
+    ],
+    "labels": [
+      "SN_Ia_peculiar",
+      "early_excess",
+      "novelty_flag",
+      "triage_priority"
+    ],
+    "files": [
+      "data/lightcurve.csv",
+      "data/classification.json"
+    ]
+  },
+  {
+    "index": 7,
+    "packet_dir": "packets/packet_07_JADES_9186",
+    "mission": "JWST/NIRCam+NIRSpec",
+    "experiment": "TRIAGE",
+    "modalities": [
+      "image_cutout",
+      "spectrum",
+      "catalogue_entry"
+    ],
+    "labels": [
+      "LRD_candidate",
+      "ambiguous_AGN_or_starburst",
+      "high_z",
+      "triage_priority"
+    ],
+    "files": [
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 8,
+    "packet_dir": "packets/packet_08_EUC_J095930.93-023517.1",
+    "mission": "Euclid/VIS+NISP",
+    "experiment": "TRIAGE",
+    "modalities": [
+      "image_cutout",
+      "catalogue_entry"
+    ],
+    "labels": [
+      "probable_strong_lens",
+      "grade_B",
+      "unconfirmed",
+      "follow_up_needed"
+    ],
+    "files": [
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 9,
+    "packet_dir": "packets/packet_09_SN_2020jfo",
+    "mission": "ZTF/ALeRCE (control SN IIP)",
+    "experiment": "CTRL",
+    "modalities": [
+      "alert",
+      "light_curve"
+    ],
+    "labels": [
+      "SN_IIP",
+      "CTRL",
+      "low_novelty",
+      "standard_plateau"
+    ],
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ]
+  },
+  {
+    "index": 10,
+    "packet_dir": "packets/packet_10_unknown",
+    "mission": "ZTF (ALeRCE broker)",
+    "experiment": "CTRL",
+    "modalities": [
+      "alert",
+      "image_cutout"
+    ],
+    "labels": [
+      "bogus",
+      "subtraction_artefact",
+      "CTRL",
+      "reject"
+    ],
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ]
+  },
+  {
+    "index": 11,
+    "packet_dir": "packets/packet_11_JWST_NIRCam_'wisp'_artefact_pa",
+    "mission": "JWST/NIRCam",
+    "experiment": "CTRL",
+    "modalities": [
+      "image_cutout"
+    ],
+    "labels": [
+      "artefact",
+      "CTRL",
+      "reject",
+      "non_astrophysical"
+    ],
+    "files": [
+      "data/cutout_r.fits"
+    ]
+  },
+  {
+    "index": 12,
+    "packet_dir": "packets/packet_12_FRB_20181224E",
+    "mission": "CHIME/FRB",
+    "experiment": "CTRL",
+    "modalities": [
+      "alert"
+    ],
+    "labels": [
+      "RFI_candidate",
+      "excluded",
+      "CTRL",
+      "reject"
+    ],
+    "files": [
+      "data/catalog_row.json",
+      "data/catalog_row.csv"
+    ]
+  }
+]

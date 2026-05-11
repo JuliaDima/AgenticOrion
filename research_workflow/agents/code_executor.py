@@ -89,8 +89,11 @@ def code_executor_node(state: ResearchState) -> dict:
 
     # Find available data directory
     packets_root = Path(__file__).parent.parent.parent / "packets"
-    # Try to find the packet directory by index
     pkt_dirs = sorted(packets_root.glob(f"packet_{packet_index:02d}_*"))
+    if not pkt_dirs and 13 <= packet_index <= 24:
+        # BLIND packets are stored as packet_01_BLIND … packet_12_BLIND
+        orig = packet_index - 12
+        pkt_dirs = sorted(packets_root.glob(f"packet_{orig:02d}_BLIND"))
     data_dir = (pkt_dirs[0] / "data") if pkt_dirs else None
 
     available_files = ""

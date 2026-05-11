@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" role="img">
+<style>text{font-family:'Inter',system-ui,Arial,sans-serif;fill:#1e293b}.dim{fill:#94a3b8}.grid{stroke:#e2e8f0;stroke-width:1}.axis{stroke:#cbd5e1;stroke-width:1.5}.val{font-size:11px;font-weight:600;fill:#475569}.lbl{font-size:12px;fill:#64748b}.title{font-size:17px;font-weight:700;fill:#0f172a}.ylbl{font-size:11px;fill:#94a3b8}.leg-text{font-size:12px;fill:#334155}</style>
+<rect width="760" height="520" fill="#f8fafc" rx="10"/>
+<rect x="1" y="1" width="758" height="518" fill="none" stroke="#e2e8f0" stroke-width="1" rx="10"/>
+<text class="title" x="68" y="22">Average Runtime and Token Use</text>
+<rect x="68" y="32" width="12" height="12" rx="3" fill="#0d9488"/>
+<text class="leg-text" x="85" y="43">Multi-agent</text>
+<rect x="186" y="32" width="12" height="12" rx="3" fill="#7c3aed"/>
+<text class="leg-text" x="203" y="43">Blind multi-agent</text>
+<line class="grid" x1="68" y1="432.0" x2="736" y2="432.0"/>
+<text class="ylbl" x="62" y="436.0" text-anchor="end">0</text>
+<line class="grid" x1="68" y1="340.0" x2="736" y2="340.0"/>
+<text class="ylbl" x="62" y="344.0" text-anchor="end">5</text>
+<line class="grid" x1="68" y1="248.0" x2="736" y2="248.0"/>
+<text class="ylbl" x="62" y="252.0" text-anchor="end">10</text>
+<line class="grid" x1="68" y1="156.0" x2="736" y2="156.0"/>
+<text class="ylbl" x="62" y="160.0" text-anchor="end">15</text>
+<line class="grid" x1="68" y1="64.0" x2="736" y2="64.0"/>
+<text class="ylbl" x="62" y="68.0" text-anchor="end">20</text>
+<line class="axis" x1="68" y1="432" x2="736" y2="432"/>
+<rect x="178.3" y="342.4" width="52.0" height="89.6" rx="4" fill="#0d9488" opacity="0.92"/>
+<text class="val" x="204.3" y="337.4" text-anchor="middle">4.87</text>
+<rect x="239.7" y="326.3" width="52.0" height="105.7" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="265.7" y="321.3" text-anchor="middle">5.74</text>
+<text class="lbl" x="235.0" y="450.0" text-anchor="middle">Wall time / 10s</text>
+<rect x="512.3" y="176.2" width="52.0" height="255.8" rx="4" fill="#0d9488" opacity="0.92"/>
+<text class="val" x="538.3" y="171.2" text-anchor="middle">13.90</text>
+<rect x="573.7" y="291.3" width="52.0" height="140.7" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="599.7" y="286.3" text-anchor="middle">7.65</text>
+<text class="lbl" x="569.0" y="450.0" text-anchor="middle">Tokens / 1k</text>
+<text class="ylbl" transform="translate(13,248.0) rotate(-90)" text-anchor="middle">Lower is better for both groups  (error bars = 1σ across repeated runs)</text>
+</svg>

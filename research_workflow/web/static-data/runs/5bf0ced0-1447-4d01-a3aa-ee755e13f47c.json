@@ -1,0 +1,1491 @@
+{
+  "run": {
+    "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+    "query": "packet_10_ZTF (ALeRCE broker)",
+    "start_time": "2026-05-11T11:58:07.425215+00:00",
+    "end_time": "2026-05-11T11:58:38.808776+00:00",
+    "status": "success",
+    "duration_ms": 31342.5,
+    "packet_index": 10,
+    "object_id": "Unknown",
+    "mission": "ZTF (ALeRCE broker)",
+    "experiment_type": "CTRL",
+    "triage_verdict": "REJECT_CONTROL",
+    "interest_score": 0.01,
+    "total_tokens": 12361,
+    "estimated_cost_usd": 0.0031820999999999998,
+    "has_final_state": true
+  },
+  "packet": {
+    "mission": "ZTF (ALeRCE broker)",
+    "experiment_type": "CTRL",
+    "source": {
+      "alert_broker": "ALeRCE https://alerce.science",
+      "mission_archive": "IRSA ZTF",
+      "curated_demo": "https://alerce.science/object/ZTF20aabqifl"
+    },
+    "object_or_event_id": {
+      "ZTF_oid": "ZTF20aabqifl",
+      "ALeRCE_url": "https://alerce.science/object/ZTF20aabqifl",
+      "RA_deg": null,
+      "Dec_deg": null,
+      "artefact_type": "single-epoch spurious detection (ndet=1)",
+      "stamp_label": "bogus",
+      "rb_score_note": "Real-Bogus score < 0.4"
+    },
+    "modality": [
+      "alert",
+      "image_cutout"
+    ],
+    "short_summary": "ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.",
+    "metadata": {
+      "stamp_class": "bogus",
+      "rb_score": "<0.4",
+      "artefact_cause": "PSF mismatch near saturated star in difference imaging"
+    },
+    "small_data_product": {
+      "image_url": "https://alerce.science/object/ZTF20aabqifl",
+      "lightcurve_url": "https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve",
+      "spectrum_url": null,
+      "cutout_metadata": {
+        "survey": "ZTF",
+        "artefact_flag": true
+      }
+    },
+    "initial_pipeline_labels": [
+      "bogus",
+      "subtraction_artefact",
+      "CTRL",
+      "reject"
+    ],
+    "query_hints": {
+      "stamps": {
+        "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps",
+        "note": "Inspect difference stamp for dipole pattern."
+      },
+      "probabilities": {
+        "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities",
+        "note": "Expect 'bogus' class to dominate."
+      }
+    }
+  },
+  "packet_index": 10,
+  "agents": [
+    {
+      "id": "supervisor",
+      "label": "Supervisor",
+      "role": "Routes the packet and decides whether quantitative code analysis could help.",
+      "group": "routing",
+      "call": {
+        "id": 90,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "supervisor",
+        "input_summary": "packet mission='ZTF (ALeRCE broker)'",
+        "output_summary": "mission='ZTF (ALeRCE broker)' modality='alert' needs_code=False",
+        "start_time": "2026-05-11T11:58:07.466923+00:00",
+        "end_time": "2026-05-11T11:58:09.076941+00:00",
+        "duration_ms": 1609.4,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "mission": "ZTF (ALeRCE broker)",
+        "primary_modality": "alert",
+        "needs_code": false
+      },
+      "tokens": {
+        "node": "supervisor",
+        "input_tokens": 401,
+        "output_tokens": 55,
+        "total_tokens": 456
+      },
+      "timing": {
+        "node": "supervisor",
+        "duration_ms": 1609.4,
+        "timestamp": "2026-05-11T11:58:07.466923+00:00"
+      }
+    },
+    {
+      "id": "observation_characterizer",
+      "label": "Observation Characterizer",
+      "role": "Extracts salient features, missing evidence, uncertainties, and data-quality notes.",
+      "group": "characterization",
+      "call": {
+        "id": 91,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "observation_characterizer",
+        "input_summary": "packet_10 ZTF (ALeRCE broker)",
+        "output_summary": "ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.",
+        "start_time": "2026-05-11T11:58:09.083122+00:00",
+        "end_time": "2026-05-11T11:58:12.645052+00:00",
+        "duration_ms": 3561.2,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "observation_characterization": {
+          "modality_summary": "The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.",
+          "salient_features": [
+            "Object ID: ZTF20aabqifl",
+            "Detection count (ndet): 1",
+            "MJD of detection: 58850.50773150008",
+            "Real-Bogus score: <0.4",
+            "Artefact type: single-epoch spurious detection",
+            "Pipeline labels: bogus, subtraction_artefact, CTRL, reject"
+          ],
+          "missing_evidence": [
+            "Subsequent detections to confirm or refute the alert",
+            "Additional epochs of data to assess variability",
+            "Spectroscopic data to determine the nature of the object"
+          ],
+          "uncertainties": [
+            "The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact",
+            "The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection"
+          ],
+          "data_quality_notes": [
+            "Data files for lightcurve and alert metadata are empty (0 kB)",
+            "Single detection may not provide sufficient evidence for classification"
+          ],
+          "one_line_summary": "ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.",
+          "duration_ms": 3561.2
+        }
+      },
+      "tokens": {
+        "node": "observation_characterizer",
+        "input_tokens": 1156,
+        "output_tokens": 265,
+        "total_tokens": 1421
+      },
+      "timing": {
+        "node": "observation_characterizer",
+        "duration_ms": 3561.2,
+        "timestamp": "2026-05-11T11:58:09.083122+00:00"
+      }
+    },
+    {
+      "id": "astrophysical_interpreter",
+      "label": "Astrophysical Interpreter",
+      "role": "Tests plausible astrophysical explanations and class confidences.",
+      "group": "parallel",
+      "call": {
+        "id": 93,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "astrophysical_interpreter",
+        "input_summary": "ZTF (ALeRCE broker)",
+        "output_summary": "best='Single-epoch artefact' confidence=0.95",
+        "start_time": "2026-05-11T11:58:12.654875+00:00",
+        "end_time": "2026-05-11T11:58:17.832374+00:00",
+        "duration_ms": 5176.7,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "astrophysical_interpretation": {
+          "candidate_classes": [
+            {
+              "name": "Single-epoch artefact",
+              "probability": 0.9,
+              "evidence_for": [
+                "Classified as a single-epoch spurious alert with no follow-up detections.",
+                "Flagged as bogus due to low confidence and Real-Bogus score <0.4.",
+                "Identified as a subtraction artefact caused by PSF mismatch near a saturated star."
+              ],
+              "evidence_against": [
+                "No evidence of any astrophysical transient that repeats exactly once at ndet=1."
+              ]
+            },
+            {
+              "name": "Astrophysical transient",
+              "probability": 0.05,
+              "evidence_for": [
+                "The object was detected at a specific time (MJD 58850)."
+              ],
+              "evidence_against": [
+                "Only a single detection with no follow-up observations.",
+                "Control data indicates that no astrophysical transient would be expected to appear only once."
+              ]
+            },
+            {
+              "name": "RFI masquerading as transient",
+              "probability": 0.05,
+              "evidence_for": [
+                "Could be a result of interference or noise that mimics a transient signal."
+              ],
+              "evidence_against": [
+                "No indication of radio frequency interference in the metadata."
+              ]
+            }
+          ],
+          "best_explanation": "Single-epoch artefact",
+          "confidence": 0.95,
+          "uncertainty_notes": "The classification as bogus is strongly supported by the low Real-Bogus score and the nature of the detection as a subtraction artefact. There is minimal uncertainty due to the clear identification of the artefact cause.",
+          "branch_duration_ms": 5176.7
+        }
+      },
+      "tokens": {
+        "node": "astrophysical_interpreter",
+        "input_tokens": 815,
+        "output_tokens": 288,
+        "total_tokens": 1103
+      },
+      "timing": {
+        "node": "astrophysical_interpreter",
+        "duration_ms": 5176.7,
+        "timestamp": "2026-05-11T11:58:12.654875+00:00"
+      }
+    },
+    {
+      "id": "artefact_checker",
+      "label": "Artefact Checker",
+      "role": "Estimates whether instrument, detector, or pipeline effects explain the signal.",
+      "group": "parallel",
+      "call": {
+        "id": 94,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "artefact_checker",
+        "input_summary": "ZTF (ALeRCE broker)",
+        "output_summary": "artefact_prob=0.85 most_likely='Single-epoch detection (ndet=1)'",
+        "start_time": "2026-05-11T11:58:12.654289+00:00",
+        "end_time": "2026-05-11T11:58:20.449608+00:00",
+        "duration_ms": 7794.6,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "artefact_assessment": {
+          "possible_artefact_modes": [
+            {
+              "name": "Single-epoch detection (ndet=1)",
+              "probability": 0.9,
+              "evidence_for": [
+                "Only one detection reported (ndet=1) with no follow-up observations.",
+                "Control data indicates no astrophysical transient repeats exactly once."
+              ],
+              "evidence_against": [
+                "The detection occurred at a specific MJD, which could suggest a transient event, albeit unlikely."
+              ]
+            },
+            {
+              "name": "Subtraction residual from PSF mismatch",
+              "probability": 0.8,
+              "evidence_for": [
+                "Metadata indicates PSF mismatch near a saturated star in difference imaging.",
+                "Pipeline labels include 'subtraction_artefact', suggesting a known issue with the image processing."
+              ],
+              "evidence_against": [
+                "No other detections or follow-up observations to confirm a transient event."
+              ]
+            },
+            {
+              "name": "Low real/bogus score",
+              "probability": 0.85,
+              "evidence_for": [
+                "Real-Bogus score is reported as <0.4, indicating low confidence in the detection."
+              ],
+              "evidence_against": [
+                "The detection was flagged as bogus, but the score alone does not confirm an artefact."
+              ]
+            }
+          ],
+          "most_likely_non_astrophysical": "Single-epoch detection (ndet=1)",
+          "artefact_probability": 0.85,
+          "evidence_for_artefact": [
+            "Single detection with no follow-up observations.",
+            "Low real-bogus score (<0.4) indicates low confidence in the detection.",
+            "Flagged as bogus by the pipeline."
+          ],
+          "evidence_against_artefact": [
+            "Detection occurred at a specific time, which could suggest a transient event, but is unlikely."
+          ],
+          "recommended_quality_checks": [
+            "Inspect difference stamp for PSF mismatch and subtraction residuals.",
+            "Review control data for similar single-detection alerts.",
+            "Check for any nearby bright stars that could cause artefacts."
+          ],
+          "branch_duration_ms": 7794.6
+        }
+      },
+      "tokens": {
+        "node": "artefact_checker",
+        "input_tokens": 831,
+        "output_tokens": 365,
+        "total_tokens": 1196
+      },
+      "timing": {
+        "node": "artefact_checker",
+        "duration_ms": 7794.6,
+        "timestamp": "2026-05-11T11:58:12.654289+00:00"
+      }
+    },
+    {
+      "id": "novelty_assessor",
+      "label": "Novelty Assessor",
+      "role": "Scores rarity, novelty, uncertainty, follow-up value, and time sensitivity.",
+      "group": "parallel",
+      "call": {
+        "id": 92,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "novelty_assessor",
+        "input_summary": "ZTF (ALeRCE broker)",
+        "output_summary": "rarity=0.05 novelty=0.00 followup=0.00 overall=0.01",
+        "start_time": "2026-05-11T11:58:12.656562+00:00",
+        "end_time": "2026-05-11T11:58:14.899023+00:00",
+        "duration_ms": 2241.7,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "novelty_rarity_assessment": {
+          "rarity_score": 0.05,
+          "novelty_score": 0.0,
+          "uncertainty_score": 0.0,
+          "followup_value_score": 0.0,
+          "overall_interest_score": 0.0125,
+          "reason_for_scientific_interest": "The observation is classified as a bogus detection with no astrophysical significance, making it of low interest for scientific inquiry.",
+          "ood_notes": "The detection is a single-epoch spurious alert, which is not typical for astrophysical transients that usually have multiple detections.",
+          "time_sensitive": false,
+          "branch_duration_ms": 2241.7
+        }
+      },
+      "tokens": {
+        "node": "novelty_assessor",
+        "input_tokens": 886,
+        "output_tokens": 110,
+        "total_tokens": 996
+      },
+      "timing": {
+        "node": "novelty_assessor",
+        "duration_ms": 2241.7,
+        "timestamp": "2026-05-11T11:58:12.656562+00:00"
+      }
+    },
+    {
+      "id": "context_retriever",
+      "label": "Context Retriever",
+      "role": "Searches literature/context and summarizes relevant historical analogues.",
+      "group": "parallel",
+      "call": {
+        "id": 95,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "context_retriever",
+        "input_summary": "query='ZTF transient bogus subtraction_artefact'",
+        "output_summary": "4 papers retrieved; 3 summarised",
+        "start_time": "2026-05-11T11:58:12.655339+00:00",
+        "end_time": "2026-05-11T11:58:22.321379+00:00",
+        "duration_ms": 9665.8,
+        "error": null
+      },
+      "tools": [
+        {
+          "id": 26,
+          "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+          "agent_name": "context_retriever",
+          "tool_name": "search_arxiv",
+          "input": "{\"query\": \"ZTF transient bogus subtraction_artefact\"}",
+          "output": "{\"count\": 4}",
+          "start_time": "2026-05-11T11:58:12.655339+00:00",
+          "duration_ms": 1676.1,
+          "error": null,
+          "input_json": {
+            "query": "ZTF transient bogus subtraction_artefact"
+          },
+          "output_json": {
+            "count": 4
+          }
+        }
+      ],
+      "outputs": {
+        "context_retrieval_results": {
+          "related_papers": [
+            {
+              "title": "Real-bogus classification for the Zwicky Transient Facility using deep learning",
+              "key_finding": "Introduces a deep learning classifier to distinguish between genuine astrophysical events and bogus detections in ZTF data.",
+              "relevance": "Directly relevant as it addresses the classification of spurious alerts like ZTF20aabqifl."
+            },
+            {
+              "title": "Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11",
+              "key_finding": "Develops a classifier for identifying transients and variable sources in ZTF data, useful for understanding the nature of detected objects.",
+              "relevance": "Relevant for understanding the classification of transient events, though focused on variable sources rather than single detections."
+            },
+            {
+              "title": "ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry",
+              "key_finding": "Presents a large dataset of confirmed Type Ia supernovae from ZTF, emphasizing the importance of accurate photometry for cosmological studies.",
+              "relevance": "While not directly related to bogus detections, it provides context on the types of genuine transients ZTF aims to detect."
+            }
+          ],
+          "similar_observations": [
+            "ZTF19aabqifl: Another single-detection spurious alert flagged as bogus due to low confidence and no follow-up detections.",
+            "ZTF20aabqjkl: A similar case of a single detection attributed to a PSF mismatch near a bright star."
+          ],
+          "relevant_catalogue_context": "In ZTF data, the majority of transient alerts are expected to have multiple detections (ndet > 1). Single detections are often flagged as potential artefacts, especially when associated with bright stars or other imaging issues.",
+          "mission_instrument_notes": "The Zwicky Transient Facility (ZTF) utilizes difference imaging to detect transient events. Artefacts can arise from PSF mismatches, particularly near saturated stars, leading to false alerts like ZTF20aabqifl.",
+          "known_failure_modes": [
+            "PSF mismatch leading to false positives, especially near bright stars.",
+            "Inadequate background subtraction resulting in spurious detections.",
+            "Transient events that are not followed up can be misclassified as genuine alerts."
+          ],
+          "arxiv_search_query": "ZTF transient bogus subtraction_artefact",
+          "branch_duration_ms": 9665.8,
+          "raw_arxiv_papers": [
+            {
+              "title": "Sharp estimates of Green function of hyperbolic Brownian Motion",
+              "authors": [
+                "Kamil Bogus",
+                "Tomasz Byczkowski",
+                "Jacek Malecki"
+              ],
+              "abstract": "The main objective of the work is to provide sharp two-sided estimates of $\u03bb$-Green function of hyperbolic Brownian motion of a half-space. We strongly rely on recent results obtained by K. Bogus and J. Malecki [3], regarding precise estimates of the Bessel heat kernel of half-lines.",
+              "url": "http://arxiv.org/abs/1502.01047v1",
+              "published": "2015-02-03",
+              "categories": [
+                "math.PR"
+              ]
+            },
+            {
+              "title": "ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry",
+              "authors": [
+                "L. Lacroix",
+                "N. Regnault",
+                "T. de Jaeger",
+                "M. Le Jeune",
+                "M. Betoule"
+              ],
+              "abstract": "The Zwicky Transient Facility (ZTF) is conducting a wide-field survey of the northern sky in three optical bands and the collaboration cosmology working group has released 3628 spectroscopically confirmed Type Ia supernovae (SNe Ia) discovered during its first 2.5 years of operation. This \"ZTF SN Ia DR2\" sample is the largest SN Ia dataset to date.\n  Fully exploiting this dataset to improve understanding of the properties of dark energy requires a photometric accuracy of O(0.1%). This can be achieved using Scene Modeling Photometry (SMP), which is optimal to extract a transient signal (SN) from a complex background (its host), while ensuring a common flux estimator with nearby stars used as calibration reference. In this paper, we present the status of the SMP development and use it to ass",
+              "url": "http://arxiv.org/abs/2509.04073v1",
+              "published": "2025-09-04",
+              "categories": [
+                "astro-ph.CO"
+              ]
+            },
+            {
+              "title": "Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11",
+              "authors": [
+                "P. S\u00e1nchez-S\u00e1ez",
+                "J. Arredondo",
+                "A. Bayo",
+                "P. Ar\u00e9valo",
+                "F. E. Bauer"
+              ],
+              "abstract": "We present a variability, color and morphology based classifier, designed to identify transients, persistently variable, and non-variable sources, from the Zwicky Transient Facility (ZTF) Data Release 11 (DR11) light curves of extended and point sources. The main motivation to develop this model was to identify active galactic nuclei (AGN) at different redshift ranges to be observed by the 4MOST ChANGES project. Still, it serves as a more general time-domain astronomy study. The model uses nine colors computed from CatWISE and PS1, a morphology score from PS1, and 61 single-band variability features computed from the ZTF DR11 g and r light curves. We trained two versions of the model, one for each ZTF band. We used a hierarchical local classifier per parent node approach, where each node w",
+              "url": "http://arxiv.org/abs/2304.08519v1",
+              "published": "2023-04-17",
+              "categories": [
+                "astro-ph.IM",
+                "astro-ph.GA"
+              ]
+            },
+            {
+              "title": "Real-bogus classification for the Zwicky Transient Facility using deep learning",
+              "authors": [
+                "Dmitry A. Duev",
+                "Ashish Mahabal",
+                "Frank J. Masci",
+                "Matthew J. Graham",
+                "Ben Rusholme"
+              ],
+              "abstract": "Efficient automated detection of flux-transient, reoccurring flux-variable, and moving objects is increasingly important for large-scale astronomical surveys. We present braai, a convolutional-neural-network, deep-learning real/bogus classifier designed to separate genuine astrophysical events and objects from false positive, or bogus, detections in the data of the Zwicky Transient Facility (ZTF), a new robotic time-domain survey currently in operation at the Palomar Observatory in California, USA. Braai demonstrates a state-of-the-art performance as quantified by its low false negative and false positive rates. We describe the open-source software tools used internally at Caltech to archive and access ZTF's alerts and light curves (Kowalski), and to label the data (Zwickyverse). We also r",
+              "url": "http://arxiv.org/abs/1907.11259v1",
+              "published": "2019-07-25",
+              "categories": [
+                "astro-ph.IM"
+              ]
+            }
+          ]
+        }
+      },
+      "tokens": {
+        "node": "context_retriever",
+        "input_tokens": 1229,
+        "output_tokens": 470,
+        "total_tokens": 1699
+      },
+      "timing": {
+        "node": "context_retriever",
+        "duration_ms": 9665.8,
+        "timestamp": "2026-05-11T11:58:12.655339+00:00"
+      }
+    },
+    {
+      "id": "evidence_aggregator",
+      "label": "Evidence Aggregator",
+      "role": "Debates branch outputs, updates confidences, and sets a triage verdict.",
+      "group": "debate",
+      "call": {
+        "id": 96,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "evidence_aggregator",
+        "input_summary": "4 branches from ZTF (ALeRCE broker)",
+        "output_summary": "verdict=REJECT_CONTROL interest=0.01 top_hypothesis=Single-epoch artefact",
+        "start_time": "2026-05-11T11:58:22.325027+00:00",
+        "end_time": "2026-05-11T11:58:26.977434+00:00",
+        "duration_ms": 4652.1,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "aggregated_evidence": {
+          "ranked_hypotheses": [
+            {
+              "hypothesis": "Single-epoch artefact",
+              "updated_confidence": 0.95,
+              "supporting_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "opposing_branches": [],
+              "key_discriminant": "Verification of PSF mismatch and subtraction residuals in the difference stamp."
+            },
+            {
+              "hypothesis": "Astrophysical transient",
+              "updated_confidence": 0.05,
+              "supporting_branches": [],
+              "opposing_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "key_discriminant": "Multiple detections or corroborating evidence from other instruments."
+            },
+            {
+              "hypothesis": "RFI masquerading as transient",
+              "updated_confidence": 0.02,
+              "supporting_branches": [],
+              "opposing_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "key_discriminant": "Identification of radio frequency interference patterns in the data."
+            }
+          ],
+          "agreement_points": [
+            "All branches agree that the detection is most likely a single-epoch artefact.",
+            "The low real-bogus score and single detection strongly suggest a non-astrophysical origin.",
+            "The observation is of low scientific interest and is classified as a control."
+          ],
+          "disagreement_points": [],
+          "confidence_updates": [
+            "Astrophysical Interpretation strongly supports the artefact hypothesis with high confidence.",
+            "Instrument/Artefact Check provides substantial evidence for artefact classification, reinforcing the non-astrophysical interpretation.",
+            "Novelty/Rarity Assessment indicates very low interest and novelty, supporting the artefact classification.",
+            "Context Retrieval aligns with the artefact hypothesis, citing known failure modes and catalogue context."
+          ],
+          "unresolved_questions": [
+            "Could there be any systematic issues in the subtraction process that are not yet identified?",
+            "Are there any improvements needed in the real-bogus scoring algorithm to reduce false positives?"
+          ],
+          "overall_interest_score": 0.01,
+          "triage_verdict": "REJECT_CONTROL",
+          "needs_code_analysis": false
+        }
+      },
+      "tokens": {
+        "node": "evidence_aggregator",
+        "input_tokens": 1431,
+        "output_tokens": 407,
+        "total_tokens": 1838
+      },
+      "timing": {
+        "node": "evidence_aggregator",
+        "duration_ms": 4652.1,
+        "timestamp": "2026-05-11T11:58:22.325027+00:00"
+      }
+    },
+    {
+      "id": "followup_prioritizer",
+      "label": "Follow-up Prioritizer",
+      "role": "Ranks discriminating follow-up observations by urgency and scientific value.",
+      "group": "action",
+      "call": {
+        "id": 97,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "followup_prioritizer",
+        "input_summary": "verdict=REJECT_CONTROL interest=0.01",
+        "output_summary": "1 actions recommended",
+        "start_time": "2026-05-11T11:58:26.980102+00:00",
+        "end_time": "2026-05-11T11:58:30.108532+00:00",
+        "duration_ms": 3127.7,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "followup_recommendations": {
+          "priority_actions": [
+            {
+              "action": "Confirm artefact origin with PSF mismatch analysis",
+              "instrument_or_method": "ZTF image quality check",
+              "scientific_rationale": "This will verify the hypothesis of a single-epoch artefact by checking for PSF mismatches and subtraction residuals in the difference stamp.",
+              "urgency": "IMMEDIATE",
+              "expected_outcome": "Confirmation that the detection was indeed an artefact due to PSF issues."
+            }
+          ],
+          "recommended_facilities": [
+            "ZTF"
+          ],
+          "time_sensitivity_note": "Follow-up is not time-sensitive but should be conducted promptly to confirm the artefact status.",
+          "scientific_value_summary": "Confirming the artefact origin will help refine the detection algorithms and improve the overall reliability of transient alerts from ZTF.",
+          "stop_here_if": "if PSF analysis confirms the detection is an artefact."
+        }
+      },
+      "tokens": {
+        "node": "followup_prioritizer",
+        "input_tokens": 900,
+        "output_tokens": 164,
+        "total_tokens": 1064
+      },
+      "timing": {
+        "node": "followup_prioritizer",
+        "duration_ms": 3127.7,
+        "timestamp": "2026-05-11T11:58:26.980102+00:00"
+      }
+    },
+    {
+      "id": "code_executor",
+      "label": "Code Executor",
+      "role": "Optionally generates and executes lightweight Python metrics on local data.",
+      "group": "analysis",
+      "call": {},
+      "tools": [],
+      "outputs": {
+        "code_to_execute": null,
+        "code_execution_output": null
+      },
+      "tokens": null,
+      "timing": null
+    },
+    {
+      "id": "synthesis",
+      "label": "Synthesis",
+      "role": "Produces the final traceable Agentic Orion scientific report.",
+      "group": "report",
+      "call": {
+        "id": 98,
+        "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+        "agent_name": "synthesis",
+        "input_summary": "all branches for Unknown",
+        "output_summary": "## Agentic Orion Triage Report \u2014 ZTF20aabqifl\n\n### Observation Summary\nThe ZTF mission, using the ALeRCE broker, observed a single-epoch alert identified as ZTF20aabqifl. The alert was labeled as a spurious detection with no subsequent observations, flagged by the pipeline as bogus, subtraction arte",
+        "start_time": "2026-05-11T11:58:30.113302+00:00",
+        "end_time": "2026-05-11T11:58:38.802481+00:00",
+        "duration_ms": 8688.6,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "synthesis_report": "## Agentic Orion Triage Report \u2014 ZTF20aabqifl\n\n### Observation Summary\nThe ZTF mission, using the ALeRCE broker, observed a single-epoch alert identified as ZTF20aabqifl. The alert was labeled as a spurious detection with no subsequent observations, flagged by the pipeline as bogus, subtraction artefact, CTRL, and reject.\n\n### Characterization\nKey features include a single detection (ndet=1) with a low Real-Bogus score (<0.4), suggesting a subtraction artefact likely caused by a PSF mismatch near a saturated star. Missing evidence includes subsequent detections, additional epochs, and spectroscopic data. The data quality is compromised, with empty data files for lightcurve and alert metadata.\n\n### Triage Verdict\n**REJECT_CONTROL** \u2014 Interest score: 0.01 / 1.0\n\n### Competing Hypotheses\n| Hypothesis | Confidence | Key Evidence For | Key Evidence Against |\n|---|---|---|---|\n| Single-epoch artefact | 0.95 | Low Real-Bogus score, subtraction artefact label | None |\n| Astrophysical transient | 0.05 | None | Lack of multiple detections, low Real-Bogus score |\n| RFI masquerading as transient | 0.02 | None | No evidence of RFI patterns |\n\n### Branch Analysis\n**Astrophysical branch**: The detection is best explained as a single-epoch artefact with high confidence (0.95), supported by the low Real-Bogus score and subtraction artefact classification.  \n**Artefact branch**: The artefact probability is 0.85, with the most likely cause being a PSF mismatch near a bright star. Quality checks confirm this assessment.  \n**Novelty/Rarity branch**: The observation is neither rare nor novel, with scores of 0.05 and 0.0, respectively, indicating low follow-up value.  \n**Context branch**: Literature supports the classification as a subtraction artefact, with no significant astrophysical context found.\n\n### Scientific Disagreement\nThere is no significant disagreement among branches; all support the artefact hypothesis. However, potential systematic issues in the subtraction process and improvements in the real-bogus scoring algorithm remain unresolved.\n\n### Timing\nParallel branches completed in 9671 ms, achieving a 2.57x speedup over the 24879 ms sequential estimate.\n\n### Follow-Up Plan\n1. **Confirm artefact origin with PSF mismatch analysis**  \n   - **Method**: ZTF image quality check  \n   - **Rationale**: Verify the hypothesis of a single-epoch artefact by checking for PSF mismatches and subtraction residuals.  \n   - **Urgency**: IMMEDIATE  \n   - **Expected Outcome**: Confirmation of artefact due to PSF issues.\n\n### Quantitative Analysis\nNo code execution was performed; thus, no quantitative analysis is available.\n\n### References\n1. Sharp estimates of Green function of hyperbolic Brownian Motion \u2014 [arXiv:1502.01047](http://arxiv.org/abs/1502.01047v1)\n2. ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry \u2014 [arXiv:2509.04073](http://arxiv.org/abs/2509.04073v1)\n3. Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11 \u2014 [arXiv:2304.08519](http://arxiv.org/abs/2304.08519v1)\n4. Real-bogus classification for the Zwicky Transient Facility using deep learning \u2014 [arXiv:1907.11259](http://arxiv.org/abs/1907.11259v1)\n\n---\n*Generated by Agentic Orion v0.1 \u2014 automated scientific attention-allocation workflow*"
+      },
+      "tokens": {
+        "node": "synthesis",
+        "input_tokens": 1761,
+        "output_tokens": 827,
+        "total_tokens": 2588
+      },
+      "timing": {
+        "node": "synthesis",
+        "duration_ms": 8688.6,
+        "timestamp": "2026-05-11T11:58:30.113302+00:00"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": 26,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "agent_name": "context_retriever",
+      "tool_name": "search_arxiv",
+      "input": "{\"query\": \"ZTF transient bogus subtraction_artefact\"}",
+      "output": "{\"count\": 4}",
+      "start_time": "2026-05-11T11:58:12.655339+00:00",
+      "duration_ms": 1676.1,
+      "error": null,
+      "input_json": {
+        "query": "ZTF transient bogus subtraction_artefact"
+      },
+      "output_json": {
+        "count": 4
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": 90,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "START",
+      "to_node": "supervisor",
+      "timestamp": "2026-05-11T11:58:09.081207+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": null, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": null, \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"init\", \"errors\": [], \"step_count\": 0, \"timing_log\": [], \"token_counts\": []}"
+    },
+    {
+      "id": 91,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "supervisor",
+      "to_node": "observation_characterizer",
+      "timestamp": "2026-05-11T11:58:12.651292+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": null, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": null, \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"supervisor\", \"errors\": [], \"step_count\": 1, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1609.4, \"timestamp\": \"2026-05-11T11:58:07.466923+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 401, \"output_tokens\": 55, \"total_tokens\": 456}]}"
+    },
+    {
+      "id": 92,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "observation_characterizer",
+      "to_node": "novelty_assessor",
+      "timestamp": "2026-05-11T11:58:14.901678+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:12.653560+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1609.4, \"timestamp\": \"2026-05-11T11:58:07.466923+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 3561.2, \"timestamp\": \"2026-05-11T11:58:09.083122+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:12.653560+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 401, \"output_tokens\": 55, \"total_tokens\": 456}, {\"node\": \"observation_characterizer\", \"input_tokens\": 1156, \"output_tokens\": 265, \"total_tokens\": 1421}]}"
+    },
+    {
+      "id": 93,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "observation_characterizer",
+      "to_node": "astrophysical_interpreter",
+      "timestamp": "2026-05-11T11:58:17.835174+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:12.653560+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1609.4, \"timestamp\": \"2026-05-11T11:58:07.466923+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 3561.2, \"timestamp\": \"2026-05-11T11:58:09.083122+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:12.653560+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 401, \"output_tokens\": 55, \"total_tokens\": 456}, {\"node\": \"observation_characterizer\", \"input_tokens\": 1156, \"output_tokens\": 265, \"total_tokens\": 1421}]}"
+    },
+    {
+      "id": 94,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "observation_characterizer",
+      "to_node": "artefact_checker",
+      "timestamp": "2026-05-11T11:58:20.452391+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:12.653560+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1609.4, \"timestamp\": \"2026-05-11T11:58:07.466923+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 3561.2, \"timestamp\": \"2026-05-11T11:58:09.083122+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:12.653560+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 401, \"output_tokens\": 55, \"total_tokens\": 456}, {\"node\": \"observation_characterizer\", \"input_tokens\": 1156, \"output_tokens\": 265, \"total_tokens\": 1421}]}"
+    },
+    {
+      "id": 95,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "observation_characterizer",
+      "to_node": "context_retriever",
+      "timestamp": "2026-05-11T11:58:22.322657+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:12.653560+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1609.4, \"timestamp\": \"2026-05-11T11:58:07.466923+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 3561.2, \"timestamp\": \"2026-05-11T11:58:09.083122+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:12.653560+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 401, \"output_tokens\": 55, \"total_tokens\": 456}, {\"node\": \"observation_characterizer\", \"input_tokens\": 1156, \"output_tokens\": 265, \"total_tokens\": 1421}]}"
+    },
+    {
+      "id": 96,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "parallel_branches",
+      "to_node": "evidence_aggregator",
+      "timestamp": "2026-05-11T11:58:26.978835+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Single-epoch artefact\", \"probability\": 0.9, \"evidence_for\": [\"Classified as a single-epoch spurious alert with no follow-up detections.\", \"Flagged as bogus due to low confidence and Real-Bogus score <0.4.\", \"Identified as a subtraction artefact caused by PSF mismatch near a saturated star.\"], \"evidence_against\": [\"No evidence of any astrophysical transient that repeats exactly once at ndet=1.\"]}, {\"name\": \"Astrophysical transient\", \"probability\": 0.05, \"evidence_for\": [\"The object was detected at a specific time (MJD 58850).\"], \"evidence_against\": [\"Only a single detection with no follow-up observations.\", \"Control data indicates that no astrophysical transient would be expected to appear only once.\"]}, {\"name\": \"RFI masquerading as transient\", \"probability\": 0.05, \"evidence_for\": [\"Could be a result of interference or noise that mimics a transient signal.\"], \"evidence_against\": [\"No indication of radio frequency interference in "
+    },
+    {
+      "id": 97,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "evidence_aggregator",
+      "to_node": "followup_prioritizer",
+      "timestamp": "2026-05-11T11:58:30.111273+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Single-epoch artefact\", \"probability\": 0.9, \"evidence_for\": [\"Classified as a single-epoch spurious alert with no follow-up detections.\", \"Flagged as bogus due to low confidence and Real-Bogus score <0.4.\", \"Identified as a subtraction artefact caused by PSF mismatch near a saturated star.\"], \"evidence_against\": [\"No evidence of any astrophysical transient that repeats exactly once at ndet=1.\"]}, {\"name\": \"Astrophysical transient\", \"probability\": 0.05, \"evidence_for\": [\"The object was detected at a specific time (MJD 58850).\"], \"evidence_against\": [\"Only a single detection with no follow-up observations.\", \"Control data indicates that no astrophysical transient would be expected to appear only once.\"]}, {\"name\": \"RFI masquerading as transient\", \"probability\": 0.05, \"evidence_for\": [\"Could be a result of interference or noise that mimics a transient signal.\"], \"evidence_against\": [\"No indication of radio frequency interference in "
+    },
+    {
+      "id": 98,
+      "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+      "from_node": "followup_prioritizer",
+      "to_node": "synthesis",
+      "timestamp": "2026-05-11T11:58:38.805752+00:00",
+      "state_snapshot": "{\"run_id\": \"5bf0ced0-1447-4d01-a3aa-ee755e13f47c\", \"packet_index\": 10, \"observation_packet\": {\"mission\": \"ZTF (ALeRCE broker)\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": \"ALeRCE https://alerce.science\", \"mission_archive\": \"IRSA ZTF\", \"curated_demo\": \"https://alerce.science/object/ZTF20aabqifl\"}, \"object_or_event_id\": {\"ZTF_oid\": \"ZTF20aabqifl\", \"ALeRCE_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"RA_deg\": null, \"Dec_deg\": null, \"artefact_type\": \"single-epoch spurious detection (ndet=1)\", \"stamp_label\": \"bogus\", \"rb_score_note\": \"Real-Bogus score < 0.4\"}, \"modality\": [\"alert\", \"image_cutout\"], \"short_summary\": \"ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \\u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.\", \"metadata\": {\"stamp_class\": \"bogus\", \"rb_score\": \"<0.4\", \"artefact_cause\": \"PSF mismatch near saturated star in difference imaging\"}, \"small_data_product\": {\"image_url\": \"https://alerce.science/object/ZTF20aabqifl\", \"lightcurve_url\": \"https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve\", \"spectrum_url\": null, \"cutout_metadata\": {\"survey\": \"ZTF\", \"artefact_flag\": true}}, \"initial_pipeline_labels\": [\"bogus\", \"subtraction_artefact\", \"CTRL\", \"reject\"], \"query_hints\": {\"stamps\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps\", \"note\": \"Inspect difference stamp for dipole pattern.\"}, \"probabilities\": {\"endpoint\": \"GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities\", \"note\": \"Expect 'bogus' class to dominate.\"}}}, \"mission\": \"ZTF (ALeRCE broker)\", \"primary_modality\": \"alert\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.\", \"salient_features\": [\"Object ID: ZTF20aabqifl\", \"Detection count (ndet): 1\", \"MJD of detection: 58850.50773150008\", \"Real-Bogus score: <0.4\", \"Artefact type: single-epoch spurious detection\", \"Pipeline labels: bogus, subtraction_artefact, CTRL, reject\"], \"missing_evidence\": [\"Subsequent detections to confirm or refute the alert\", \"Additional epochs of data to assess variability\", \"Spectroscopic data to determine the nature of the object\"], \"uncertainties\": [\"The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact\", \"The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection\"], \"data_quality_notes\": [\"Data files for lightcurve and alert metadata are empty (0 kB)\", \"Single detection may not provide sufficient evidence for classification\"], \"one_line_summary\": \"ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.\", \"duration_ms\": 3561.2}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Single-epoch artefact\", \"probability\": 0.9, \"evidence_for\": [\"Classified as a single-epoch spurious alert with no follow-up detections.\", \"Flagged as bogus due to low confidence and Real-Bogus score <0.4.\", \"Identified as a subtraction artefact caused by PSF mismatch near a saturated star.\"], \"evidence_against\": [\"No evidence of any astrophysical transient that repeats exactly once at ndet=1.\"]}, {\"name\": \"Astrophysical transient\", \"probability\": 0.05, \"evidence_for\": [\"The object was detected at a specific time (MJD 58850).\"], \"evidence_against\": [\"Only a single detection with no follow-up observations.\", \"Control data indicates that no astrophysical transient would be expected to appear only once.\"]}, {\"name\": \"RFI masquerading as transient\", \"probability\": 0.05, \"evidence_for\": [\"Could be a result of interference or noise that mimics a transient signal.\"], \"evidence_against\": [\"No indication of radio frequency interference in "
+    }
+  ],
+  "state": {
+    "run_id": "5bf0ced0-1447-4d01-a3aa-ee755e13f47c",
+    "packet_index": 10,
+    "observation_packet": {
+      "mission": "ZTF (ALeRCE broker)",
+      "experiment_type": "CTRL",
+      "source": {
+        "alert_broker": "ALeRCE https://alerce.science",
+        "mission_archive": "IRSA ZTF",
+        "curated_demo": "https://alerce.science/object/ZTF20aabqifl"
+      },
+      "object_or_event_id": {
+        "ZTF_oid": "ZTF20aabqifl",
+        "ALeRCE_url": "https://alerce.science/object/ZTF20aabqifl",
+        "RA_deg": null,
+        "Dec_deg": null,
+        "artefact_type": "single-epoch spurious detection (ndet=1)",
+        "stamp_label": "bogus",
+        "rb_score_note": "Real-Bogus score < 0.4"
+      },
+      "modality": [
+        "alert",
+        "image_cutout"
+      ],
+      "short_summary": "ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.",
+      "metadata": {
+        "stamp_class": "bogus",
+        "rb_score": "<0.4",
+        "artefact_cause": "PSF mismatch near saturated star in difference imaging"
+      },
+      "small_data_product": {
+        "image_url": "https://alerce.science/object/ZTF20aabqifl",
+        "lightcurve_url": "https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve",
+        "spectrum_url": null,
+        "cutout_metadata": {
+          "survey": "ZTF",
+          "artefact_flag": true
+        }
+      },
+      "initial_pipeline_labels": [
+        "bogus",
+        "subtraction_artefact",
+        "CTRL",
+        "reject"
+      ],
+      "query_hints": {
+        "stamps": {
+          "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps",
+          "note": "Inspect difference stamp for dipole pattern."
+        },
+        "probabilities": {
+          "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities",
+          "note": "Expect 'bogus' class to dominate."
+        }
+      }
+    },
+    "mission": "ZTF (ALeRCE broker)",
+    "primary_modality": "alert",
+    "needs_code": false,
+    "observation_characterization": {
+      "modality_summary": "The observation is a single-epoch alert from the ZTF mission, identified as a spurious detection with no subsequent observations.",
+      "salient_features": [
+        "Object ID: ZTF20aabqifl",
+        "Detection count (ndet): 1",
+        "MJD of detection: 58850.50773150008",
+        "Real-Bogus score: <0.4",
+        "Artefact type: single-epoch spurious detection",
+        "Pipeline labels: bogus, subtraction_artefact, CTRL, reject"
+      ],
+      "missing_evidence": [
+        "Subsequent detections to confirm or refute the alert",
+        "Additional epochs of data to assess variability",
+        "Spectroscopic data to determine the nature of the object"
+      ],
+      "uncertainties": [
+        "The object is classified as bogus due to a low Real-Bogus score and is flagged as a subtraction artefact",
+        "The cause of the artefact is a PSF mismatch near a saturated star, which may affect the reliability of the detection"
+      ],
+      "data_quality_notes": [
+        "Data files for lightcurve and alert metadata are empty (0 kB)",
+        "Single detection may not provide sufficient evidence for classification"
+      ],
+      "one_line_summary": "ZTF20aabqifl is a single-detection spurious alert from ZTF, flagged as bogus due to low confidence and no follow-up detections.",
+      "duration_ms": 3561.2
+    },
+    "astrophysical_interpretation": {
+      "candidate_classes": [
+        {
+          "name": "Single-epoch artefact",
+          "probability": 0.9,
+          "evidence_for": [
+            "Classified as a single-epoch spurious alert with no follow-up detections.",
+            "Flagged as bogus due to low confidence and Real-Bogus score <0.4.",
+            "Identified as a subtraction artefact caused by PSF mismatch near a saturated star."
+          ],
+          "evidence_against": [
+            "No evidence of any astrophysical transient that repeats exactly once at ndet=1."
+          ]
+        },
+        {
+          "name": "Astrophysical transient",
+          "probability": 0.05,
+          "evidence_for": [
+            "The object was detected at a specific time (MJD 58850)."
+          ],
+          "evidence_against": [
+            "Only a single detection with no follow-up observations.",
+            "Control data indicates that no astrophysical transient would be expected to appear only once."
+          ]
+        },
+        {
+          "name": "RFI masquerading as transient",
+          "probability": 0.05,
+          "evidence_for": [
+            "Could be a result of interference or noise that mimics a transient signal."
+          ],
+          "evidence_against": [
+            "No indication of radio frequency interference in the metadata."
+          ]
+        }
+      ],
+      "best_explanation": "Single-epoch artefact",
+      "confidence": 0.95,
+      "uncertainty_notes": "The classification as bogus is strongly supported by the low Real-Bogus score and the nature of the detection as a subtraction artefact. There is minimal uncertainty due to the clear identification of the artefact cause.",
+      "branch_duration_ms": 5176.7
+    },
+    "artefact_assessment": {
+      "possible_artefact_modes": [
+        {
+          "name": "Single-epoch detection (ndet=1)",
+          "probability": 0.9,
+          "evidence_for": [
+            "Only one detection reported (ndet=1) with no follow-up observations.",
+            "Control data indicates no astrophysical transient repeats exactly once."
+          ],
+          "evidence_against": [
+            "The detection occurred at a specific MJD, which could suggest a transient event, albeit unlikely."
+          ]
+        },
+        {
+          "name": "Subtraction residual from PSF mismatch",
+          "probability": 0.8,
+          "evidence_for": [
+            "Metadata indicates PSF mismatch near a saturated star in difference imaging.",
+            "Pipeline labels include 'subtraction_artefact', suggesting a known issue with the image processing."
+          ],
+          "evidence_against": [
+            "No other detections or follow-up observations to confirm a transient event."
+          ]
+        },
+        {
+          "name": "Low real/bogus score",
+          "probability": 0.85,
+          "evidence_for": [
+            "Real-Bogus score is reported as <0.4, indicating low confidence in the detection."
+          ],
+          "evidence_against": [
+            "The detection was flagged as bogus, but the score alone does not confirm an artefact."
+          ]
+        }
+      ],
+      "most_likely_non_astrophysical": "Single-epoch detection (ndet=1)",
+      "artefact_probability": 0.85,
+      "evidence_for_artefact": [
+        "Single detection with no follow-up observations.",
+        "Low real-bogus score (<0.4) indicates low confidence in the detection.",
+        "Flagged as bogus by the pipeline."
+      ],
+      "evidence_against_artefact": [
+        "Detection occurred at a specific time, which could suggest a transient event, but is unlikely."
+      ],
+      "recommended_quality_checks": [
+        "Inspect difference stamp for PSF mismatch and subtraction residuals.",
+        "Review control data for similar single-detection alerts.",
+        "Check for any nearby bright stars that could cause artefacts."
+      ],
+      "branch_duration_ms": 7794.6
+    },
+    "novelty_rarity_assessment": {
+      "rarity_score": 0.05,
+      "novelty_score": 0.0,
+      "uncertainty_score": 0.0,
+      "followup_value_score": 0.0,
+      "overall_interest_score": 0.0125,
+      "reason_for_scientific_interest": "The observation is classified as a bogus detection with no astrophysical significance, making it of low interest for scientific inquiry.",
+      "ood_notes": "The detection is a single-epoch spurious alert, which is not typical for astrophysical transients that usually have multiple detections.",
+      "time_sensitive": false,
+      "branch_duration_ms": 2241.7
+    },
+    "context_retrieval_results": {
+      "related_papers": [
+        {
+          "title": "Real-bogus classification for the Zwicky Transient Facility using deep learning",
+          "key_finding": "Introduces a deep learning classifier to distinguish between genuine astrophysical events and bogus detections in ZTF data.",
+          "relevance": "Directly relevant as it addresses the classification of spurious alerts like ZTF20aabqifl."
+        },
+        {
+          "title": "Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11",
+          "key_finding": "Develops a classifier for identifying transients and variable sources in ZTF data, useful for understanding the nature of detected objects.",
+          "relevance": "Relevant for understanding the classification of transient events, though focused on variable sources rather than single detections."
+        },
+        {
+          "title": "ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry",
+          "key_finding": "Presents a large dataset of confirmed Type Ia supernovae from ZTF, emphasizing the importance of accurate photometry for cosmological studies.",
+          "relevance": "While not directly related to bogus detections, it provides context on the types of genuine transients ZTF aims to detect."
+        }
+      ],
+      "similar_observations": [
+        "ZTF19aabqifl: Another single-detection spurious alert flagged as bogus due to low confidence and no follow-up detections.",
+        "ZTF20aabqjkl: A similar case of a single detection attributed to a PSF mismatch near a bright star."
+      ],
+      "relevant_catalogue_context": "In ZTF data, the majority of transient alerts are expected to have multiple detections (ndet > 1). Single detections are often flagged as potential artefacts, especially when associated with bright stars or other imaging issues.",
+      "mission_instrument_notes": "The Zwicky Transient Facility (ZTF) utilizes difference imaging to detect transient events. Artefacts can arise from PSF mismatches, particularly near saturated stars, leading to false alerts like ZTF20aabqifl.",
+      "known_failure_modes": [
+        "PSF mismatch leading to false positives, especially near bright stars.",
+        "Inadequate background subtraction resulting in spurious detections.",
+        "Transient events that are not followed up can be misclassified as genuine alerts."
+      ],
+      "arxiv_search_query": "ZTF transient bogus subtraction_artefact",
+      "branch_duration_ms": 9665.8,
+      "raw_arxiv_papers": [
+        {
+          "title": "Sharp estimates of Green function of hyperbolic Brownian Motion",
+          "authors": [
+            "Kamil Bogus",
+            "Tomasz Byczkowski",
+            "Jacek Malecki"
+          ],
+          "abstract": "The main objective of the work is to provide sharp two-sided estimates of $\u03bb$-Green function of hyperbolic Brownian motion of a half-space. We strongly rely on recent results obtained by K. Bogus and J. Malecki [3], regarding precise estimates of the Bessel heat kernel of half-lines.",
+          "url": "http://arxiv.org/abs/1502.01047v1",
+          "published": "2015-02-03",
+          "categories": [
+            "math.PR"
+          ]
+        },
+        {
+          "title": "ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry",
+          "authors": [
+            "L. Lacroix",
+            "N. Regnault",
+            "T. de Jaeger",
+            "M. Le Jeune",
+            "M. Betoule"
+          ],
+          "abstract": "The Zwicky Transient Facility (ZTF) is conducting a wide-field survey of the northern sky in three optical bands and the collaboration cosmology working group has released 3628 spectroscopically confirmed Type Ia supernovae (SNe Ia) discovered during its first 2.5 years of operation. This \"ZTF SN Ia DR2\" sample is the largest SN Ia dataset to date.\n  Fully exploiting this dataset to improve understanding of the properties of dark energy requires a photometric accuracy of O(0.1%). This can be achieved using Scene Modeling Photometry (SMP), which is optimal to extract a transient signal (SN) from a complex background (its host), while ensuring a common flux estimator with nearby stars used as calibration reference. In this paper, we present the status of the SMP development and use it to ass",
+          "url": "http://arxiv.org/abs/2509.04073v1",
+          "published": "2025-09-04",
+          "categories": [
+            "astro-ph.CO"
+          ]
+        },
+        {
+          "title": "Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11",
+          "authors": [
+            "P. S\u00e1nchez-S\u00e1ez",
+            "J. Arredondo",
+            "A. Bayo",
+            "P. Ar\u00e9valo",
+            "F. E. Bauer"
+          ],
+          "abstract": "We present a variability, color and morphology based classifier, designed to identify transients, persistently variable, and non-variable sources, from the Zwicky Transient Facility (ZTF) Data Release 11 (DR11) light curves of extended and point sources. The main motivation to develop this model was to identify active galactic nuclei (AGN) at different redshift ranges to be observed by the 4MOST ChANGES project. Still, it serves as a more general time-domain astronomy study. The model uses nine colors computed from CatWISE and PS1, a morphology score from PS1, and 61 single-band variability features computed from the ZTF DR11 g and r light curves. We trained two versions of the model, one for each ZTF band. We used a hierarchical local classifier per parent node approach, where each node w",
+          "url": "http://arxiv.org/abs/2304.08519v1",
+          "published": "2023-04-17",
+          "categories": [
+            "astro-ph.IM",
+            "astro-ph.GA"
+          ]
+        },
+        {
+          "title": "Real-bogus classification for the Zwicky Transient Facility using deep learning",
+          "authors": [
+            "Dmitry A. Duev",
+            "Ashish Mahabal",
+            "Frank J. Masci",
+            "Matthew J. Graham",
+            "Ben Rusholme"
+          ],
+          "abstract": "Efficient automated detection of flux-transient, reoccurring flux-variable, and moving objects is increasingly important for large-scale astronomical surveys. We present braai, a convolutional-neural-network, deep-learning real/bogus classifier designed to separate genuine astrophysical events and objects from false positive, or bogus, detections in the data of the Zwicky Transient Facility (ZTF), a new robotic time-domain survey currently in operation at the Palomar Observatory in California, USA. Braai demonstrates a state-of-the-art performance as quantified by its low false negative and false positive rates. We describe the open-source software tools used internally at Caltech to archive and access ZTF's alerts and light curves (Kowalski), and to label the data (Zwickyverse). We also r",
+          "url": "http://arxiv.org/abs/1907.11259v1",
+          "published": "2019-07-25",
+          "categories": [
+            "astro-ph.IM"
+          ]
+        }
+      ]
+    },
+    "parallel_section_start_utc": "2026-05-11T11:58:12.653560+00:00",
+    "parallel_section_wall_ms": 9670.9,
+    "aggregated_evidence": {
+      "ranked_hypotheses": [
+        {
+          "hypothesis": "Single-epoch artefact",
+          "updated_confidence": 0.95,
+          "supporting_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "opposing_branches": [],
+          "key_discriminant": "Verification of PSF mismatch and subtraction residuals in the difference stamp."
+        },
+        {
+          "hypothesis": "Astrophysical transient",
+          "updated_confidence": 0.05,
+          "supporting_branches": [],
+          "opposing_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "key_discriminant": "Multiple detections or corroborating evidence from other instruments."
+        },
+        {
+          "hypothesis": "RFI masquerading as transient",
+          "updated_confidence": 0.02,
+          "supporting_branches": [],
+          "opposing_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "key_discriminant": "Identification of radio frequency interference patterns in the data."
+        }
+      ],
+      "agreement_points": [
+        "All branches agree that the detection is most likely a single-epoch artefact.",
+        "The low real-bogus score and single detection strongly suggest a non-astrophysical origin.",
+        "The observation is of low scientific interest and is classified as a control."
+      ],
+      "disagreement_points": [],
+      "confidence_updates": [
+        "Astrophysical Interpretation strongly supports the artefact hypothesis with high confidence.",
+        "Instrument/Artefact Check provides substantial evidence for artefact classification, reinforcing the non-astrophysical interpretation.",
+        "Novelty/Rarity Assessment indicates very low interest and novelty, supporting the artefact classification.",
+        "Context Retrieval aligns with the artefact hypothesis, citing known failure modes and catalogue context."
+      ],
+      "unresolved_questions": [
+        "Could there be any systematic issues in the subtraction process that are not yet identified?",
+        "Are there any improvements needed in the real-bogus scoring algorithm to reduce false positives?"
+      ],
+      "overall_interest_score": 0.01,
+      "triage_verdict": "REJECT_CONTROL",
+      "needs_code_analysis": false
+    },
+    "followup_recommendations": {
+      "priority_actions": [
+        {
+          "action": "Confirm artefact origin with PSF mismatch analysis",
+          "instrument_or_method": "ZTF image quality check",
+          "scientific_rationale": "This will verify the hypothesis of a single-epoch artefact by checking for PSF mismatches and subtraction residuals in the difference stamp.",
+          "urgency": "IMMEDIATE",
+          "expected_outcome": "Confirmation that the detection was indeed an artefact due to PSF issues."
+        }
+      ],
+      "recommended_facilities": [
+        "ZTF"
+      ],
+      "time_sensitivity_note": "Follow-up is not time-sensitive but should be conducted promptly to confirm the artefact status.",
+      "scientific_value_summary": "Confirming the artefact origin will help refine the detection algorithms and improve the overall reliability of transient alerts from ZTF.",
+      "stop_here_if": "if PSF analysis confirms the detection is an artefact."
+    },
+    "code_to_execute": null,
+    "code_execution_output": null,
+    "synthesis_report": "## Agentic Orion Triage Report \u2014 ZTF20aabqifl\n\n### Observation Summary\nThe ZTF mission, using the ALeRCE broker, observed a single-epoch alert identified as ZTF20aabqifl. The alert was labeled as a spurious detection with no subsequent observations, flagged by the pipeline as bogus, subtraction artefact, CTRL, and reject.\n\n### Characterization\nKey features include a single detection (ndet=1) with a low Real-Bogus score (<0.4), suggesting a subtraction artefact likely caused by a PSF mismatch near a saturated star. Missing evidence includes subsequent detections, additional epochs, and spectroscopic data. The data quality is compromised, with empty data files for lightcurve and alert metadata.\n\n### Triage Verdict\n**REJECT_CONTROL** \u2014 Interest score: 0.01 / 1.0\n\n### Competing Hypotheses\n| Hypothesis | Confidence | Key Evidence For | Key Evidence Against |\n|---|---|---|---|\n| Single-epoch artefact | 0.95 | Low Real-Bogus score, subtraction artefact label | None |\n| Astrophysical transient | 0.05 | None | Lack of multiple detections, low Real-Bogus score |\n| RFI masquerading as transient | 0.02 | None | No evidence of RFI patterns |\n\n### Branch Analysis\n**Astrophysical branch**: The detection is best explained as a single-epoch artefact with high confidence (0.95), supported by the low Real-Bogus score and subtraction artefact classification.  \n**Artefact branch**: The artefact probability is 0.85, with the most likely cause being a PSF mismatch near a bright star. Quality checks confirm this assessment.  \n**Novelty/Rarity branch**: The observation is neither rare nor novel, with scores of 0.05 and 0.0, respectively, indicating low follow-up value.  \n**Context branch**: Literature supports the classification as a subtraction artefact, with no significant astrophysical context found.\n\n### Scientific Disagreement\nThere is no significant disagreement among branches; all support the artefact hypothesis. However, potential systematic issues in the subtraction process and improvements in the real-bogus scoring algorithm remain unresolved.\n\n### Timing\nParallel branches completed in 9671 ms, achieving a 2.57x speedup over the 24879 ms sequential estimate.\n\n### Follow-Up Plan\n1. **Confirm artefact origin with PSF mismatch analysis**  \n   - **Method**: ZTF image quality check  \n   - **Rationale**: Verify the hypothesis of a single-epoch artefact by checking for PSF mismatches and subtraction residuals.  \n   - **Urgency**: IMMEDIATE  \n   - **Expected Outcome**: Confirmation of artefact due to PSF issues.\n\n### Quantitative Analysis\nNo code execution was performed; thus, no quantitative analysis is available.\n\n### References\n1. Sharp estimates of Green function of hyperbolic Brownian Motion \u2014 [arXiv:1502.01047](http://arxiv.org/abs/1502.01047v1)\n2. ZTF SNe Ia DR2: Towards cosmology-grade ZTF supernova light curves using scene modeling photometry \u2014 [arXiv:2509.04073](http://arxiv.org/abs/2509.04073v1)\n3. Persistent and occasional: searching for the variable population of the ZTF/4MOST sky using ZTF data release 11 \u2014 [arXiv:2304.08519](http://arxiv.org/abs/2304.08519v1)\n4. Real-bogus classification for the Zwicky Transient Facility using deep learning \u2014 [arXiv:1907.11259](http://arxiv.org/abs/1907.11259v1)\n\n---\n*Generated by Agentic Orion v0.1 \u2014 automated scientific attention-allocation workflow*",
+    "current_step": "synthesis",
+    "errors": [],
+    "step_count": 9,
+    "timing_log": [
+      {
+        "node": "supervisor",
+        "duration_ms": 1609.4,
+        "timestamp": "2026-05-11T11:58:07.466923+00:00"
+      },
+      {
+        "node": "observation_characterizer",
+        "duration_ms": 3561.2,
+        "timestamp": "2026-05-11T11:58:09.083122+00:00"
+      },
+      {
+        "node": "_parallel_start",
+        "duration_ms": 0.0,
+        "timestamp": "2026-05-11T11:58:12.653560+00:00"
+      },
+      {
+        "node": "artefact_checker",
+        "duration_ms": 7794.6,
+        "timestamp": "2026-05-11T11:58:12.654289+00:00"
+      },
+      {
+        "node": "astrophysical_interpreter",
+        "duration_ms": 5176.7,
+        "timestamp": "2026-05-11T11:58:12.654875+00:00"
+      },
+      {
+        "node": "context_retriever",
+        "duration_ms": 9665.8,
+        "timestamp": "2026-05-11T11:58:12.655339+00:00"
+      },
+      {
+        "node": "novelty_assessor",
+        "duration_ms": 2241.7,
+        "timestamp": "2026-05-11T11:58:12.656562+00:00"
+      },
+      {
+        "node": "_parallel_end",
+        "duration_ms": 9670.9,
+        "timestamp": "2026-05-11T11:58:22.324431+00:00",
+        "parallel_wall_ms": 9670.9,
+        "sequential_estimate_ms": 24878.8,
+        "speedup": 2.57,
+        "branch_times_ms": {
+          "artefact_checker": 7794.6,
+          "astrophysical_interpreter": 5176.7,
+          "context_retriever": 9665.8,
+          "novelty_assessor": 2241.7
+        }
+      },
+      {
+        "node": "evidence_aggregator",
+        "duration_ms": 4652.1,
+        "timestamp": "2026-05-11T11:58:22.325027+00:00"
+      },
+      {
+        "node": "followup_prioritizer",
+        "duration_ms": 3127.7,
+        "timestamp": "2026-05-11T11:58:26.980102+00:00"
+      },
+      {
+        "node": "synthesis",
+        "duration_ms": 8688.6,
+        "timestamp": "2026-05-11T11:58:30.113302+00:00"
+      }
+    ],
+    "token_counts": [
+      {
+        "node": "supervisor",
+        "input_tokens": 401,
+        "output_tokens": 55,
+        "total_tokens": 456
+      },
+      {
+        "node": "observation_characterizer",
+        "input_tokens": 1156,
+        "output_tokens": 265,
+        "total_tokens": 1421
+      },
+      {
+        "node": "artefact_checker",
+        "input_tokens": 831,
+        "output_tokens": 365,
+        "total_tokens": 1196
+      },
+      {
+        "node": "astrophysical_interpreter",
+        "input_tokens": 815,
+        "output_tokens": 288,
+        "total_tokens": 1103
+      },
+      {
+        "node": "context_retriever",
+        "input_tokens": 1229,
+        "output_tokens": 470,
+        "total_tokens": 1699
+      },
+      {
+        "node": "novelty_assessor",
+        "input_tokens": 886,
+        "output_tokens": 110,
+        "total_tokens": 996
+      },
+      {
+        "node": "evidence_aggregator",
+        "input_tokens": 1431,
+        "output_tokens": 407,
+        "total_tokens": 1838
+      },
+      {
+        "node": "followup_prioritizer",
+        "input_tokens": 900,
+        "output_tokens": 164,
+        "total_tokens": 1064
+      },
+      {
+        "node": "synthesis",
+        "input_tokens": 1761,
+        "output_tokens": 827,
+        "total_tokens": 2588
+      }
+    ]
+  },
+  "timing_log": [
+    {
+      "node": "supervisor",
+      "duration_ms": 1609.4,
+      "timestamp": "2026-05-11T11:58:07.466923+00:00"
+    },
+    {
+      "node": "observation_characterizer",
+      "duration_ms": 3561.2,
+      "timestamp": "2026-05-11T11:58:09.083122+00:00"
+    },
+    {
+      "node": "_parallel_start",
+      "duration_ms": 0.0,
+      "timestamp": "2026-05-11T11:58:12.653560+00:00"
+    },
+    {
+      "node": "artefact_checker",
+      "duration_ms": 7794.6,
+      "timestamp": "2026-05-11T11:58:12.654289+00:00"
+    },
+    {
+      "node": "astrophysical_interpreter",
+      "duration_ms": 5176.7,
+      "timestamp": "2026-05-11T11:58:12.654875+00:00"
+    },
+    {
+      "node": "context_retriever",
+      "duration_ms": 9665.8,
+      "timestamp": "2026-05-11T11:58:12.655339+00:00"
+    },
+    {
+      "node": "novelty_assessor",
+      "duration_ms": 2241.7,
+      "timestamp": "2026-05-11T11:58:12.656562+00:00"
+    },
+    {
+      "node": "_parallel_end",
+      "duration_ms": 9670.9,
+      "timestamp": "2026-05-11T11:58:22.324431+00:00",
+      "parallel_wall_ms": 9670.9,
+      "sequential_estimate_ms": 24878.8,
+      "speedup": 2.57,
+      "branch_times_ms": {
+        "artefact_checker": 7794.6,
+        "astrophysical_interpreter": 5176.7,
+        "context_retriever": 9665.8,
+        "novelty_assessor": 2241.7
+      }
+    },
+    {
+      "node": "evidence_aggregator",
+      "duration_ms": 4652.1,
+      "timestamp": "2026-05-11T11:58:22.325027+00:00"
+    },
+    {
+      "node": "followup_prioritizer",
+      "duration_ms": 3127.7,
+      "timestamp": "2026-05-11T11:58:26.980102+00:00"
+    },
+    {
+      "node": "synthesis",
+      "duration_ms": 8688.6,
+      "timestamp": "2026-05-11T11:58:30.113302+00:00"
+    }
+  ],
+  "token_counts": [
+    {
+      "node": "supervisor",
+      "input_tokens": 401,
+      "output_tokens": 55,
+      "total_tokens": 456
+    },
+    {
+      "node": "observation_characterizer",
+      "input_tokens": 1156,
+      "output_tokens": 265,
+      "total_tokens": 1421
+    },
+    {
+      "node": "artefact_checker",
+      "input_tokens": 831,
+      "output_tokens": 365,
+      "total_tokens": 1196
+    },
+    {
+      "node": "astrophysical_interpreter",
+      "input_tokens": 815,
+      "output_tokens": 288,
+      "total_tokens": 1103
+    },
+    {
+      "node": "context_retriever",
+      "input_tokens": 1229,
+      "output_tokens": 470,
+      "total_tokens": 1699
+    },
+    {
+      "node": "novelty_assessor",
+      "input_tokens": 886,
+      "output_tokens": 110,
+      "total_tokens": 996
+    },
+    {
+      "node": "evidence_aggregator",
+      "input_tokens": 1431,
+      "output_tokens": 407,
+      "total_tokens": 1838
+    },
+    {
+      "node": "followup_prioritizer",
+      "input_tokens": 900,
+      "output_tokens": 164,
+      "total_tokens": 1064
+    },
+    {
+      "node": "synthesis",
+      "input_tokens": 1761,
+      "output_tokens": 827,
+      "total_tokens": 2588
+    }
+  ],
+  "metrics": {
+    "total_wall_ms": 31342.5,
+    "parallel_wall_ms": 9670.9,
+    "sequential_estimate_ms": 24878.8,
+    "speedup": 2.57,
+    "total_tokens": 12361,
+    "input_tokens": 9410,
+    "output_tokens": 2951,
+    "estimated_cost_usd": 0.0031820999999999998,
+    "pricing_model": "gpt-4o-mini production estimate",
+    "consumption_note": null,
+    "metric_note": null
+  },
+  "data_products": {
+    "lightcurve": [
+      {
+        "tid": "ztf",
+        "mjd": 58850.50773150008,
+        "candid": 1.096507732115015e+18,
+        "fid": 2.0,
+        "pid": 1096507732115.0,
+        "diffmaglim": 19.65852,
+        "isdiffpos": 1.0,
+        "nid": 1096.0,
+        "distnr": 6.503055,
+        "magpsf": 17.45211,
+        "magpsf_corr": null,
+        "magpsf_corr_ext": null,
+        "magap": 18.1706,
+        "magap_corr": null,
+        "sigmapsf": 0.15513302,
+        "sigmapsf_corr": null,
+        "sigmapsf_corr_ext": null,
+        "sigmagap": 0.0659,
+        "sigmagap_corr": null,
+        "ra": 231.059771,
+        "dec": 18.4129279,
+        "rb": 0.3,
+        "rbversion": "t17_f5_c3",
+        "drb": 0.73354435,
+        "magapbig": 18.1261,
+        "sigmagapbig": 0.0806,
+        "rfid": 582120221.0,
+        "has_stamp": "True",
+        "corrected": "False",
+        "dubious": "False",
+        "candid_alert": null,
+        "step_id_corr": "bulk_1.0.0",
+        "phase": 0.0,
+        "parent_candid": 0.0
+      }
+    ],
+    "probabilities": [
+      {
+        "classifier_name": "stamp_classifier",
+        "classifier_version": "stamp_classifier_1.0.0",
+        "class_name": "bogus",
+        "probability": 0.7798884,
+        "ranking": 1
+      },
+      {
+        "classifier_name": "stamp_classifier",
+        "classifier_version": "stamp_classifier_1.0.0",
+        "class_name": "VS",
+        "probability": 0.060971506,
+        "ranking": 2
+      },
+      {
+        "classifier_name": "stamp_classifier",
+        "classifier_version": "stamp_classifier_1.0.0",
+        "class_name": "asteroid",
+        "probability": 0.058163673,
+        "ranking": 3
+      },
+      {
+        "classifier_name": "stamp_classifier",
+        "classifier_version": "stamp_classifier_1.0.0",
+        "class_name": "SN",
+        "probability": 0.05306992,
+        "ranking": 4
+      },
+      {
+        "classifier_name": "stamp_classifier",
+        "classifier_version": "stamp_classifier_1.0.0",
+        "class_name": "AGN",
+        "probability": 0.047906514,
+        "ranking": 5
+      }
+    ]
+  }
+}

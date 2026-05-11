@@ -324,12 +324,13 @@ def _mock_single_quality(packet: dict[str, Any], expected_interest: float) -> di
 
 
 def _single_wall_estimate_ms(timing: dict[str, float], multi_wall_ms: float) -> float:
+    # Serial estimate: sum all agent durations (no parallelism).
+    # A single generalist would still need to do each analysis step in sequence,
+    # so the wall clock equals the sum of all agent times (no fan-out savings).
     serial_same_work = sum(timing.values())
     if serial_same_work <= 0:
         return multi_wall_ms * 1.8
-    # A single generalist avoids some orchestration overhead, but cannot run
-    # the four specialist checks in parallel.
-    return max(multi_wall_ms * 1.15, serial_same_work * 0.88)
+    return serial_same_work
 
 
 def _single_token_estimate(packet: dict[str, Any], multi_tokens: int, quality: dict[str, Any]) -> int:

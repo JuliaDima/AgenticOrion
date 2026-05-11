@@ -39,55 +39,55 @@ AGENTS = [
     },
     {
         "id": "observation_characterizer",
-        "label": "Observation Characterizer",
+        "label": "Characterizer",
         "role": "Extracts salient features, missing evidence, uncertainties, and data-quality notes.",
         "group": "characterization",
     },
     {
         "id": "astrophysical_interpreter",
-        "label": "Astrophysical Interpreter",
+        "label": "Astro",
         "role": "Tests plausible astrophysical explanations and class confidences.",
         "group": "parallel",
     },
     {
         "id": "artefact_checker",
-        "label": "Artefact Checker",
+        "label": "Artefact",
         "role": "Estimates whether instrument, detector, or pipeline effects explain the signal.",
         "group": "parallel",
     },
     {
         "id": "novelty_assessor",
-        "label": "Novelty Assessor",
+        "label": "Novelty",
         "role": "Scores rarity, novelty, uncertainty, follow-up value, and time sensitivity.",
         "group": "parallel",
     },
     {
         "id": "context_retriever",
-        "label": "Context Retriever",
+        "label": "Context",
         "role": "Searches literature/context and summarizes relevant historical analogues.",
         "group": "parallel",
     },
     {
         "id": "evidence_aggregator",
-        "label": "Evidence Aggregator",
+        "label": "Aggregator",
         "role": "Debates branch outputs, updates confidences, and sets a triage verdict.",
         "group": "debate",
     },
     {
         "id": "followup_prioritizer",
-        "label": "Follow-up Prioritizer",
+        "label": "Follow-up",
         "role": "Ranks discriminating follow-up observations by urgency and scientific value.",
         "group": "action",
     },
     {
         "id": "code_executor",
-        "label": "Code Executor",
+        "label": "Code",
         "role": "Optionally generates and executes lightweight Python metrics on local data.",
         "group": "analysis",
     },
     {
         "id": "synthesis",
-        "label": "Synthesis",
+        "label": "Report",
         "role": "Produces the final traceable Agentic Orion scientific report.",
         "group": "report",
     },
@@ -221,7 +221,14 @@ def _packet_dir(index: int | None) -> Path | None:
     if index is None:
         return None
     matches = sorted(PACKETS_ROOT.glob(f"packet_{index:02d}_*"))
-    return matches[0] if matches else None
+    if matches:
+        return matches[0]
+    # BLIND packets: registered at indices 13-24, stored as packet_01_BLIND … packet_12_BLIND
+    if 13 <= index <= 24:
+        orig = index - 12
+        matches = sorted(PACKETS_ROOT.glob(f"packet_{orig:02d}_BLIND"))
+        return matches[0] if matches else None
+    return None
 
 
 def _read_lightcurve(index: int | None) -> list[dict[str, Any]]:
@@ -506,6 +513,13 @@ class OrionHandler(SimpleHTTPRequestHandler):
 
     def log_message(self, format: str, *args: Any) -> None:
         print(f"[dashboard] {self.address_string()} - {format % args}")
+
+    def end_headers(self) -> None:
+        if self.path.endswith((".js", ".css", ".html", "")):
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
+        super().end_headers()
 
     def _send_json(self, payload: Any, status: int = 200) -> None:
         body = json.dumps(payload, default=str).encode("utf-8")

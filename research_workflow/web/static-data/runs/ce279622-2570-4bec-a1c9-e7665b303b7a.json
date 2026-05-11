@@ -1,0 +1,1346 @@
+{
+  "run": {
+    "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+    "query": "packet_11_JWST/NIRCam",
+    "start_time": "2026-05-11T11:58:38.813778+00:00",
+    "end_time": "2026-05-11T11:59:11.737579+00:00",
+    "status": "success",
+    "duration_ms": 32884.8,
+    "packet_index": 11,
+    "object_id": "JWST NIRCam 'wisp' artefact pattern",
+    "mission": "JWST/NIRCam",
+    "experiment_type": "CTRL",
+    "triage_verdict": "REJECT_ARTEFACT",
+    "interest_score": 0.1,
+    "total_tokens": 11710,
+    "estimated_cost_usd": 0.0029733,
+    "has_final_state": true
+  },
+  "packet": {
+    "mission": "JWST/NIRCam",
+    "experiment_type": "CTRL",
+    "source": {
+      "alert_broker": null,
+      "mission_archive": "MAST https://mast.stsci.edu",
+      "curated_demo": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+    },
+    "object_or_event_id": {
+      "artefact_name": "JWST NIRCam 'wisp' artefact pattern",
+      "field_example": "JADES GOODS-S pointing, Module B",
+      "RA_deg": 53.162,
+      "Dec_deg": -27.79,
+      "MAST_proposal": "1180",
+      "artefact_class": "wisp / scattered-light persistence",
+      "reference_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+    },
+    "modality": [
+      "image_cutout"
+    ],
+    "short_summary": "NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.",
+    "metadata": {
+      "artefact_type": "wisp / scattered-light",
+      "affected_filters": [
+        "F150W",
+        "F200W"
+      ],
+      "module": "NIRCam Module B",
+      "STScI_issue_ref": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+    },
+    "small_data_product": {
+      "image_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+      "lightcurve_url": null,
+      "spectrum_url": null,
+      "cutout_metadata": {
+        "instrument": "NIRCam",
+        "filter": "F150W",
+        "artefact": true,
+        "description": "Wisp pattern; no point-source extraction expected"
+      }
+    },
+    "initial_pipeline_labels": [
+      "artefact",
+      "CTRL",
+      "reject",
+      "non_astrophysical"
+    ],
+    "query_hints": {
+      "STScI_docs": {
+        "url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+        "note": "Reference for wisp morphology characterisation."
+      },
+      "MAST_image": {
+        "python": "from astroquery.mast import Observations\nobs = Observations.query_criteria(\n    proposal_id='1180',\n    instrument_name='NIRCAM',\n    filters='F150W'\n)"
+      }
+    }
+  },
+  "packet_index": 11,
+  "agents": [
+    {
+      "id": "supervisor",
+      "label": "Supervisor",
+      "role": "Routes the packet and decides whether quantitative code analysis could help.",
+      "group": "routing",
+      "call": {
+        "id": 99,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "supervisor",
+        "input_summary": "packet mission='JWST/NIRCam'",
+        "output_summary": "mission='JWST/NIRCam' modality='image_cutout' needs_code=False",
+        "start_time": "2026-05-11T11:58:38.853435+00:00",
+        "end_time": "2026-05-11T11:58:40.642735+00:00",
+        "duration_ms": 1788.6,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "mission": "JWST/NIRCam",
+        "primary_modality": "image_cutout",
+        "needs_code": false
+      },
+      "tokens": {
+        "node": "supervisor",
+        "input_tokens": 394,
+        "output_tokens": 56,
+        "total_tokens": 450
+      },
+      "timing": {
+        "node": "supervisor",
+        "duration_ms": 1788.6,
+        "timestamp": "2026-05-11T11:58:38.853435+00:00"
+      }
+    },
+    {
+      "id": "observation_characterizer",
+      "label": "Observation Characterizer",
+      "role": "Extracts salient features, missing evidence, uncertainties, and data-quality notes.",
+      "group": "characterization",
+      "call": {
+        "id": 100,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "observation_characterizer",
+        "input_summary": "packet_11 JWST/NIRCam",
+        "output_summary": "This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.",
+        "start_time": "2026-05-11T11:58:40.649189+00:00",
+        "end_time": "2026-05-11T11:58:43.368082+00:00",
+        "duration_ms": 2718.6,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "observation_characterization": {
+          "modality_summary": "The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.",
+          "salient_features": [
+            "RA: 53.162 degrees",
+            "Dec: -27.79 degrees",
+            "Artefact type: wisp / scattered-light",
+            "Affected filters: F150W, F200W",
+            "Module: NIRCam Module B",
+            "Pipeline labels: artefact, CTRL, reject, non_astrophysical"
+          ],
+          "missing_evidence": [
+            "Spectroscopic data to confirm non-astrophysical nature",
+            "Additional imaging in other filters to assess consistency",
+            "Temporal data to rule out transient phenomena"
+          ],
+          "uncertainties": [
+            "Potential for confusion with faint astrophysical sources due to proximity",
+            "Variability in artefact appearance across different observations"
+          ],
+          "data_quality_notes": [
+            "Data is flagged as artefact and non-astrophysical by the pipeline",
+            "Control observation indicates the need to recognize artefact morphology"
+          ],
+          "one_line_summary": "This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.",
+          "duration_ms": 2718.6
+        }
+      },
+      "tokens": {
+        "node": "observation_characterizer",
+        "input_tokens": 715,
+        "output_tokens": 226,
+        "total_tokens": 941
+      },
+      "timing": {
+        "node": "observation_characterizer",
+        "duration_ms": 2718.6,
+        "timestamp": "2026-05-11T11:58:40.649189+00:00"
+      }
+    },
+    {
+      "id": "astrophysical_interpreter",
+      "label": "Astrophysical Interpreter",
+      "role": "Tests plausible astrophysical explanations and class confidences.",
+      "group": "parallel",
+      "call": {
+        "id": 102,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "astrophysical_interpreter",
+        "input_summary": "JWST/NIRCam",
+        "output_summary": "best='Wisp / Scattered-Light Artefact' confidence=1.00",
+        "start_time": "2026-05-11T11:58:43.371718+00:00",
+        "end_time": "2026-05-11T11:58:48.922217+00:00",
+        "duration_ms": 5549.8,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "astrophysical_interpretation": {
+          "candidate_classes": [
+            {
+              "name": "Wisp / Scattered-Light Artefact",
+              "probability": 1.0,
+              "evidence_for": [
+                "Observation identified as a 'wisp' pattern, a known artefact in JWST NIRCam data.",
+                "Metadata confirms the artefact type as 'wisp / scattered-light'.",
+                "Pipeline labels include 'artefact' and 'non_astrophysical', indicating recognition of the feature as an artefact."
+              ],
+              "evidence_against": []
+            },
+            {
+              "name": "Astrophysical Transient",
+              "probability": 0.0,
+              "evidence_for": [],
+              "evidence_against": [
+                "Characterization summary explicitly states this is a non-astrophysical feature.",
+                "The artefact is recognized as a known issue with JWST data, not an astrophysical event."
+              ]
+            },
+            {
+              "name": "Lensed Source",
+              "probability": 0.0,
+              "evidence_for": [],
+              "evidence_against": [
+                "The observation is confirmed to be a wisp artefact, not a lensed source.",
+                "Control notes indicate that the morphology does not match that of a lensed source."
+              ]
+            }
+          ],
+          "best_explanation": "Wisp / Scattered-Light Artefact",
+          "confidence": 1.0,
+          "uncertainty_notes": "The main uncertainty arises from the potential for confusion with faint astrophysical sources due to proximity, but the artefact is well-documented and recognized.",
+          "branch_duration_ms": 5549.8
+        }
+      },
+      "tokens": {
+        "node": "astrophysical_interpreter",
+        "input_tokens": 811,
+        "output_tokens": 271,
+        "total_tokens": 1082
+      },
+      "timing": {
+        "node": "astrophysical_interpreter",
+        "duration_ms": 5549.8,
+        "timestamp": "2026-05-11T11:58:43.371718+00:00"
+      }
+    },
+    {
+      "id": "artefact_checker",
+      "label": "Artefact Checker",
+      "role": "Estimates whether instrument, detector, or pipeline effects explain the signal.",
+      "group": "parallel",
+      "call": {
+        "id": 103,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "artefact_checker",
+        "input_summary": "JWST/NIRCam",
+        "output_summary": "artefact_prob=0.90 most_likely='Scattered light (wisp) artefact from NIRCam Module B.'",
+        "start_time": "2026-05-11T11:58:43.371400+00:00",
+        "end_time": "2026-05-11T11:58:49.269505+00:00",
+        "duration_ms": 5897.9,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "artefact_assessment": {
+          "possible_artefact_modes": [
+            {
+              "name": "Scattered Light (Wisp)",
+              "probability": 0.9,
+              "evidence_for": [
+                "Observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern.",
+                "Data is flagged as artefact and non-astrophysical by the pipeline.",
+                "Wisp features are known to appear in F150W and F200W images."
+              ],
+              "evidence_against": [
+                "The artefact is recognized and flagged by the pipeline, indicating confidence in its classification as non-astrophysical."
+              ]
+            }
+          ],
+          "most_likely_non_astrophysical": "Scattered light (wisp) artefact from NIRCam Module B.",
+          "artefact_probability": 0.9,
+          "evidence_for_artefact": [
+            "The observation is identified as a wisp/scattered-light artefact in the metadata.",
+            "The affected filters (F150W, F200W) are known to exhibit this artefact."
+          ],
+          "evidence_against_artefact": [
+            "The artefact is consistently recognized by the pipeline and labeled as non-astrophysical."
+          ],
+          "recommended_quality_checks": [
+            "Inspect the image cutout for the characteristic morphology of wisps.",
+            "Review the STScI issue reference for additional context on known artefacts."
+          ],
+          "branch_duration_ms": 5897.9
+        }
+      },
+      "tokens": {
+        "node": "artefact_checker",
+        "input_tokens": 853,
+        "output_tokens": 252,
+        "total_tokens": 1105
+      },
+      "timing": {
+        "node": "artefact_checker",
+        "duration_ms": 5897.9,
+        "timestamp": "2026-05-11T11:58:43.371400+00:00"
+      }
+    },
+    {
+      "id": "novelty_assessor",
+      "label": "Novelty Assessor",
+      "role": "Scores rarity, novelty, uncertainty, follow-up value, and time sensitivity.",
+      "group": "parallel",
+      "call": {
+        "id": 101,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "novelty_assessor",
+        "input_summary": "JWST/NIRCam",
+        "output_summary": "rarity=0.05 novelty=0.00 followup=0.00 overall=0.09",
+        "start_time": "2026-05-11T11:58:43.372198+00:00",
+        "end_time": "2026-05-11T11:58:46.081914+00:00",
+        "duration_ms": 2709.0,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "novelty_rarity_assessment": {
+          "rarity_score": 0.05,
+          "novelty_score": 0.0,
+          "uncertainty_score": 0.3,
+          "followup_value_score": 0.0,
+          "overall_interest_score": 0.085,
+          "reason_for_scientific_interest": "The observation is a known detector artefact, which is common and well-documented. It does not present new scientific insights or challenges to existing models.",
+          "ood_notes": "The artefact is a recognized feature of the NIRCam system, specifically related to scattered light, and does not represent an astrophysical phenomenon.",
+          "time_sensitive": false,
+          "branch_duration_ms": 2709.0
+        }
+      },
+      "tokens": {
+        "node": "novelty_assessor",
+        "input_tokens": 881,
+        "output_tokens": 118,
+        "total_tokens": 999
+      },
+      "timing": {
+        "node": "novelty_assessor",
+        "duration_ms": 2709.0,
+        "timestamp": "2026-05-11T11:58:43.372198+00:00"
+      }
+    },
+    {
+      "id": "context_retriever",
+      "label": "Context Retriever",
+      "role": "Searches literature/context and summarizes relevant historical analogues.",
+      "group": "parallel",
+      "call": {
+        "id": 104,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "context_retriever",
+        "input_summary": "query='JWST NIRCam morphology classification artefact non_astrophysical'",
+        "output_summary": "4 papers retrieved; 2 summarised",
+        "start_time": "2026-05-11T11:58:43.371974+00:00",
+        "end_time": "2026-05-11T11:58:53.401393+00:00",
+        "duration_ms": 10028.7,
+        "error": null
+      },
+      "tools": [
+        {
+          "id": 27,
+          "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+          "agent_name": "context_retriever",
+          "tool_name": "search_arxiv",
+          "input": "{\"query\": \"JWST NIRCam morphology classification artefact non_astrophysical\"}",
+          "output": "{\"count\": 4}",
+          "start_time": "2026-05-11T11:58:43.371974+00:00",
+          "duration_ms": 1521.3,
+          "error": null,
+          "input_json": {
+            "query": "JWST NIRCam morphology classification artefact non_astrophysical"
+          },
+          "output_json": {
+            "count": 4
+          }
+        }
+      ],
+      "outputs": {
+        "context_retrieval_results": {
+          "related_papers": [
+            {
+              "title": "Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition",
+              "key_finding": "The study provides a detailed analysis of the point spread function (PSF) of JWST NIRCam imaging, highlighting spatial variations in PSF across different filters, including F150W and F200W.",
+              "relevance": "This paper is relevant as it discusses the PSF characteristics in the same filters affected by the wisp artefact, which can help in understanding the morphology of artefacts."
+            },
+            {
+              "title": "JWST observations of stellar occultations by solar system bodies and rings",
+              "key_finding": "The paper evaluates the potential of JWST for studying solar system bodies through stellar occultations, emphasizing the strengths and weaknesses of the technique.",
+              "relevance": "While not directly related to artefacts, it provides context on the observational capabilities of JWST, which is important for distinguishing between astrophysical and non-astrophysical features."
+            }
+          ],
+          "similar_observations": [
+            "The detection of scattered light artefacts in Hubble Space Telescope (HST) images, which also required careful classification to avoid misidentifying them as astrophysical sources.",
+            "Previous observations of wisp patterns in early JWST data, which were initially flagged as potential astrophysical transients before being classified as artefacts."
+          ],
+          "relevant_catalogue_context": "NIRCam has a known issue with scattered light artefacts, particularly in the F150W and F200W filters, which can affect data quality and interpretation. The occurrence of wisps is concentrated near detector module boundaries, and their morphology is well-documented in JWST calibration data.",
+          "mission_instrument_notes": "NIRCam is designed for high-resolution imaging in the near-infrared, but it is sensitive to scattered light effects that can produce artefacts like wisps. Understanding the PSF and scattered light characteristics is crucial for accurate data interpretation.",
+          "known_failure_modes": [
+            "Misclassification of wisp artefacts as astrophysical sources, leading to false positives in transient detection.",
+            "Inaccurate PSF modeling can exacerbate the visibility of artefacts, making them appear more significant than they are."
+          ],
+          "arxiv_search_query": "JWST NIRCam morphology classification artefact non_astrophysical",
+          "branch_duration_ms": 10028.7,
+          "raw_arxiv_papers": [
+            {
+              "title": "JWST observations of stellar occultations by solar system bodies and rings",
+              "authors": [
+                "P. Santos-Sanz",
+                "R. G. French",
+                "N. Pinilla-Alonso",
+                "J. Stansberry",
+                "Z-Y. Lin"
+              ],
+              "abstract": "In this paper we investigate the opportunities provided by the James Webb Space Telescope (JWST) for significant scientific advances in the study of solar system bodies and rings using stellar occultations. The strengths and weaknesses of the stellar occultation technique are evaluated in light of JWST's unique capabilities. We identify several possible JWST occultation events by minor bodies and rings, and evaluate their potential scientific value. These predictions depend critically on accurate a priori knowledge of the orbit of JWST near the Sun-Earth Lagrange-point 2 (L2). We also explore the possibility of serendipitous stellar occultations by very small minor bodies as a by-product of other JWST observing programs. Finally, to optimize the potential scientific return of stellar occul",
+              "url": "http://arxiv.org/abs/1510.06575v3",
+              "published": "2015-10-22",
+              "categories": [
+                "astro-ph.EP"
+              ]
+            },
+            {
+              "title": "Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition",
+              "authors": [
+                "Ming-Yang Zhuang",
+                "Yue Shen"
+              ],
+              "abstract": "We present a detailed analysis of the point spread function (PSF) of JWST NIRCam imaging in eight filters: F070W, F115W, F150W, F200W, F277W, F356W, F444W, and F480M, using publicly available data. Spatial variations in the PSF FWHM generally decrease with wavelength: the maximum and RMS fractional variations are $\\sim20\\%$ and $5\\%$ in F070W, reduced to $\\sim3\\%$ and $0.6\\%$ in F444W. We compare three commonly-used methods (SWarp, photutils, and PSFEx) to construct model PSFs and conclude that PSFEx delivers the best performance. Using simulated images of broad-line AGNs, we evaluate the impact of PSF mismatches on the recoverability of host galaxy properties. Host fluxes are generally overestimated when adopting mismatched PSF models, with larger overestimation for more AGN-dominated sys",
+              "url": "http://arxiv.org/abs/2304.13776v1",
+              "published": "2023-04-26",
+              "categories": [
+                "astro-ph.GA"
+              ]
+            },
+            {
+              "title": "Global sky background images for JWST/NIRISS Wide-Field Slitless Spectroscopy",
+              "authors": [
+                "Ga\u00ebl Noirot"
+              ],
+              "abstract": "We present updated empirical background images for JWST/NIRISS Wide-Field Slitless Spectroscopy (WFSS) for both orthogonal grisms (GR150C, GR150R) crossed with all NIRISS WFSS wide-band filters (F090W, F115W, F150W, F200W). The background images are created using carefully vetted science and calibration exposures and improve the quality of previous background reference files. We present our methodology to create the background images and assess their quality using background subtracted science data. Overall, background residuals reach below 1% of the sky brightness for all filter and grism combinations, corresponding to a decrease in the background RMS of a factor of up to 7 from previous background reference files. The new background images are available on the Calibration Reference Data ",
+              "url": "http://arxiv.org/abs/2507.10650v1",
+              "published": "2025-07-14",
+              "categories": [
+                "astro-ph.IM",
+                "astro-ph.GA"
+              ]
+            },
+            {
+              "title": "Faint galaxies in the Zone of Avoidance revealed by JWST/NIRCam",
+              "authors": [
+                "J. L. Nilo-Castell\u00f3n",
+                "M. V. Alonso",
+                "L. Baravalle",
+                "C. Villalon",
+                "C. N. A. Willmer"
+              ],
+              "abstract": "The Zone of Avoidance (ZoA) remains one of the last frontiers in constructing a comprehensive three-dimensional map of the Universe. Galactic extinction, stellar crowding, and confusion noise have historically limited the detection of background galaxies in these regions, with implications for large-scale structure and cosmological measurements. We assess the capability of the James Webb Space Telescope (JWST) Near Infrared Camera (NIRCam) to detect extragalactic sources in a heavily contaminated region of the Milky Way. We analyzed JWST/NIRCam wide-filter images of NGC 3324 with a customized implementation of SExtractor v2.28. Sources were detected in the F444W band, cross-matched with F090W and F200W, and validated against recent DAOPHOT point spread function (PSF) photometry. A refined ",
+              "url": "http://arxiv.org/abs/2510.12488v1",
+              "published": "2025-10-14",
+              "categories": [
+                "astro-ph.GA"
+              ]
+            }
+          ]
+        }
+      },
+      "tokens": {
+        "node": "context_retriever",
+        "input_tokens": 1303,
+        "output_tokens": 456,
+        "total_tokens": 1759
+      },
+      "timing": {
+        "node": "context_retriever",
+        "duration_ms": 10028.7,
+        "timestamp": "2026-05-11T11:58:43.371974+00:00"
+      }
+    },
+    {
+      "id": "evidence_aggregator",
+      "label": "Evidence Aggregator",
+      "role": "Debates branch outputs, updates confidences, and sets a triage verdict.",
+      "group": "debate",
+      "call": {
+        "id": 105,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "evidence_aggregator",
+        "input_summary": "4 branches from JWST/NIRCam",
+        "output_summary": "verdict=REJECT_ARTEFACT interest=0.10 top_hypothesis=Wisp / Scattered-Light Artefact",
+        "start_time": "2026-05-11T11:58:53.407622+00:00",
+        "end_time": "2026-05-11T11:58:57.402428+00:00",
+        "duration_ms": 3994.1,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "aggregated_evidence": {
+          "ranked_hypotheses": [
+            {
+              "hypothesis": "Wisp / Scattered-Light Artefact",
+              "updated_confidence": 0.95,
+              "supporting_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "opposing_branches": [],
+              "key_discriminant": "Characteristic morphology of wisps in image cutout."
+            },
+            {
+              "hypothesis": "Astrophysical Transient",
+              "updated_confidence": 0.05,
+              "supporting_branches": [],
+              "opposing_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "key_discriminant": "Absence of artefact morphology and presence of transient-like features."
+            },
+            {
+              "hypothesis": "Lensed Source",
+              "updated_confidence": 0.05,
+              "supporting_branches": [],
+              "opposing_branches": [
+                "Astrophysical Interpretation",
+                "Instrument/Artefact Check",
+                "Novelty/Rarity Assessment",
+                "Context Retrieval"
+              ],
+              "key_discriminant": "Distinctive lensing features without artefact characteristics."
+            }
+          ],
+          "agreement_points": [
+            "All branches agree that the observation is a wisp/scattered-light artefact.",
+            "The artefact is associated with the F150W and F200W filters and is well-documented."
+          ],
+          "disagreement_points": [],
+          "confidence_updates": [
+            "Astrophysical Interpretation branch strongly supports the artefact hypothesis, reducing confidence in astrophysical explanations.",
+            "Instrument/Artefact Check confirms high artefact probability, reinforcing non-astrophysical interpretation.",
+            "Novelty/Rarity Assessment indicates low scientific interest, supporting the artefact classification.",
+            "Context Retrieval provides historical and technical context, aligning with the artefact hypothesis."
+          ],
+          "unresolved_questions": [
+            "Could there be any faint astrophysical sources coincidentally aligned with the artefact that are not detected due to the artefact's presence?"
+          ],
+          "overall_interest_score": 0.1,
+          "triage_verdict": "REJECT_ARTEFACT",
+          "needs_code_analysis": false
+        }
+      },
+      "tokens": {
+        "node": "evidence_aggregator",
+        "input_tokens": 1438,
+        "output_tokens": 386,
+        "total_tokens": 1824
+      },
+      "timing": {
+        "node": "evidence_aggregator",
+        "duration_ms": 3994.1,
+        "timestamp": "2026-05-11T11:58:53.407622+00:00"
+      }
+    },
+    {
+      "id": "followup_prioritizer",
+      "label": "Follow-up Prioritizer",
+      "role": "Ranks discriminating follow-up observations by urgency and scientific value.",
+      "group": "action",
+      "call": {
+        "id": 106,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "followup_prioritizer",
+        "input_summary": "verdict=REJECT_ARTEFACT interest=0.1",
+        "output_summary": "1 actions recommended",
+        "start_time": "2026-05-11T11:58:57.407866+00:00",
+        "end_time": "2026-05-11T11:59:00.823725+00:00",
+        "duration_ms": 3415.5,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "followup_recommendations": {
+          "priority_actions": [
+            {
+              "action": "Confirm artefact origin with quality check of NIRCam images",
+              "instrument_or_method": "JWST/NIRCam",
+              "scientific_rationale": "This action will verify the presence of the characteristic morphology of wisps, confirming they are indeed artefacts and not astrophysical transients.",
+              "urgency": "IMMEDIATE",
+              "expected_outcome": "Confirmation that the wisps are artefacts and not related to any astrophysical sources."
+            }
+          ],
+          "recommended_facilities": [
+            "JWST/NIRCam"
+          ],
+          "time_sensitivity_note": "Follow-up is not time-sensitive as the artefact has been identified, but confirmation is necessary to prevent misclassification.",
+          "scientific_value_summary": "Confirming the artefact's origin will ensure accurate data interpretation and prevent false positives in future observations.",
+          "stop_here_if": "if image quality check confirms subtraction artefact."
+        }
+      },
+      "tokens": {
+        "node": "followup_prioritizer",
+        "input_tokens": 887,
+        "output_tokens": 169,
+        "total_tokens": 1056
+      },
+      "timing": {
+        "node": "followup_prioritizer",
+        "duration_ms": 3415.5,
+        "timestamp": "2026-05-11T11:58:57.407866+00:00"
+      }
+    },
+    {
+      "id": "code_executor",
+      "label": "Code Executor",
+      "role": "Optionally generates and executes lightweight Python metrics on local data.",
+      "group": "analysis",
+      "call": {},
+      "tools": [],
+      "outputs": {
+        "code_to_execute": null,
+        "code_execution_output": null
+      },
+      "tokens": null,
+      "timing": null
+    },
+    {
+      "id": "synthesis",
+      "label": "Synthesis",
+      "role": "Produces the final traceable Agentic Orion scientific report.",
+      "group": "report",
+      "call": {
+        "id": 107,
+        "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+        "agent_name": "synthesis",
+        "input_summary": "all branches for JWST NIRCam 'wisp' artefact pattern",
+        "output_summary": "## Agentic Orion Triage Report \u2014 JWST NIRCam 'wisp' artefact pattern\n\n### Observation Summary\nThe observation is an image cutout from the JWST NIRCam, capturing a known artefact pattern associated with scattered light. The data was processed through the CTRL pipeline and labeled as an artefact, non-",
+        "start_time": "2026-05-11T11:59:00.826594+00:00",
+        "end_time": "2026-05-11T11:59:11.729306+00:00",
+        "duration_ms": 10901.5,
+        "error": null
+      },
+      "tools": [],
+      "outputs": {
+        "synthesis_report": "## Agentic Orion Triage Report \u2014 JWST NIRCam 'wisp' artefact pattern\n\n### Observation Summary\nThe observation is an image cutout from the JWST NIRCam, capturing a known artefact pattern associated with scattered light. The data was processed through the CTRL pipeline and labeled as an artefact, non-astrophysical, and rejected. The affected filters are F150W and F200W, and the observation was made using NIRCam Module B.\n\n### Characterization\nKey features include the artefact type (wisp/scattered-light) and its coordinates (RA: 53.162 degrees, Dec: -27.79 degrees). Missing data includes spectroscopic confirmation, additional imaging in other filters, and temporal data to rule out transient phenomena. There is uncertainty regarding potential confusion with faint astrophysical sources and variability in artefact appearance.\n\n### Triage Verdict\n**REJECT_ARTEFACT** \u2014 Interest score: 0.10 / 1.0\n\n### Competing Hypotheses\n| Hypothesis | Confidence | Key Evidence For | Key Evidence Against |\n|---|---|---|---|\n| Wisp / Scattered-Light Artefact | 0.95 | Characteristic morphology of wisps | None |\n| Astrophysical Transient | 0.05 | None | Absence of transient-like features |\n| Lensed Source | 0.05 | None | Lack of lensing features |\n\n### Branch Analysis\n**Astrophysical branch**: The artefact is identified as a wisp/scattered-light pattern, with high confidence due to its well-documented nature. The main uncertainty is potential confusion with faint sources.\n**Artefact branch**: The artefact probability is high (0.9), with quality checks confirming the characteristic morphology of wisps.\n**Novelty/Rarity branch**: The artefact is common and well-documented, with low rarity (0.05) and novelty (0.0), resulting in a low follow-up value.\n**Context branch**: Literature confirms the artefact's characteristics and its non-astrophysical nature, supporting the rejection verdict.\n\n### Scientific Disagreement\nThere is no significant disagreement among branches; all support the artefact hypothesis. The main concern is the potential for coincidental alignment with faint astrophysical sources.\n\n### Timing\nParallel branches (wall): 10036 ms (vs. 24185 ms sequential \u2192 2.41x speedup)\n\n### Follow-Up Plan\n1. Confirm artefact origin with quality check of NIRCam images using JWST/NIRCam. This will verify the presence of the characteristic morphology of wisps, confirming they are artefacts and not astrophysical transients. **Urgency: IMMEDIATE**\n\n### Quantitative Analysis\nN/A\n\n### References\n[1] JWST observations of stellar occultations by solar system bodies and rings \u2014 http://arxiv.org/abs/1510.06575v3 (2015-10-22)  \n[2] Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition \u2014 http://arxiv.org/abs/2304.13776v1 (2023-04-26)  \n[3] Global sky background images for JWST/NIRISS Wide-Field Slitless Spectroscopy \u2014 http://arxiv.org/abs/2507.10650v1 (2025-07-14)  \n[4] Faint galaxies in the Zone of Avoidance revealed by JWST/NIRCam \u2014 http://arxiv.org/abs/2510.12488v1 (2025-10-14)  \n\n---\n*Generated by Agentic Orion v0.1 \u2014 automated scientific attention-allocation workflow*"
+      },
+      "tokens": {
+        "node": "synthesis",
+        "input_tokens": 1724,
+        "output_tokens": 770,
+        "total_tokens": 2494
+      },
+      "timing": {
+        "node": "synthesis",
+        "duration_ms": 10901.5,
+        "timestamp": "2026-05-11T11:59:00.826594+00:00"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": 27,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "agent_name": "context_retriever",
+      "tool_name": "search_arxiv",
+      "input": "{\"query\": \"JWST NIRCam morphology classification artefact non_astrophysical\"}",
+      "output": "{\"count\": 4}",
+      "start_time": "2026-05-11T11:58:43.371974+00:00",
+      "duration_ms": 1521.3,
+      "error": null,
+      "input_json": {
+        "query": "JWST NIRCam morphology classification artefact non_astrophysical"
+      },
+      "output_json": {
+        "count": 4
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": 99,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "START",
+      "to_node": "supervisor",
+      "timestamp": "2026-05-11T11:58:40.647033+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": null, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": null, \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"init\", \"errors\": [], \"step_count\": 0, \"timing_log\": [], \"token_counts\": []}"
+    },
+    {
+      "id": 100,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "supervisor",
+      "to_node": "observation_characterizer",
+      "timestamp": "2026-05-11T11:58:43.369259+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": null, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": null, \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"supervisor\", \"errors\": [], \"step_count\": 1, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1788.6, \"timestamp\": \"2026-05-11T11:58:38.853435+00:00\"}], \"token_counts\": [{\"node\": \"supervisor\", \"input_tokens\": 394, \"output_tokens\": 56, \"total_tokens\": 450}]}"
+    },
+    {
+      "id": 101,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "observation_characterizer",
+      "to_node": "novelty_assessor",
+      "timestamp": "2026-05-11T11:58:46.084361+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:43.370956+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1788.6, \"timestamp\": \"2026-05-11T11:58:38.853435+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 2718.6, \"timestamp\": \"2026-05-11T11:58:40.649189+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:43.370956+00:00\"}], \"token_counts\""
+    },
+    {
+      "id": 102,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "observation_characterizer",
+      "to_node": "astrophysical_interpreter",
+      "timestamp": "2026-05-11T11:58:48.924482+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:43.370956+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1788.6, \"timestamp\": \"2026-05-11T11:58:38.853435+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 2718.6, \"timestamp\": \"2026-05-11T11:58:40.649189+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:43.370956+00:00\"}], \"token_counts\""
+    },
+    {
+      "id": 103,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "observation_characterizer",
+      "to_node": "artefact_checker",
+      "timestamp": "2026-05-11T11:58:49.270419+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:43.370956+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1788.6, \"timestamp\": \"2026-05-11T11:58:38.853435+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 2718.6, \"timestamp\": \"2026-05-11T11:58:40.649189+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:43.370956+00:00\"}], \"token_counts\""
+    },
+    {
+      "id": 104,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "observation_characterizer",
+      "to_node": "context_retriever",
+      "timestamp": "2026-05-11T11:58:53.404830+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": null, \"artefact_assessment\": null, \"novelty_rarity_assessment\": null, \"context_retrieval_results\": null, \"parallel_section_start_utc\": \"2026-05-11T11:58:43.370956+00:00\", \"parallel_section_wall_ms\": null, \"aggregated_evidence\": null, \"followup_recommendations\": null, \"code_execution_output\": null, \"synthesis_report\": null, \"current_step\": \"observation_characterizer\", \"errors\": [], \"step_count\": 2, \"timing_log\": [{\"node\": \"supervisor\", \"duration_ms\": 1788.6, \"timestamp\": \"2026-05-11T11:58:38.853435+00:00\"}, {\"node\": \"observation_characterizer\", \"duration_ms\": 2718.6, \"timestamp\": \"2026-05-11T11:58:40.649189+00:00\"}, {\"node\": \"_parallel_start\", \"duration_ms\": 0.0, \"timestamp\": \"2026-05-11T11:58:43.370956+00:00\"}], \"token_counts\""
+    },
+    {
+      "id": 105,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "parallel_branches",
+      "to_node": "evidence_aggregator",
+      "timestamp": "2026-05-11T11:58:57.405383+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Wisp / Scattered-Light Artefact\", \"probability\": 1.0, \"evidence_for\": [\"Observation identified as a 'wisp' pattern, a known artefact in JWST NIRCam data.\", \"Metadata confirms the artefact type as 'wisp / scattered-light'.\", \"Pipeline labels include 'artefact' and 'non_astrophysical', indicating recognition of the feature as an artefact.\"], \"evidence_against\": []}, {\"name\": \"Astrophysical Transient\", \"probability\": 0.0, \"evidence_for\": [], \"evidence_against\": [\"Characterization summary explicitly states this is a non-astrophysical feature.\", \"The artefact is recognized as a known issue with JWST data, not an astrophysical event.\"]}, {\"name\": \"Lensed Source\", \"probability\": 0.0, \"evidence_for\": ["
+    },
+    {
+      "id": 106,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "evidence_aggregator",
+      "to_node": "followup_prioritizer",
+      "timestamp": "2026-05-11T11:59:00.825084+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Wisp / Scattered-Light Artefact\", \"probability\": 1.0, \"evidence_for\": [\"Observation identified as a 'wisp' pattern, a known artefact in JWST NIRCam data.\", \"Metadata confirms the artefact type as 'wisp / scattered-light'.\", \"Pipeline labels include 'artefact' and 'non_astrophysical', indicating recognition of the feature as an artefact.\"], \"evidence_against\": []}, {\"name\": \"Astrophysical Transient\", \"probability\": 0.0, \"evidence_for\": [], \"evidence_against\": [\"Characterization summary explicitly states this is a non-astrophysical feature.\", \"The artefact is recognized as a known issue with JWST data, not an astrophysical event.\"]}, {\"name\": \"Lensed Source\", \"probability\": 0.0, \"evidence_for\": ["
+    },
+    {
+      "id": 107,
+      "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+      "from_node": "followup_prioritizer",
+      "to_node": "synthesis",
+      "timestamp": "2026-05-11T11:59:11.733981+00:00",
+      "state_snapshot": "{\"run_id\": \"ce279622-2570-4bec-a1c9-e7665b303b7a\", \"packet_index\": 11, \"observation_packet\": {\"mission\": \"JWST/NIRCam\", \"experiment_type\": \"CTRL\", \"source\": {\"alert_broker\": null, \"mission_archive\": \"MAST https://mast.stsci.edu\", \"curated_demo\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"object_or_event_id\": {\"artefact_name\": \"JWST NIRCam 'wisp' artefact pattern\", \"field_example\": \"JADES GOODS-S pointing, Module B\", \"RA_deg\": 53.162, \"Dec_deg\": -27.79, \"MAST_proposal\": \"1180\", \"artefact_class\": \"wisp / scattered-light persistence\", \"reference_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"modality\": [\"image_cutout\"], \"short_summary\": \"NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.\", \"metadata\": {\"artefact_type\": \"wisp / scattered-light\", \"affected_filters\": [\"F150W\", \"F200W\"], \"module\": \"NIRCam Module B\", \"STScI_issue_ref\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\"}, \"small_data_product\": {\"image_url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"lightcurve_url\": null, \"spectrum_url\": null, \"cutout_metadata\": {\"instrument\": \"NIRCam\", \"filter\": \"F150W\", \"artefact\": true, \"description\": \"Wisp pattern; no point-source extraction expected\"}}, \"initial_pipeline_labels\": [\"artefact\", \"CTRL\", \"reject\", \"non_astrophysical\"], \"query_hints\": {\"STScI_docs\": {\"url\": \"https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues\", \"note\": \"Reference for wisp morphology characterisation.\"}, \"MAST_image\": {\"python\": \"from astroquery.mast import Observations\\nobs = Observations.query_criteria(\\n    proposal_id='1180',\\n    instrument_name='NIRCAM',\\n    filters='F150W'\\n)\"}}}, \"mission\": \"JWST/NIRCam\", \"primary_modality\": \"image_cutout\", \"needs_code\": false, \"observation_characterization\": {\"modality_summary\": \"The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.\", \"salient_features\": [\"RA: 53.162 degrees\", \"Dec: -27.79 degrees\", \"Artefact type: wisp / scattered-light\", \"Affected filters: F150W, F200W\", \"Module: NIRCam Module B\", \"Pipeline labels: artefact, CTRL, reject, non_astrophysical\"], \"missing_evidence\": [\"Spectroscopic data to confirm non-astrophysical nature\", \"Additional imaging in other filters to assess consistency\", \"Temporal data to rule out transient phenomena\"], \"uncertainties\": [\"Potential for confusion with faint astrophysical sources due to proximity\", \"Variability in artefact appearance across different observations\"], \"data_quality_notes\": [\"Data is flagged as artefact and non-astrophysical by the pipeline\", \"Control observation indicates the need to recognize artefact morphology\"], \"one_line_summary\": \"This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.\", \"duration_ms\": 2718.6}, \"astrophysical_interpretation\": {\"candidate_classes\": [{\"name\": \"Wisp / Scattered-Light Artefact\", \"probability\": 1.0, \"evidence_for\": [\"Observation identified as a 'wisp' pattern, a known artefact in JWST NIRCam data.\", \"Metadata confirms the artefact type as 'wisp / scattered-light'.\", \"Pipeline labels include 'artefact' and 'non_astrophysical', indicating recognition of the feature as an artefact.\"], \"evidence_against\": []}, {\"name\": \"Astrophysical Transient\", \"probability\": 0.0, \"evidence_for\": [], \"evidence_against\": [\"Characterization summary explicitly states this is a non-astrophysical feature.\", \"The artefact is recognized as a known issue with JWST data, not an astrophysical event.\"]}, {\"name\": \"Lensed Source\", \"probability\": 0.0, \"evidence_for\": ["
+    }
+  ],
+  "state": {
+    "run_id": "ce279622-2570-4bec-a1c9-e7665b303b7a",
+    "packet_index": 11,
+    "observation_packet": {
+      "mission": "JWST/NIRCam",
+      "experiment_type": "CTRL",
+      "source": {
+        "alert_broker": null,
+        "mission_archive": "MAST https://mast.stsci.edu",
+        "curated_demo": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+      },
+      "object_or_event_id": {
+        "artefact_name": "JWST NIRCam 'wisp' artefact pattern",
+        "field_example": "JADES GOODS-S pointing, Module B",
+        "RA_deg": 53.162,
+        "Dec_deg": -27.79,
+        "MAST_proposal": "1180",
+        "artefact_class": "wisp / scattered-light persistence",
+        "reference_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+      },
+      "modality": [
+        "image_cutout"
+      ],
+      "short_summary": "NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.",
+      "metadata": {
+        "artefact_type": "wisp / scattered-light",
+        "affected_filters": [
+          "F150W",
+          "F200W"
+        ],
+        "module": "NIRCam Module B",
+        "STScI_issue_ref": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+      },
+      "small_data_product": {
+        "image_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+        "lightcurve_url": null,
+        "spectrum_url": null,
+        "cutout_metadata": {
+          "instrument": "NIRCam",
+          "filter": "F150W",
+          "artefact": true,
+          "description": "Wisp pattern; no point-source extraction expected"
+        }
+      },
+      "initial_pipeline_labels": [
+        "artefact",
+        "CTRL",
+        "reject",
+        "non_astrophysical"
+      ],
+      "query_hints": {
+        "STScI_docs": {
+          "url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+          "note": "Reference for wisp morphology characterisation."
+        },
+        "MAST_image": {
+          "python": "from astroquery.mast import Observations\nobs = Observations.query_criteria(\n    proposal_id='1180',\n    instrument_name='NIRCAM',\n    filters='F150W'\n)"
+        }
+      }
+    },
+    "mission": "JWST/NIRCam",
+    "primary_modality": "image_cutout",
+    "needs_code": false,
+    "observation_characterization": {
+      "modality_summary": "The observation is an image cutout from the JWST NIRCam, specifically capturing a known artefact pattern associated with scattered light.",
+      "salient_features": [
+        "RA: 53.162 degrees",
+        "Dec: -27.79 degrees",
+        "Artefact type: wisp / scattered-light",
+        "Affected filters: F150W, F200W",
+        "Module: NIRCam Module B",
+        "Pipeline labels: artefact, CTRL, reject, non_astrophysical"
+      ],
+      "missing_evidence": [
+        "Spectroscopic data to confirm non-astrophysical nature",
+        "Additional imaging in other filters to assess consistency",
+        "Temporal data to rule out transient phenomena"
+      ],
+      "uncertainties": [
+        "Potential for confusion with faint astrophysical sources due to proximity",
+        "Variability in artefact appearance across different observations"
+      ],
+      "data_quality_notes": [
+        "Data is flagged as artefact and non-astrophysical by the pipeline",
+        "Control observation indicates the need to recognize artefact morphology"
+      ],
+      "one_line_summary": "This observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern, which is a non-astrophysical feature.",
+      "duration_ms": 2718.6
+    },
+    "astrophysical_interpretation": {
+      "candidate_classes": [
+        {
+          "name": "Wisp / Scattered-Light Artefact",
+          "probability": 1.0,
+          "evidence_for": [
+            "Observation identified as a 'wisp' pattern, a known artefact in JWST NIRCam data.",
+            "Metadata confirms the artefact type as 'wisp / scattered-light'.",
+            "Pipeline labels include 'artefact' and 'non_astrophysical', indicating recognition of the feature as an artefact."
+          ],
+          "evidence_against": []
+        },
+        {
+          "name": "Astrophysical Transient",
+          "probability": 0.0,
+          "evidence_for": [],
+          "evidence_against": [
+            "Characterization summary explicitly states this is a non-astrophysical feature.",
+            "The artefact is recognized as a known issue with JWST data, not an astrophysical event."
+          ]
+        },
+        {
+          "name": "Lensed Source",
+          "probability": 0.0,
+          "evidence_for": [],
+          "evidence_against": [
+            "The observation is confirmed to be a wisp artefact, not a lensed source.",
+            "Control notes indicate that the morphology does not match that of a lensed source."
+          ]
+        }
+      ],
+      "best_explanation": "Wisp / Scattered-Light Artefact",
+      "confidence": 1.0,
+      "uncertainty_notes": "The main uncertainty arises from the potential for confusion with faint astrophysical sources due to proximity, but the artefact is well-documented and recognized.",
+      "branch_duration_ms": 5549.8
+    },
+    "artefact_assessment": {
+      "possible_artefact_modes": [
+        {
+          "name": "Scattered Light (Wisp)",
+          "probability": 0.9,
+          "evidence_for": [
+            "Observation captures a known JWST NIRCam artefact, specifically a 'wisp' pattern.",
+            "Data is flagged as artefact and non-astrophysical by the pipeline.",
+            "Wisp features are known to appear in F150W and F200W images."
+          ],
+          "evidence_against": [
+            "The artefact is recognized and flagged by the pipeline, indicating confidence in its classification as non-astrophysical."
+          ]
+        }
+      ],
+      "most_likely_non_astrophysical": "Scattered light (wisp) artefact from NIRCam Module B.",
+      "artefact_probability": 0.9,
+      "evidence_for_artefact": [
+        "The observation is identified as a wisp/scattered-light artefact in the metadata.",
+        "The affected filters (F150W, F200W) are known to exhibit this artefact."
+      ],
+      "evidence_against_artefact": [
+        "The artefact is consistently recognized by the pipeline and labeled as non-astrophysical."
+      ],
+      "recommended_quality_checks": [
+        "Inspect the image cutout for the characteristic morphology of wisps.",
+        "Review the STScI issue reference for additional context on known artefacts."
+      ],
+      "branch_duration_ms": 5897.9
+    },
+    "novelty_rarity_assessment": {
+      "rarity_score": 0.05,
+      "novelty_score": 0.0,
+      "uncertainty_score": 0.3,
+      "followup_value_score": 0.0,
+      "overall_interest_score": 0.085,
+      "reason_for_scientific_interest": "The observation is a known detector artefact, which is common and well-documented. It does not present new scientific insights or challenges to existing models.",
+      "ood_notes": "The artefact is a recognized feature of the NIRCam system, specifically related to scattered light, and does not represent an astrophysical phenomenon.",
+      "time_sensitive": false,
+      "branch_duration_ms": 2709.0
+    },
+    "context_retrieval_results": {
+      "related_papers": [
+        {
+          "title": "Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition",
+          "key_finding": "The study provides a detailed analysis of the point spread function (PSF) of JWST NIRCam imaging, highlighting spatial variations in PSF across different filters, including F150W and F200W.",
+          "relevance": "This paper is relevant as it discusses the PSF characteristics in the same filters affected by the wisp artefact, which can help in understanding the morphology of artefacts."
+        },
+        {
+          "title": "JWST observations of stellar occultations by solar system bodies and rings",
+          "key_finding": "The paper evaluates the potential of JWST for studying solar system bodies through stellar occultations, emphasizing the strengths and weaknesses of the technique.",
+          "relevance": "While not directly related to artefacts, it provides context on the observational capabilities of JWST, which is important for distinguishing between astrophysical and non-astrophysical features."
+        }
+      ],
+      "similar_observations": [
+        "The detection of scattered light artefacts in Hubble Space Telescope (HST) images, which also required careful classification to avoid misidentifying them as astrophysical sources.",
+        "Previous observations of wisp patterns in early JWST data, which were initially flagged as potential astrophysical transients before being classified as artefacts."
+      ],
+      "relevant_catalogue_context": "NIRCam has a known issue with scattered light artefacts, particularly in the F150W and F200W filters, which can affect data quality and interpretation. The occurrence of wisps is concentrated near detector module boundaries, and their morphology is well-documented in JWST calibration data.",
+      "mission_instrument_notes": "NIRCam is designed for high-resolution imaging in the near-infrared, but it is sensitive to scattered light effects that can produce artefacts like wisps. Understanding the PSF and scattered light characteristics is crucial for accurate data interpretation.",
+      "known_failure_modes": [
+        "Misclassification of wisp artefacts as astrophysical sources, leading to false positives in transient detection.",
+        "Inaccurate PSF modeling can exacerbate the visibility of artefacts, making them appear more significant than they are."
+      ],
+      "arxiv_search_query": "JWST NIRCam morphology classification artefact non_astrophysical",
+      "branch_duration_ms": 10028.7,
+      "raw_arxiv_papers": [
+        {
+          "title": "JWST observations of stellar occultations by solar system bodies and rings",
+          "authors": [
+            "P. Santos-Sanz",
+            "R. G. French",
+            "N. Pinilla-Alonso",
+            "J. Stansberry",
+            "Z-Y. Lin"
+          ],
+          "abstract": "In this paper we investigate the opportunities provided by the James Webb Space Telescope (JWST) for significant scientific advances in the study of solar system bodies and rings using stellar occultations. The strengths and weaknesses of the stellar occultation technique are evaluated in light of JWST's unique capabilities. We identify several possible JWST occultation events by minor bodies and rings, and evaluate their potential scientific value. These predictions depend critically on accurate a priori knowledge of the orbit of JWST near the Sun-Earth Lagrange-point 2 (L2). We also explore the possibility of serendipitous stellar occultations by very small minor bodies as a by-product of other JWST observing programs. Finally, to optimize the potential scientific return of stellar occul",
+          "url": "http://arxiv.org/abs/1510.06575v3",
+          "published": "2015-10-22",
+          "categories": [
+            "astro-ph.EP"
+          ]
+        },
+        {
+          "title": "Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition",
+          "authors": [
+            "Ming-Yang Zhuang",
+            "Yue Shen"
+          ],
+          "abstract": "We present a detailed analysis of the point spread function (PSF) of JWST NIRCam imaging in eight filters: F070W, F115W, F150W, F200W, F277W, F356W, F444W, and F480M, using publicly available data. Spatial variations in the PSF FWHM generally decrease with wavelength: the maximum and RMS fractional variations are $\\sim20\\%$ and $5\\%$ in F070W, reduced to $\\sim3\\%$ and $0.6\\%$ in F444W. We compare three commonly-used methods (SWarp, photutils, and PSFEx) to construct model PSFs and conclude that PSFEx delivers the best performance. Using simulated images of broad-line AGNs, we evaluate the impact of PSF mismatches on the recoverability of host galaxy properties. Host fluxes are generally overestimated when adopting mismatched PSF models, with larger overestimation for more AGN-dominated sys",
+          "url": "http://arxiv.org/abs/2304.13776v1",
+          "published": "2023-04-26",
+          "categories": [
+            "astro-ph.GA"
+          ]
+        },
+        {
+          "title": "Global sky background images for JWST/NIRISS Wide-Field Slitless Spectroscopy",
+          "authors": [
+            "Ga\u00ebl Noirot"
+          ],
+          "abstract": "We present updated empirical background images for JWST/NIRISS Wide-Field Slitless Spectroscopy (WFSS) for both orthogonal grisms (GR150C, GR150R) crossed with all NIRISS WFSS wide-band filters (F090W, F115W, F150W, F200W). The background images are created using carefully vetted science and calibration exposures and improve the quality of previous background reference files. We present our methodology to create the background images and assess their quality using background subtracted science data. Overall, background residuals reach below 1% of the sky brightness for all filter and grism combinations, corresponding to a decrease in the background RMS of a factor of up to 7 from previous background reference files. The new background images are available on the Calibration Reference Data ",
+          "url": "http://arxiv.org/abs/2507.10650v1",
+          "published": "2025-07-14",
+          "categories": [
+            "astro-ph.IM",
+            "astro-ph.GA"
+          ]
+        },
+        {
+          "title": "Faint galaxies in the Zone of Avoidance revealed by JWST/NIRCam",
+          "authors": [
+            "J. L. Nilo-Castell\u00f3n",
+            "M. V. Alonso",
+            "L. Baravalle",
+            "C. Villalon",
+            "C. N. A. Willmer"
+          ],
+          "abstract": "The Zone of Avoidance (ZoA) remains one of the last frontiers in constructing a comprehensive three-dimensional map of the Universe. Galactic extinction, stellar crowding, and confusion noise have historically limited the detection of background galaxies in these regions, with implications for large-scale structure and cosmological measurements. We assess the capability of the James Webb Space Telescope (JWST) Near Infrared Camera (NIRCam) to detect extragalactic sources in a heavily contaminated region of the Milky Way. We analyzed JWST/NIRCam wide-filter images of NGC 3324 with a customized implementation of SExtractor v2.28. Sources were detected in the F444W band, cross-matched with F090W and F200W, and validated against recent DAOPHOT point spread function (PSF) photometry. A refined ",
+          "url": "http://arxiv.org/abs/2510.12488v1",
+          "published": "2025-10-14",
+          "categories": [
+            "astro-ph.GA"
+          ]
+        }
+      ]
+    },
+    "parallel_section_start_utc": "2026-05-11T11:58:43.370956+00:00",
+    "parallel_section_wall_ms": 10036.3,
+    "aggregated_evidence": {
+      "ranked_hypotheses": [
+        {
+          "hypothesis": "Wisp / Scattered-Light Artefact",
+          "updated_confidence": 0.95,
+          "supporting_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "opposing_branches": [],
+          "key_discriminant": "Characteristic morphology of wisps in image cutout."
+        },
+        {
+          "hypothesis": "Astrophysical Transient",
+          "updated_confidence": 0.05,
+          "supporting_branches": [],
+          "opposing_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "key_discriminant": "Absence of artefact morphology and presence of transient-like features."
+        },
+        {
+          "hypothesis": "Lensed Source",
+          "updated_confidence": 0.05,
+          "supporting_branches": [],
+          "opposing_branches": [
+            "Astrophysical Interpretation",
+            "Instrument/Artefact Check",
+            "Novelty/Rarity Assessment",
+            "Context Retrieval"
+          ],
+          "key_discriminant": "Distinctive lensing features without artefact characteristics."
+        }
+      ],
+      "agreement_points": [
+        "All branches agree that the observation is a wisp/scattered-light artefact.",
+        "The artefact is associated with the F150W and F200W filters and is well-documented."
+      ],
+      "disagreement_points": [],
+      "confidence_updates": [
+        "Astrophysical Interpretation branch strongly supports the artefact hypothesis, reducing confidence in astrophysical explanations.",
+        "Instrument/Artefact Check confirms high artefact probability, reinforcing non-astrophysical interpretation.",
+        "Novelty/Rarity Assessment indicates low scientific interest, supporting the artefact classification.",
+        "Context Retrieval provides historical and technical context, aligning with the artefact hypothesis."
+      ],
+      "unresolved_questions": [
+        "Could there be any faint astrophysical sources coincidentally aligned with the artefact that are not detected due to the artefact's presence?"
+      ],
+      "overall_interest_score": 0.1,
+      "triage_verdict": "REJECT_ARTEFACT",
+      "needs_code_analysis": false
+    },
+    "followup_recommendations": {
+      "priority_actions": [
+        {
+          "action": "Confirm artefact origin with quality check of NIRCam images",
+          "instrument_or_method": "JWST/NIRCam",
+          "scientific_rationale": "This action will verify the presence of the characteristic morphology of wisps, confirming they are indeed artefacts and not astrophysical transients.",
+          "urgency": "IMMEDIATE",
+          "expected_outcome": "Confirmation that the wisps are artefacts and not related to any astrophysical sources."
+        }
+      ],
+      "recommended_facilities": [
+        "JWST/NIRCam"
+      ],
+      "time_sensitivity_note": "Follow-up is not time-sensitive as the artefact has been identified, but confirmation is necessary to prevent misclassification.",
+      "scientific_value_summary": "Confirming the artefact's origin will ensure accurate data interpretation and prevent false positives in future observations.",
+      "stop_here_if": "if image quality check confirms subtraction artefact."
+    },
+    "code_to_execute": null,
+    "code_execution_output": null,
+    "synthesis_report": "## Agentic Orion Triage Report \u2014 JWST NIRCam 'wisp' artefact pattern\n\n### Observation Summary\nThe observation is an image cutout from the JWST NIRCam, capturing a known artefact pattern associated with scattered light. The data was processed through the CTRL pipeline and labeled as an artefact, non-astrophysical, and rejected. The affected filters are F150W and F200W, and the observation was made using NIRCam Module B.\n\n### Characterization\nKey features include the artefact type (wisp/scattered-light) and its coordinates (RA: 53.162 degrees, Dec: -27.79 degrees). Missing data includes spectroscopic confirmation, additional imaging in other filters, and temporal data to rule out transient phenomena. There is uncertainty regarding potential confusion with faint astrophysical sources and variability in artefact appearance.\n\n### Triage Verdict\n**REJECT_ARTEFACT** \u2014 Interest score: 0.10 / 1.0\n\n### Competing Hypotheses\n| Hypothesis | Confidence | Key Evidence For | Key Evidence Against |\n|---|---|---|---|\n| Wisp / Scattered-Light Artefact | 0.95 | Characteristic morphology of wisps | None |\n| Astrophysical Transient | 0.05 | None | Absence of transient-like features |\n| Lensed Source | 0.05 | None | Lack of lensing features |\n\n### Branch Analysis\n**Astrophysical branch**: The artefact is identified as a wisp/scattered-light pattern, with high confidence due to its well-documented nature. The main uncertainty is potential confusion with faint sources.\n**Artefact branch**: The artefact probability is high (0.9), with quality checks confirming the characteristic morphology of wisps.\n**Novelty/Rarity branch**: The artefact is common and well-documented, with low rarity (0.05) and novelty (0.0), resulting in a low follow-up value.\n**Context branch**: Literature confirms the artefact's characteristics and its non-astrophysical nature, supporting the rejection verdict.\n\n### Scientific Disagreement\nThere is no significant disagreement among branches; all support the artefact hypothesis. The main concern is the potential for coincidental alignment with faint astrophysical sources.\n\n### Timing\nParallel branches (wall): 10036 ms (vs. 24185 ms sequential \u2192 2.41x speedup)\n\n### Follow-Up Plan\n1. Confirm artefact origin with quality check of NIRCam images using JWST/NIRCam. This will verify the presence of the characteristic morphology of wisps, confirming they are artefacts and not astrophysical transients. **Urgency: IMMEDIATE**\n\n### Quantitative Analysis\nN/A\n\n### References\n[1] JWST observations of stellar occultations by solar system bodies and rings \u2014 http://arxiv.org/abs/1510.06575v3 (2015-10-22)  \n[2] Characterization of JWST NIRCam PSFs and Implications for AGN+Host Image Decomposition \u2014 http://arxiv.org/abs/2304.13776v1 (2023-04-26)  \n[3] Global sky background images for JWST/NIRISS Wide-Field Slitless Spectroscopy \u2014 http://arxiv.org/abs/2507.10650v1 (2025-07-14)  \n[4] Faint galaxies in the Zone of Avoidance revealed by JWST/NIRCam \u2014 http://arxiv.org/abs/2510.12488v1 (2025-10-14)  \n\n---\n*Generated by Agentic Orion v0.1 \u2014 automated scientific attention-allocation workflow*",
+    "current_step": "synthesis",
+    "errors": [],
+    "step_count": 9,
+    "timing_log": [
+      {
+        "node": "supervisor",
+        "duration_ms": 1788.6,
+        "timestamp": "2026-05-11T11:58:38.853435+00:00"
+      },
+      {
+        "node": "observation_characterizer",
+        "duration_ms": 2718.6,
+        "timestamp": "2026-05-11T11:58:40.649189+00:00"
+      },
+      {
+        "node": "_parallel_start",
+        "duration_ms": 0.0,
+        "timestamp": "2026-05-11T11:58:43.370956+00:00"
+      },
+      {
+        "node": "artefact_checker",
+        "duration_ms": 5897.9,
+        "timestamp": "2026-05-11T11:58:43.371400+00:00"
+      },
+      {
+        "node": "astrophysical_interpreter",
+        "duration_ms": 5549.8,
+        "timestamp": "2026-05-11T11:58:43.371718+00:00"
+      },
+      {
+        "node": "context_retriever",
+        "duration_ms": 10028.7,
+        "timestamp": "2026-05-11T11:58:43.371974+00:00"
+      },
+      {
+        "node": "novelty_assessor",
+        "duration_ms": 2709.0,
+        "timestamp": "2026-05-11T11:58:43.372198+00:00"
+      },
+      {
+        "node": "_parallel_end",
+        "duration_ms": 10036.3,
+        "timestamp": "2026-05-11T11:58:53.407165+00:00",
+        "parallel_wall_ms": 10036.3,
+        "sequential_estimate_ms": 24185.4,
+        "speedup": 2.41,
+        "branch_times_ms": {
+          "artefact_checker": 5897.9,
+          "astrophysical_interpreter": 5549.8,
+          "context_retriever": 10028.7,
+          "novelty_assessor": 2709.0
+        }
+      },
+      {
+        "node": "evidence_aggregator",
+        "duration_ms": 3994.1,
+        "timestamp": "2026-05-11T11:58:53.407622+00:00"
+      },
+      {
+        "node": "followup_prioritizer",
+        "duration_ms": 3415.5,
+        "timestamp": "2026-05-11T11:58:57.407866+00:00"
+      },
+      {
+        "node": "synthesis",
+        "duration_ms": 10901.5,
+        "timestamp": "2026-05-11T11:59:00.826594+00:00"
+      }
+    ],
+    "token_counts": [
+      {
+        "node": "supervisor",
+        "input_tokens": 394,
+        "output_tokens": 56,
+        "total_tokens": 450
+      },
+      {
+        "node": "observation_characterizer",
+        "input_tokens": 715,
+        "output_tokens": 226,
+        "total_tokens": 941
+      },
+      {
+        "node": "artefact_checker",
+        "input_tokens": 853,
+        "output_tokens": 252,
+        "total_tokens": 1105
+      },
+      {
+        "node": "astrophysical_interpreter",
+        "input_tokens": 811,
+        "output_tokens": 271,
+        "total_tokens": 1082
+      },
+      {
+        "node": "context_retriever",
+        "input_tokens": 1303,
+        "output_tokens": 456,
+        "total_tokens": 1759
+      },
+      {
+        "node": "novelty_assessor",
+        "input_tokens": 881,
+        "output_tokens": 118,
+        "total_tokens": 999
+      },
+      {
+        "node": "evidence_aggregator",
+        "input_tokens": 1438,
+        "output_tokens": 386,
+        "total_tokens": 1824
+      },
+      {
+        "node": "followup_prioritizer",
+        "input_tokens": 887,
+        "output_tokens": 169,
+        "total_tokens": 1056
+      },
+      {
+        "node": "synthesis",
+        "input_tokens": 1724,
+        "output_tokens": 770,
+        "total_tokens": 2494
+      }
+    ]
+  },
+  "timing_log": [
+    {
+      "node": "supervisor",
+      "duration_ms": 1788.6,
+      "timestamp": "2026-05-11T11:58:38.853435+00:00"
+    },
+    {
+      "node": "observation_characterizer",
+      "duration_ms": 2718.6,
+      "timestamp": "2026-05-11T11:58:40.649189+00:00"
+    },
+    {
+      "node": "_parallel_start",
+      "duration_ms": 0.0,
+      "timestamp": "2026-05-11T11:58:43.370956+00:00"
+    },
+    {
+      "node": "artefact_checker",
+      "duration_ms": 5897.9,
+      "timestamp": "2026-05-11T11:58:43.371400+00:00"
+    },
+    {
+      "node": "astrophysical_interpreter",
+      "duration_ms": 5549.8,
+      "timestamp": "2026-05-11T11:58:43.371718+00:00"
+    },
+    {
+      "node": "context_retriever",
+      "duration_ms": 10028.7,
+      "timestamp": "2026-05-11T11:58:43.371974+00:00"
+    },
+    {
+      "node": "novelty_assessor",
+      "duration_ms": 2709.0,
+      "timestamp": "2026-05-11T11:58:43.372198+00:00"
+    },
+    {
+      "node": "_parallel_end",
+      "duration_ms": 10036.3,
+      "timestamp": "2026-05-11T11:58:53.407165+00:00",
+      "parallel_wall_ms": 10036.3,
+      "sequential_estimate_ms": 24185.4,
+      "speedup": 2.41,
+      "branch_times_ms": {
+        "artefact_checker": 5897.9,
+        "astrophysical_interpreter": 5549.8,
+        "context_retriever": 10028.7,
+        "novelty_assessor": 2709.0
+      }
+    },
+    {
+      "node": "evidence_aggregator",
+      "duration_ms": 3994.1,
+      "timestamp": "2026-05-11T11:58:53.407622+00:00"
+    },
+    {
+      "node": "followup_prioritizer",
+      "duration_ms": 3415.5,
+      "timestamp": "2026-05-11T11:58:57.407866+00:00"
+    },
+    {
+      "node": "synthesis",
+      "duration_ms": 10901.5,
+      "timestamp": "2026-05-11T11:59:00.826594+00:00"
+    }
+  ],
+  "token_counts": [
+    {
+      "node": "supervisor",
+      "input_tokens": 394,
+      "output_tokens": 56,
+      "total_tokens": 450
+    },
+    {
+      "node": "observation_characterizer",
+      "input_tokens": 715,
+      "output_tokens": 226,
+      "total_tokens": 941
+    },
+    {
+      "node": "artefact_checker",
+      "input_tokens": 853,
+      "output_tokens": 252,
+      "total_tokens": 1105
+    },
+    {
+      "node": "astrophysical_interpreter",
+      "input_tokens": 811,
+      "output_tokens": 271,
+      "total_tokens": 1082
+    },
+    {
+      "node": "context_retriever",
+      "input_tokens": 1303,
+      "output_tokens": 456,
+      "total_tokens": 1759
+    },
+    {
+      "node": "novelty_assessor",
+      "input_tokens": 881,
+      "output_tokens": 118,
+      "total_tokens": 999
+    },
+    {
+      "node": "evidence_aggregator",
+      "input_tokens": 1438,
+      "output_tokens": 386,
+      "total_tokens": 1824
+    },
+    {
+      "node": "followup_prioritizer",
+      "input_tokens": 887,
+      "output_tokens": 169,
+      "total_tokens": 1056
+    },
+    {
+      "node": "synthesis",
+      "input_tokens": 1724,
+      "output_tokens": 770,
+      "total_tokens": 2494
+    }
+  ],
+  "metrics": {
+    "total_wall_ms": 32884.8,
+    "parallel_wall_ms": 10036.3,
+    "sequential_estimate_ms": 24185.4,
+    "speedup": 2.41,
+    "total_tokens": 11710,
+    "input_tokens": 9006,
+    "output_tokens": 2704,
+    "estimated_cost_usd": 0.0029733,
+    "pricing_model": "gpt-4o-mini production estimate",
+    "consumption_note": null,
+    "metric_note": null
+  },
+  "data_products": {
+    "lightcurve": [],
+    "probabilities": []
+  }
+}

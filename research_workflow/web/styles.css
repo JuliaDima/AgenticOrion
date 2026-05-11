@@ -235,7 +235,7 @@ select {
 .blind-badge {
   display: inline-block;
   background: #7c3aed;
-  color: #fff;
+  color: #ffffff !important;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -668,6 +668,63 @@ select {
   border-radius: 0 0 10px 10px;
 }
 
+.scalability-content {
+  margin-top: 4px;
+}
+.scalability-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .scalability-grid { grid-template-columns: 1fr; }
+}
+.scalability-prose p {
+  margin: 0 0 14px;
+  line-height: 1.65;
+  font-size: 14px;
+  color: var(--text);
+}
+.scalability-prose p:last-child { margin-bottom: 0; }
+.scalability-table-wrap {
+  overflow-x: auto;
+}
+.scalability-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.scalability-table th,
+.scalability-table td {
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.scalability-table th {
+  background: #f5f7f8;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #2d3741;
+}
+.scalability-table tr:last-child td { border-bottom: 0; }
+.scalability-human-row td { color: var(--muted); font-style: italic; }
+.scalability-covers {
+  display: inline-block;
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.02em;
+}
+
 .benchmark-table {
   overflow: auto;
   border: 1px solid var(--line);
@@ -704,6 +761,59 @@ select {
 .benchmark-method {
   margin: 12px 0 0;
 }
+
+.blind-comparison-table {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+.blind-comparison-table h4 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.blind-comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.blind-comparison-table th,
+.blind-comparison-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.blind-comparison-table th {
+  background: #f5f7f8;
+  color: #2d3741;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.blind-comparison-table tr:last-child td {
+  border-bottom: 0;
+}
+.wall-avg-row td {
+  background: #f5f7f8;
+  border-top: 2px solid var(--line);
+}
+.wall-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.wall-bar {
+  height: 6px;
+  border-radius: 3px;
+  min-width: 2px;
+}
+.wall-bar-multi  { background: #2563eb; }
+.wall-bar-single { background: #94a3b8; }
 
 .panel-header {
   display: flex;
@@ -742,52 +852,115 @@ select {
 
 #agentGraph {
   width: 100%;
-  min-height: 820px;
+  min-height: 680px;
   display: block;
 }
 
-.edge {
-  fill: none;
-  stroke: #b2bdc7;
-  stroke-width: 2.5;
+/* ── Code executor metrics grid ──────────────────────────────── */
+.so-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 7px;
+  margin: 10px 0 14px;
 }
-
-.edge.influence-strong {
-  stroke: var(--accent-2);
-  stroke-width: 5;
+.so-metric-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
 }
-
-.node-card {
-  cursor: pointer;
+.so-metric-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  word-break: break-word;
+  margin-top: 3px;
+  line-height: 1.35;
 }
+.so-metric-card.flagged {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+.so-metric-card.flagged .so-section-label { color: #d97706; }
+.so-metric-card.flagged .so-metric-value  { color: #92400e; }
 
-.node-card rect {
+/* ── Modern graph edges ──────────────────────────────────────── */
+.g-edge          { fill: none; stroke: #cbd5e1; stroke-width: 1.5; }
+.g-edge-fanout   { fill: none; stroke: #0d9488; stroke-width: 2; opacity: 0.7; }
+.g-edge-fanin    { fill: none; stroke: #0d9488; stroke-width: 2; opacity: 0.7; }
+.g-edge-code     { fill: none; stroke: #7c3aed; stroke-width: 1.5; stroke-dasharray: 6 3; }
+.g-edge-recs     { fill: none; stroke: #f59e0b; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.g-edge-label    { font-family: 'Inter', system-ui, sans-serif; font-size: 9px; fill: #94a3b8; pointer-events: none; }
+.g-edge-label-code { fill: #7c3aed; font-weight: 600; }
+.g-edge-label-recs { fill: #d97706; font-weight: 600; }
+
+/* keep old classes for fallback */
+.edge            { fill: none; stroke: #cbd5e1; stroke-width: 1.5; }
+.edge.influence-strong { stroke: #0d9488; stroke-width: 2; }
+
+/* ── Modern node cards ───────────────────────────────────────── */
+.node-card { cursor: pointer; }
+
+.node-card .nc-bg {
   fill: #fff;
-  stroke: #cfd6dd;
-  stroke-width: 1.4;
-  rx: 8;
+  stroke: #e2e8f0;
+  stroke-width: 1.2;
+  filter: url(#nc-shadow);
+  transition: stroke 0.15s;
 }
-
-.node-card.active rect {
-  stroke: var(--accent);
-  stroke-width: 3;
+.node-card.active .nc-bg,
+.node-card:hover  .nc-bg {
+  stroke: #0d9488;
+  stroke-width: 2;
 }
+.node-card .nc-accent { opacity: 0.9; }
 
 .node-card .node-title {
-  fill: var(--ink);
-  font-size: 15px;
-  font-weight: 800;
+  fill: #0f172a;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: 'Inter', system-ui, sans-serif;
 }
-
 .node-card .node-sub {
-  fill: var(--muted);
-  font-size: 11px;
+  fill: #94a3b8;
+  font-size: 9px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.node-card .node-time {
+  fill: #0d9488;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.node-card .node-time {
-  fill: var(--accent);
-  font-size: 12px;
-  font-weight: 800;
+/* ── Project graph (static overview) ────────────────────────── */
+.project-edge {
+  fill: none;
+  stroke: #cbd5e1;
+  stroke-width: 1.5;
+}
+.project-node-card { cursor: pointer; }
+.project-node-card .pn-bg {
+  fill: #fff;
+  stroke: #e2e8f0;
+  stroke-width: 1.2;
+  filter: url(#pn-shadow);
+}
+.project-node-card.active .pn-bg,
+.project-node-card:hover  .pn-bg {
+  stroke: #0d9488;
+  stroke-width: 2.2;
+}
+.project-node-card .pn-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: #0f172a;
+}
+.project-node-card .pn-sub {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 9px;
+  fill: #94a3b8;
 }
 
 .agent-inspector {

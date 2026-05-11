@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" role="img">
+<style>text{font-family:'Inter',system-ui,Arial,sans-serif;fill:#1e293b}.dim{fill:#94a3b8}.grid{stroke:#e2e8f0;stroke-width:1}.axis{stroke:#cbd5e1;stroke-width:1.5}.val{font-size:11px;font-weight:600;fill:#475569}.lbl{font-size:12px;fill:#64748b}.title{font-size:17px;font-weight:700;fill:#0f172a}.ylbl{font-size:11px;fill:#94a3b8}.leg-text{font-size:12px;fill:#334155}</style>
+<rect width="760" height="520" fill="#f8fafc" rx="10"/>
+<rect x="1" y="1" width="758" height="518" fill="none" stroke="#e2e8f0" stroke-width="1" rx="10"/>
+<text class="title" x="68" y="22">Decision and Characterization Quality</text>
+<rect x="68" y="32" width="12" height="12" rx="3" fill="#0d9488"/>
+<text class="leg-text" x="85" y="43">Multi-agent</text>
+<rect x="186" y="32" width="12" height="12" rx="3" fill="#7c3aed"/>
+<text class="leg-text" x="203" y="43">Blind multi-agent</text>
+<line class="grid" x1="68" y1="432.0" x2="736" y2="432.0"/>
+<text class="ylbl" x="62" y="436.0" text-anchor="end">0.0</text>
+<line class="grid" x1="68" y1="340.0" x2="736" y2="340.0"/>
+<text class="ylbl" x="62" y="344.0" text-anchor="end">0.2</text>
+<line class="grid" x1="68" y1="248.0" x2="736" y2="248.0"/>
+<text class="ylbl" x="62" y="252.0" text-anchor="end">0.5</text>
+<line class="grid" x1="68" y1="156.0" x2="736" y2="156.0"/>
+<text class="ylbl" x="62" y="160.0" text-anchor="end">0.8</text>
+<line class="grid" x1="68" y1="64.0" x2="736" y2="64.0"/>
+<text class="ylbl" x="62" y="68.0" text-anchor="end">1.0</text>
+<line class="axis" x1="68" y1="432" x2="736" y2="432"/>
+<rect x="122.7" y="64.0" width="52.0" height="368.0" rx="4" fill="#0d9488" opacity="0.92"/>
+<text class="val" x="148.7" y="59.0" text-anchor="middle">1.00</text>
+<rect x="184.0" y="64.0" width="52.0" height="368.0" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="210.0" y="59.0" text-anchor="middle">1.00</text>
+<text class="lbl" x="179.3" y="450.0" text-anchor="middle">Priority accuracy</text>
+<rect x="345.3" y="147.2" width="52.0" height="284.8" rx="4" fill="#0d9488" opacity="0.92"/>
+<text class="val" x="371.3" y="142.2" text-anchor="middle">0.77</text>
+<rect x="406.7" y="333.4" width="52.0" height="98.6" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="432.7" y="328.4" text-anchor="middle">0.27</text>
+<text class="lbl" x="402.0" y="450.0" text-anchor="middle">Characterization</text>
+<rect x="568.0" y="93.8" width="52.0" height="338.2" rx="4" fill="#0d9488" opacity="0.92"/>
+<text class="val" x="594.0" y="88.8" text-anchor="middle">0.92</text>
+<rect x="629.3" y="96.4" width="52.0" height="335.6" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="655.3" y="91.4" text-anchor="middle">0.91</text>
+<text class="lbl" x="624.7" y="450.0" text-anchor="middle">Interest calibration</text>
+<text class="ylbl" transform="translate(13,248.0) rotate(-90)" text-anchor="middle">Higher is better  (error bars = 1σ across repeated runs)</text>
+</svg>
