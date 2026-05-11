@@ -1,0 +1,73 @@
+{
+  "mission": "ZTF/ALeRCE (control SN IIP)",
+  "experiment_type": "CTRL",
+  "source": {
+    "alert_broker": "ALeRCE https://alerce.science",
+    "mission_archive": "IRSA ZTF",
+    "curated_demo": "https://alerce.science/object/ZTF20aaynrrh"
+  },
+  "object_or_event_id": {
+    "ZTF_oid": "ZTF20aaynrrh",
+    "TNS_name": "SN 2020jfo",
+    "ALeRCE_url": "https://alerce.science/object/ZTF20aaynrrh",
+    "type": "SN IIP",
+    "host": "M61 (NGC 4303)",
+    "redshift": 0.00522,
+    "RA_deg": 185.4791,
+    "Dec_deg": 4.4737
+  },
+  "modality": [
+    "alert",
+    "light_curve"
+  ],
+  "short_summary": "SN 2020jfo is a spectroscopically confirmed Type IIP supernova in M61. Well-characterised plateau light curve; no ambiguity. Control object: should NOT trigger unusual-priority or follow-up flags.",
+  "metadata": {
+    "type": "SN IIP",
+    "host": "NGC 4303 (M61)",
+    "redshift": 0.00522,
+    "plateau_duration_days": 80,
+    "key_paper_arXiv": "2105.11954"
+  },
+  "small_data_product": {
+    "image_url": "https://alerce.science/object/ZTF20aaynrrh",
+    "lightcurve_url": "https://api.alerce.online/ztf/v1/objects/ZTF20aaynrrh/lightcurve",
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "survey": "ZTF",
+      "filter": "g, r"
+    }
+  },
+  "initial_pipeline_labels": [
+    "SN_IIP",
+    "CTRL",
+    "low_novelty",
+    "standard_plateau"
+  ],
+  "query_hints": {
+    "alert": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aaynrrh"
+    },
+    "light_curve": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aaynrrh/lightcurve"
+    },
+    "stamps": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aaynrrh/stamps"
+    }
+  },
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_09_SN_2020jfo",
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ],
+    "errors": []
+  }
+}

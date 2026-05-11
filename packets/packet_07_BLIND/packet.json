@@ -1,0 +1,31 @@
+{
+  "mission": "JWST/NIRCam+NIRSpec",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_07",
+    "redshift": 4.99,
+    "RA_deg": 66.8228,
+    "Dec_deg": -36.0921
+  },
+  "modality": [
+    "image_cutout",
+    "spectrum",
+    "catalogue_entry"
+  ],
+  "short_summary": "Observation from JWST/NIRCam+NIRSpec. Modalities: image_cutout, spectrum, catalogue_entry. Redshift z=4.99. Pipeline flags: ambiguous_AGN_or_starburst, high_z, triage_priority.",
+  "metadata": {
+    "redshift": 4.99,
+    "field": "GOODS-S / JADES",
+    "colour_feature": "red F277W-F444W, blue F150W-F277W",
+    "morphology": "compact, unresolved at NIRCam resolution",
+    "ESA_credit": "Kocevski (Colby College)"
+  },
+  "initial_pipeline_labels": [
+    "ambiguous_AGN_or_starburst",
+    "high_z",
+    "triage_priority"
+  ],
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "mission": "ZTF/Rubin-precursor broker (Fink)",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_06"
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout"
+  ],
+  "short_summary": "Observation from ZTF/Rubin-precursor broker (Fink). Modalities: alert, light_curve, image_cutout. Pipeline flags: early_excess, novelty_flag, triage_priority.",
+  "metadata": {
+    "broker": "Fink",
+    "survey": "ZTF",
+    "Fink_modules": [
+      "early_excess_detector",
+      "anomaly_scorer"
+    ],
+    "anomaly_flag": "blue pre-maximum excess"
+  },
+  "initial_pipeline_labels": [
+    "early_excess",
+    "novelty_flag",
+    "triage_priority"
+  ],
+  "populated_data_products": {
+    "lightcurve_csv": "data/lightcurve.csv",
+    "classification": "data/classification.json"
+  }
+}

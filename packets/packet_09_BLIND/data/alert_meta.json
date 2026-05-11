@@ -1,0 +1,22 @@
+{
+  "oid": "BLIND_09_alert",
+  "ndethist": "202",
+  "ncovhist": 2448,
+  "mjdstarthist": 58257.20520830015,
+  "mjdendhist": 61154.38569439994,
+  "corrected": true,
+  "stellar": true,
+  "ndet": 96,
+  "g_r_max": null,
+  "g_r_max_corr": null,
+  "g_r_mean": null,
+  "g_r_mean_corr": null,
+  "firstmjd": 58975.20255789999,
+  "lastmjd": 61154.38569439994,
+  "deltajd": 2179.1831364999525,
+  "meanra": 185.46037538808727,
+  "meandec": 4.481717476118458,
+  "sigmara": 0.0022208338189881357,
+  "sigmadec": 0.00221404316501991,
+  "step_id_corr": "27.5.7a32.dev1"
+}

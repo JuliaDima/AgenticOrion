@@ -1,0 +1,28 @@
+{
+  "mission": "Euclid/VIS+NISP",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_08",
+    "RA_deg": 163.579,
+    "Dec_deg": -10.888
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry"
+  ],
+  "short_summary": "Observation from Euclid/VIS+NISP. Modalities: image_cutout, catalogue_entry. Pipeline flags: grade_B, unconfirmed, follow_up_needed.",
+  "metadata": {
+    "grade": "B",
+    "Q1_paper": "2503.15325",
+    "field": "Q1 wide survey footprint",
+    "note": "No spec-z available; photometric evidence only"
+  },
+  "initial_pipeline_labels": [
+    "grade_B",
+    "unconfirmed",
+    "follow_up_needed"
+  ],
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

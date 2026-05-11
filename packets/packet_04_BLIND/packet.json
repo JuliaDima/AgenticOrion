@@ -1,0 +1,29 @@
+{
+  "mission": "Euclid/VIS+NISP",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_04",
+    "RA_deg": 137.9734,
+    "Dec_deg": 62.0969
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry"
+  ],
+  "short_summary": "Observation from Euclid/VIS+NISP. Modalities: image_cutout, catalogue_entry. Pipeline flags: grade_A.",
+  "metadata": {
+    "lens_z": 0.335,
+    "source_z": 1.475,
+    "Einstein_radius_arcsec": 1.18,
+    "source_emission_line": "[OII]",
+    "CNN_grade": "A",
+    "ERO_field": "Perseus",
+    "paper_arXiv": "2502.09802"
+  },
+  "initial_pipeline_labels": [
+    "grade_A"
+  ],
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

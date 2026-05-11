@@ -1,0 +1,85 @@
+{
+  "mission": "JWST/NIRCam",
+  "experiment_type": "RETRO",
+  "source": {
+    "alert_broker": null,
+    "mission_archive": "https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html",
+    "curated_demo": "https://doi.org/10.3847/2041-8213/ac966e"
+  },
+  "object_or_event_id": {
+    "common_name": "Maisie's Galaxy",
+    "CEERS_ID": "CEERS2_588",
+    "IAU_coord_name": "CEERS J141946.36+525632.8",
+    "RA_deg": 214.943167,
+    "Dec_deg": 52.942444,
+    "photo_z": 11.8,
+    "spec_z": 11.44,
+    "JWST_proposal_ID": 1345,
+    "mast_obs_id": "jw01345",
+    "key_filter": "F200W",
+    "mag_F200W_AB": 27.3
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry",
+    "spectrum"
+  ],
+  "short_summary": "Maisie's Galaxy (CEERS J141946.36+525632.8) was identified in the first CEERS epoch as a z_phot~12 candidate. Spectroscopically confirmed at z_spec=11.44 by NIRSpec (Arrabal Haro et al. 2023). One of the most distant spectroscopically confirmed galaxies, it challenged early-universe formation models.",
+  "metadata": {
+    "photo_z": 11.8,
+    "spec_z": 11.44,
+    "m_F200W_AB": 27.3,
+    "log_Mstar_Msun": 8.5,
+    "field": "EGS (Extended Groth Strip)",
+    "key_paper_arXiv": "2207.12474",
+    "confirm_arXiv": "2208.01612",
+    "JWST_program": "CEERS GO #1345"
+  },
+  "small_data_product": {
+    "image_url": "https://mast.stsci.edu/search/hst/ui/#/?target=214.943167+52.942444&radius=5&sci_pep_id=1345",
+    "lightcurve_url": null,
+    "spectrum_url": "https://doi.org/10.3847/2041-8213/ach169",
+    "cutout_metadata": {
+      "instrument": "NIRCam",
+      "filters": [
+        "F115W",
+        "F150W",
+        "F200W",
+        "F277W",
+        "F356W",
+        "F444W"
+      ],
+      "pixel_scale": 0.031,
+      "field": "EGS"
+    }
+  },
+  "initial_pipeline_labels": [
+    "high_z_candidate",
+    "spectroscopic_confirmed",
+    "early_universe_challenge"
+  ],
+  "query_hints": {
+    "MAST_cutout": {
+      "service": "MAST Portal or astroquery.mast",
+      "python": "from astroquery.mast import Observations\nobs = Observations.query_criteria(\n    target_name='CEERS J141946.36+525632.8',\n    proposal_id='1345',\n    instrument_name='NIRCAM'\n)"
+    },
+    "CEERS_photometric_catalog": {
+      "url": "https://ceers.github.io/dr05.html",
+      "note": "CEERS DR0.5 photometric catalog; cross-match by coordinates."
+    },
+    "spectrum": {
+      "MAST_url": "https://mast.stsci.edu/search/hst/ui/#/?target=214.943167+52.942444",
+      "note": "NIRSpec MSA spectrum from GO 1345; filter productType=SPECTRUM."
+    }
+  },
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_03_unknown",
+    "files": [
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}

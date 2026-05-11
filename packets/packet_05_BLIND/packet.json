@@ -1,0 +1,29 @@
+{
+  "mission": "ZTF/Rubin-precursor broker (ALeRCE)",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_05"
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout"
+  ],
+  "short_summary": "Observation from ZTF/Rubin-precursor broker (ALeRCE). Modalities: alert, light_curve, image_cutout. Pipeline flags: ambiguous_class, broker_triage, follow_up_candidate.",
+  "metadata": {
+    "broker": "ALeRCE",
+    "survey": "ZTF",
+    "classification_note": "Anomaly detector flagged this source. Atypical secondary bump in g and r bands. Published outlier in Perez-Carrasco+2023 Fig 6."
+  },
+  "initial_pipeline_labels": [
+    "ambiguous_class",
+    "broker_triage",
+    "follow_up_candidate"
+  ],
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  }
+}

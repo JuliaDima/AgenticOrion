@@ -1,0 +1,27 @@
+{
+  "mission": "ZTF/ALeRCE optical transient",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_09",
+    "redshift": 0.00522,
+    "RA_deg": 199.1791,
+    "Dec_deg": -3.8263
+  },
+  "modality": [
+    "alert",
+    "light_curve"
+  ],
+  "short_summary": "Observation from ZTF/ALeRCE optical transient. Modalities: alert, light_curve. Redshift z=0.00522. Pipeline flags: low_novelty.",
+  "metadata": {
+    "redshift": 0.00522
+  },
+  "initial_pipeline_labels": [
+    "low_novelty"
+  ],
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "mission": "ZTF (ALeRCE broker)",
+  "experiment_type": "CTRL",
+  "source": {
+    "alert_broker": "ALeRCE https://alerce.science",
+    "mission_archive": "IRSA ZTF",
+    "curated_demo": "https://alerce.science/object/ZTF20aabqifl"
+  },
+  "object_or_event_id": {
+    "ZTF_oid": "ZTF20aabqifl",
+    "ALeRCE_url": "https://alerce.science/object/ZTF20aabqifl",
+    "RA_deg": null,
+    "Dec_deg": null,
+    "artefact_type": "single-epoch spurious detection (ndet=1)",
+    "stamp_label": "bogus",
+    "rb_score_note": "Real-Bogus score < 0.4"
+  },
+  "modality": [
+    "alert",
+    "image_cutout"
+  ],
+  "short_summary": "ZTF20aabqifl is a single-detection ZTF object (ndet=1, MJD 58850) \u2014 a single spurious alert with no subsequent detections. Single-epoch artefact: appeared once and never again. Control: no astrophysical transient repeats exactly once at ndet=1. Agent must reject.",
+  "metadata": {
+    "stamp_class": "bogus",
+    "rb_score": "<0.4",
+    "artefact_cause": "PSF mismatch near saturated star in difference imaging"
+  },
+  "small_data_product": {
+    "image_url": "https://alerce.science/object/ZTF20aabqifl",
+    "lightcurve_url": "https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/lightcurve",
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "survey": "ZTF",
+      "artefact_flag": true
+    }
+  },
+  "initial_pipeline_labels": [
+    "bogus",
+    "subtraction_artefact",
+    "CTRL",
+    "reject"
+  ],
+  "query_hints": {
+    "stamps": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/stamps",
+      "note": "Inspect difference stamp for dipole pattern."
+    },
+    "probabilities": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aabqifl/probabilities",
+      "note": "Expect 'bogus' class to dominate."
+    }
+  },
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_10_unknown",
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ],
+    "errors": []
+  }
+}

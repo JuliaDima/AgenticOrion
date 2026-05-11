@@ -1,0 +1,25 @@
+{
+  "mission": "CHIME/FRB",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_12"
+  },
+  "modality": [
+    "alert"
+  ],
+  "short_summary": "Observation from CHIME/FRB. Modalities: alert. Pipeline flags: observational_alert.",
+  "metadata": {
+    "excluded_flag": true,
+    "catalog": "CHIME Catalog 1"
+  },
+  "initial_pipeline_labels": [
+    "observational_alert"
+  ],
+  "populated_data_products": {
+    "catalog_row_json": "data/catalog_row.json",
+    "catalog_row_csv": "data/catalog_row.csv",
+    "excluded_flag": false,
+    "chime_catalog_available": true,
+    "chime_match": true
+  }
+}

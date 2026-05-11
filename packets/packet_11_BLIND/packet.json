@@ -1,0 +1,26 @@
+{
+  "mission": "JWST/NIRCam",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_11",
+    "RA_deg": 66.862,
+    "Dec_deg": -36.09
+  },
+  "modality": [
+    "image_cutout"
+  ],
+  "short_summary": "Observation from JWST/NIRCam. Modalities: image_cutout. Pipeline flags: observational_alert.",
+  "metadata": {
+    "affected_filters": [
+      "F150W",
+      "F200W"
+    ],
+    "module": "NIRCam Module B"
+  },
+  "initial_pipeline_labels": [
+    "observational_alert"
+  ],
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "mission": "Euclid/VIS+NISP",
+  "experiment_type": "TRIAGE",
+  "source": {
+    "alert_broker": null,
+    "mission_archive": "https://easidr.esac.esa.int/sas/",
+    "curated_demo": "https://arxiv.org/abs/2503.15325"
+  },
+  "object_or_event_id": {
+    "Euclid_id": "EUC J095930.93-023517.1",
+    "RA_deg": 149.879,
+    "Dec_deg": -2.588,
+    "Q1_field": "Euclid Deep Field South (EDF-S) Q1 footprint",
+    "paper_arXiv": "2503.15325",
+    "grade": "B"
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry"
+  ],
+  "short_summary": "EUC J095930.93-023517.1 is a grade-B strong lens candidate from the Euclid Q1 Strong Lensing Discovery Engine B paper. No spectroscopic confirmation. Morphology consistent with lensed arc but contamination by PSF wing or galaxy colour gradient not fully excluded. Representative of the challenging real-case triage scenario.",
+  "metadata": {
+    "grade": "B",
+    "Q1_paper": "2503.15325",
+    "field": "Q1 wide survey footprint",
+    "note": "No spec-z available; photometric evidence only"
+  },
+  "small_data_product": {
+    "image_url": null,
+    "lightcurve_url": null,
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "instrument": "Euclid VIS + NISP",
+      "bands": [
+        "IE",
+        "YE",
+        "JE",
+        "HE"
+      ],
+      "pixel_scale_arcsec": 0.1
+    }
+  },
+  "initial_pipeline_labels": [
+    "probable_strong_lens",
+    "grade_B",
+    "unconfirmed",
+    "follow_up_needed"
+  ],
+  "query_hints": {
+    "ESA_SAS": {
+      "url": "https://easidr.esac.esa.int/sas/",
+      "note": "Query by RA/Dec 149.879, -2.588; radius 10 arcsec."
+    },
+    "Q1_catalog": {
+      "url": "https://www.euclid-ec.org/science/q1/",
+      "note": "Q1 strong lens catalog (Discovery Engine B); filter grade='B'."
+    }
+  },
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_08_EUC_J095930.93-023517.1",
+    "files": [
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "mission": "CHIME/FRB",
+  "experiment_type": "CTRL",
+  "source": {
+    "alert_broker": "CHIME/FRB VOEvent",
+    "mission_archive": "https://www.chime-frb-open-data.github.io/catalog/",
+    "curated_demo": "https://www.chime-frb-open-data.github.io/catalog/"
+  },
+  "object_or_event_id": {
+    "TNS_name": "FRB 20181224E",
+    "CHIME_catalog1_tns": "FRB 20181224E",
+    "excluded_flag": true,
+    "DM_pc_cm3": null,
+    "note": "Flagged in Catalog 1 excluded_flag=True; probable RFI"
+  },
+  "modality": [
+    "alert"
+  ],
+  "short_summary": "FRB 20181224E is a CHIME Catalog 1 event with excluded_flag=True, indicating probable RFI contamination or data-quality failure. Control: agent should correctly identify the non-astrophysical classification and NOT treat this as a genuine extragalactic FRB.",
+  "metadata": {
+    "excluded_flag": true,
+    "catalog": "CHIME Catalog 1",
+    "likely_cause": "RFI or instrumental artefact"
+  },
+  "small_data_product": {
+    "image_url": null,
+    "lightcurve_url": null,
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "note": "No astrophysical data product expected; RFI candidate"
+    }
+  },
+  "initial_pipeline_labels": [
+    "RFI_candidate",
+    "excluded",
+    "CTRL",
+    "reject"
+  ],
+  "query_hints": {
+    "catalog_csv": {
+      "url": "https://www.chime-frb-open-data.github.io/catalog/catalog1.csv",
+      "python": "import pandas as pd\ndf = pd.read_csv('catalog1.csv')\nrow = df[df['tns_name']=='FRB 20181224E']\nassert row['excluded_flag'].values[0] == True"
+    }
+  },
+  "populated_data_products": {
+    "catalog_row_json": "data/catalog_row.json",
+    "catalog_row_csv": "data/catalog_row.csv",
+    "excluded_flag": false,
+    "chime_catalog_available": true,
+    "chime_match": true
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_12_FRB_20181224E",
+    "files": [
+      "data/catalog_row.json",
+      "data/catalog_row.csv"
+    ],
+    "errors": []
+  }
+}

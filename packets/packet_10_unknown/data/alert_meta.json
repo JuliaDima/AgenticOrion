@@ -1,0 +1,22 @@
+{
+  "oid": "ZTF20aabqifl",
+  "ndethist": "1",
+  "ncovhist": 236,
+  "mjdstarthist": 58850.50773150008,
+  "mjdendhist": 58850.50773150008,
+  "corrected": false,
+  "stellar": false,
+  "ndet": 1,
+  "g_r_max": null,
+  "g_r_max_corr": null,
+  "g_r_mean": null,
+  "g_r_mean_corr": null,
+  "firstmjd": 58850.50773150008,
+  "lastmjd": 58850.50773150008,
+  "deltajd": 0.0,
+  "meanra": 231.059771,
+  "meandec": 18.4129279,
+  "sigmara": null,
+  "sigmadec": null,
+  "step_id_corr": "corr_bulk_0.0.1"
+}

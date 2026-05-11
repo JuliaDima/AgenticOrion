@@ -1,0 +1,75 @@
+{
+  "mission": "Euclid/VIS+NISP",
+  "experiment_type": "RETRO",
+  "source": {
+    "alert_broker": null,
+    "mission_archive": "https://www.euclid-ec.org/science/ero/",
+    "curated_demo": "https://arxiv.org/abs/2502.09802"
+  },
+  "object_or_event_id": {
+    "Euclid_id": "EUCL J081705.61+702348.8",
+    "RA_deg": 124.2734,
+    "Dec_deg": 70.3969,
+    "lens_z": 0.335,
+    "source_z": 1.475,
+    "Einstein_radius_arcsec": 1.18,
+    "ERO_field": "Perseus cluster field",
+    "paper_arXiv": "2502.09802",
+    "grade": "A"
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry"
+  ],
+  "short_summary": "EUCL J081705.61+702348.8 is the first spectroscopically confirmed Euclid strong gravitational lens (ERO Perseus field). Foreground early-type galaxy at z=0.335 lenses a star-forming galaxy at z=1.475 ([OII] emission). Einstein radius 1.18 arcsec, two distinct arcs resolved in VIS imaging.",
+  "metadata": {
+    "lens_z": 0.335,
+    "source_z": 1.475,
+    "Einstein_radius_arcsec": 1.18,
+    "source_emission_line": "[OII]",
+    "CNN_grade": "A",
+    "ERO_field": "Perseus",
+    "paper_arXiv": "2502.09802"
+  },
+  "small_data_product": {
+    "image_url": "https://www.euclid-ec.org/science/ero/",
+    "lightcurve_url": null,
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "instrument": "Euclid VIS",
+      "pixel_scale_arcsec": 0.1,
+      "band": "IE (550\u2013900 nm)",
+      "field": "Perseus ERO"
+    }
+  },
+  "initial_pipeline_labels": [
+    "confirmed_strong_lens",
+    "grade_A",
+    "cosmological_probe"
+  ],
+  "query_hints": {
+    "ESA_archive": {
+      "url": "https://easidr.esac.esa.int/sas/",
+      "note": "Euclid Science Archive; query by RA/Dec within 5 arcsec."
+    },
+    "image_cutout": {
+      "service": "Euclid SAS cutout service (when publicly available) or ESO archive",
+      "coord": "124.2734, 70.3969",
+      "radius_arcsec": 30
+    },
+    "Q1_catalog": {
+      "url": "https://www.euclid-ec.org/science/q1/",
+      "note": "Q1 strong lensing catalogue; filter by ERO field=Perseus, grade=A."
+    }
+  },
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_04_EUCL_J081705.61+702348.8",
+    "files": [
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}

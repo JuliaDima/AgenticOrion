@@ -1,0 +1,37 @@
+{
+  "mission": "CHIME/FRB",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_02",
+    "RA_deg": 96.6946,
+    "Dec_deg": 24.8479,
+    "DM_pc_cm3": 557.0,
+    "host_redshift": 0.19273
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "spectrum"
+  ],
+  "short_summary": "Observation from CHIME/FRB. Modalities: alert, light_curve, spectrum. Dispersion measure DM=557.0 pc/cm\u00b3. Burst rate 0.1\u201310 (400\u2013800 MHz). Rotation measure ~1e5 rad/m\u00b2. Scattering time at 500 MHz: <9.6 ms. Pipeline flags: high_DM, confirmed_extragalactic, extreme_RM.",
+  "metadata": {
+    "DM_pc_cm3": 557.0,
+    "host_redshift": 0.19273,
+    "burst_rate_per_day": "0.1\u201310 (400\u2013800 MHz)",
+    "scattering_500MHz_ms": "<9.6",
+    "RM_rad_m2": "~1e5",
+    "CHIME_detection_MJD": 58440.0
+  },
+  "initial_pipeline_labels": [
+    "high_DM",
+    "confirmed_extragalactic",
+    "extreme_RM"
+  ],
+  "populated_data_products": {
+    "catalog_row_json": "data/catalog_row.json",
+    "catalog_row_csv": "data/catalog_row.csv",
+    "excluded_flag": false,
+    "chime_catalog_available": true,
+    "chime_match": true
+  }
+}

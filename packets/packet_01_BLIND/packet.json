@@ -1,0 +1,34 @@
+{
+  "mission": "Rubin/ZTF-style optical transient",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_01",
+    "RA_deg": 257.7009,
+    "Dec_deg": 13.968,
+    "redshift": 0.014145,
+    "discovery_MJD": 58285.44141
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout",
+    "spectrum"
+  ],
+  "short_summary": "Observation from Rubin/ZTF-style optical transient. Modalities: alert, light_curve, image_cutout, spectrum. Redshift z=0.014145. Peak magnitude 14.74 (orange band). Distance ~66.3 Mpc. Pipeline flags: high_cadence_priority, ambiguous_class.",
+  "metadata": {
+    "distance_Mpc": 66.3,
+    "redshift": 0.014145,
+    "peak_mag_orange": 14.74
+  },
+  "initial_pipeline_labels": [
+    "high_cadence_priority",
+    "ambiguous_class"
+  ],
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv",
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

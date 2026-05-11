@@ -1,0 +1,24 @@
+{
+  "mission": "ZTF (ALeRCE broker)",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_10"
+  },
+  "modality": [
+    "alert",
+    "image_cutout"
+  ],
+  "short_summary": "Observation from ZTF (ALeRCE broker). Modalities: alert, image_cutout. Pipeline flags: observational_alert.",
+  "metadata": {
+    "rb_score": "<0.4"
+  },
+  "initial_pipeline_labels": [
+    "observational_alert"
+  ],
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  }
+}

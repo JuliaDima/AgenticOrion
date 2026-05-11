@@ -1,0 +1,30 @@
+{
+  "mission": "JWST/NIRCam",
+  "experiment_type": "BLIND",
+  "object_or_event_id": {
+    "blind_id": "BLIND_03",
+    "RA_deg": 228.6432,
+    "Dec_deg": 44.6424
+  },
+  "modality": [
+    "image_cutout",
+    "catalogue_entry",
+    "spectrum"
+  ],
+  "short_summary": "Observation from JWST/NIRCam. Modalities: image_cutout, catalogue_entry, spectrum. Pipeline flags: high_z_candidate.",
+  "metadata": {
+    "photo_z": 11.8,
+    "spec_z": 11.44,
+    "m_F200W_AB": 27.3,
+    "log_Mstar_Msun": 8.5,
+    "field": "EGS (Extended Groth Strip)",
+    "confirm_arXiv": "2208.01612",
+    "JWST_program": "CEERS GO #1345"
+  },
+  "initial_pipeline_labels": [
+    "high_z_candidate"
+  ],
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  }
+}

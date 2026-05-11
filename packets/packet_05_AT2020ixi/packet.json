@@ -1,0 +1,75 @@
+{
+  "mission": "ZTF/Rubin-precursor broker (ALeRCE)",
+  "experiment_type": "TRIAGE",
+  "source": {
+    "alert_broker": "ALeRCE https://alerce.science",
+    "mission_archive": "IRSA ZTF https://irsa.ipac.caltech.edu/Missions/ztf.html",
+    "curated_demo": "https://alerce.science/object/ZTF20aamttiw"
+  },
+  "object_or_event_id": {
+    "ZTF_oid": "ZTF20aamttiw",
+    "ALeRCE_url": "https://alerce.science/object/ZTF20aamttiw",
+    "TNS_name": "AT2020ixi",
+    "RA_deg": null,
+    "Dec_deg": null,
+    "classification_at_alert": "unclear / multi-class ambiguity"
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout"
+  ],
+  "short_summary": "ZTF20aamttiw (AT2020ixi) is an ALeRCE-brokered transient flagged as an outlier by the ALeRCE Anomaly Detector (Perez-Carrasco+2023). Labelled SN II by the LC classifier but with an atypical double-peaked LC (ejecta-CSM bump) that made it a genuine anomaly at broker level.",
+  "metadata": {
+    "broker": "ALeRCE",
+    "survey": "ZTF",
+    "classification_note": "ALeRCE LC classifier: SN II; but anomaly detector flagged it. Atypical ejecta-CSM bump in g and r. Published outlier in Perez-Carrasco+2023 Fig 6."
+  },
+  "small_data_product": {
+    "image_url": "https://alerce.science/object/ZTF20aamttiw",
+    "lightcurve_url": "https://api.alerce.online/ztf/v1/objects/ZTF20aamttiw/lightcurve",
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "survey": "ZTF",
+      "filter": "g, r"
+    }
+  },
+  "initial_pipeline_labels": [
+    "ambiguous_class",
+    "broker_triage",
+    "follow_up_candidate"
+  ],
+  "query_hints": {
+    "alert_stream": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aamttiw",
+      "note": "Returns full object record including broker probabilities."
+    },
+    "light_curve": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aamttiw/lightcurve",
+      "note": "Returns JSON with mjd, mag, magerr, fid per epoch."
+    },
+    "stamp_cutouts": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aamttiw/stamps",
+      "note": "Returns science, template, difference stamp URLs."
+    },
+    "broker_probabilities": {
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/ZTF20aamttiw/probabilities"
+    }
+  },
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_05_AT2020ixi",
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv"
+    ],
+    "errors": []
+  }
+}

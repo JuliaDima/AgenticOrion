@@ -1,0 +1,87 @@
+{
+  "mission": "CHIME/FRB",
+  "experiment_type": "RETRO",
+  "source": {
+    "alert_broker": "CHIME/FRB VOEvent stream",
+    "mission_archive": "https://www.chime-frb.ca/catalog",
+    "curated_demo": "https://www.chime-frb-open-data.github.io/catalog/"
+  },
+  "object_or_event_id": {
+    "canonical_name": "FRB 121102",
+    "TNS_name": "FRB 20121102A",
+    "FRBCAT_name": "FRB 121102",
+    "repeater_src": "R1",
+    "RA_J2000": "05h31m58.70s",
+    "Dec_J2000": "+33d08m52.5s",
+    "RA_deg": 82.9946,
+    "Dec_deg": 33.1479,
+    "DM_pc_cm3": 557.0,
+    "host_galaxy": "SDSS J053158.16+330852.5",
+    "host_redshift": 0.19273,
+    "CHIME_catalog1_tns_name": "FRB 20121102A"
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "spectrum"
+  ],
+  "short_summary": "FRB 121102 (FRB 20121102A) is the first discovered repeating FRB, detected originally by Arecibo in 2012 and subsequently by CHIME. DM~557 pc/cm^3, host at z=0.19. High burst rate enables temporal analysis. Extreme Faraday rotation implies dense magnetised environment.",
+  "metadata": {
+    "DM_pc_cm3": 557.0,
+    "host_redshift": 0.19273,
+    "burst_rate_per_day": "0.1\u201310 (400\u2013800 MHz)",
+    "scattering_500MHz_ms": "<9.6",
+    "RM_rad_m2": "~1e5",
+    "key_paper_arXiv": "1811.09907",
+    "CHIME_detection_MJD": 58440.0
+  },
+  "small_data_product": {
+    "image_url": null,
+    "lightcurve_url": "https://www.chime-frb-open-data.github.io/catalog/  # Download catalog1.csv; filter tns_name=='FRB 20121102A'",
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "waterfall_note": "Dynamic spectra (waterfall) available via CHIME open data baseband release. See https://www.chime-frb-open-data.github.io/"
+    }
+  },
+  "initial_pipeline_labels": [
+    "repeating_FRB",
+    "high_DM",
+    "confirmed_extragalactic",
+    "extreme_RM"
+  ],
+  "query_hints": {
+    "catalog_csv": {
+      "url": "https://www.chime-frb-open-data.github.io/catalog/catalog1.csv",
+      "filter_col": "tns_name",
+      "filter_val": "FRB 20121102A",
+      "python": "import pandas as pd\ndf = pd.read_csv('catalog1.csv')\nrow = df[df['tns_name']=='FRB 20121102A']"
+    },
+    "repeater_catalog": {
+      "url": "https://www.chime-frb.ca/repeater_catalog",
+      "note": "Filter by 'repeater_name' == 'R1'."
+    },
+    "baseband_data": {
+      "url": "https://www.chime-frb-open-data.github.io/",
+      "note": "Open baseband data for selected bursts; requires frb-common package."
+    },
+    "FRBCAT": {
+      "url": "http://frbcat.org/frb/FRB121102/",
+      "note": "Legacy FRBCAT record; superseded by TNS/CHIME catalog."
+    }
+  },
+  "populated_data_products": {
+    "catalog_row_json": "data/catalog_row.json",
+    "catalog_row_csv": "data/catalog_row.csv",
+    "excluded_flag": false,
+    "chime_catalog_available": true,
+    "chime_match": true
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_02_FRB_20121102A",
+    "files": [
+      "data/catalog_row.json",
+      "data/catalog_row.csv"
+    ],
+    "errors": []
+  }
+}

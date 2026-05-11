@@ -1,0 +1,81 @@
+{
+  "mission": "JWST/NIRCam+NIRSpec",
+  "experiment_type": "TRIAGE",
+  "source": {
+    "alert_broker": null,
+    "mission_archive": "MAST https://mast.stsci.edu",
+    "curated_demo": "https://esawebb.org/images/littlereddots/"
+  },
+  "object_or_event_id": {
+    "survey_id": "JADES 9186",
+    "field": "GOODS-S",
+    "redshift": 4.99,
+    "RA_deg": 53.1228,
+    "Dec_deg": -27.7921,
+    "ESA_image_ref": "https://esawebb.org/images/littlereddots/",
+    "MAST_search": "JADES GO #1180 / #1210"
+  },
+  "modality": [
+    "image_cutout",
+    "spectrum",
+    "catalogue_entry"
+  ],
+  "short_summary": "JADES 9186 is a photometrically selected Little Red Dot (LRD) at z=4.99 in GOODS-S. LRDs show compact morphology with red rest-optical and blue rest-UV continua. Nature debated: dust-reddened AGN vs. compact starbursts. High-ambiguity object suitable for testing the triage agent's uncertainty quantification and multi-hypothesis reasoning.",
+  "metadata": {
+    "redshift": 4.99,
+    "field": "GOODS-S / JADES",
+    "colour_feature": "red F277W-F444W, blue F150W-F277W",
+    "morphology": "compact, unresolved at NIRCam resolution",
+    "class_debate": [
+      "broad-line AGN",
+      "compact starburst",
+      "dust-reddened galaxy"
+    ],
+    "key_paper_arXiv": "2404.03576",
+    "ESA_credit": "Kocevski (Colby College)"
+  },
+  "small_data_product": {
+    "image_url": "https://esawebb.org/images/littlereddots/",
+    "lightcurve_url": null,
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "instrument": "NIRCam",
+      "filters": [
+        "F115W",
+        "F150W",
+        "F200W",
+        "F277W",
+        "F356W",
+        "F444W"
+      ],
+      "pixel_scale": 0.031
+    }
+  },
+  "initial_pipeline_labels": [
+    "LRD_candidate",
+    "ambiguous_AGN_or_starburst",
+    "high_z",
+    "triage_priority"
+  ],
+  "query_hints": {
+    "JADES_catalog": {
+      "url": "https://archive.stsci.edu/hlsp/jades",
+      "note": "HLSP JADES photometric catalog; search by internal ID 9186 or coordinates.",
+      "python": "from astroquery.mast import Observations\nobs = Observations.query_criteria(\n    proposal_id=['1180','1210'],\n    instrument_name='NIRCAM',\n    s_ra=53.1228, s_dec=-27.7921, radius='5s'\n)"
+    },
+    "image_cutout": {
+      "service": "MAST cutout (astrocut)",
+      "python": "from astrocut import CutoutFactory\n# or use: https://mast.stsci.edu/tesscut/api/v0.1/astrocut with NIRCam product"
+    }
+  },
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_07_JADES_9186",
+    "files": [
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}

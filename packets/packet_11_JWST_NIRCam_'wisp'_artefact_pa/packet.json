@@ -1,0 +1,67 @@
+{
+  "mission": "JWST/NIRCam",
+  "experiment_type": "CTRL",
+  "source": {
+    "alert_broker": null,
+    "mission_archive": "MAST https://mast.stsci.edu",
+    "curated_demo": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+  },
+  "object_or_event_id": {
+    "artefact_name": "JWST NIRCam 'wisp' artefact pattern",
+    "field_example": "JADES GOODS-S pointing, Module B",
+    "RA_deg": 53.162,
+    "Dec_deg": -27.79,
+    "MAST_proposal": "1180",
+    "artefact_class": "wisp / scattered-light persistence",
+    "reference_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+  },
+  "modality": [
+    "image_cutout"
+  ],
+  "short_summary": "NIRCam 'wisps' are scattered-light features that appear as faint, diffuse, arc-like emission in F150W and F200W images, concentrated near detector module boundaries. They have no astrophysical origin. Control: agent must recognise the detector-artefact morphology and not flag as an astrophysical transient or lens candidate.",
+  "metadata": {
+    "artefact_type": "wisp / scattered-light",
+    "affected_filters": [
+      "F150W",
+      "F200W"
+    ],
+    "module": "NIRCam Module B",
+    "STScI_issue_ref": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues"
+  },
+  "small_data_product": {
+    "image_url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+    "lightcurve_url": null,
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "instrument": "NIRCam",
+      "filter": "F150W",
+      "artefact": true,
+      "description": "Wisp pattern; no point-source extraction expected"
+    }
+  },
+  "initial_pipeline_labels": [
+    "artefact",
+    "CTRL",
+    "reject",
+    "non_astrophysical"
+  ],
+  "query_hints": {
+    "STScI_docs": {
+      "url": "https://jwst-docs.stsci.edu/known-issues-with-jwst-data/nircam-known-issues",
+      "note": "Reference for wisp morphology characterisation."
+    },
+    "MAST_image": {
+      "python": "from astroquery.mast import Observations\nobs = Observations.query_criteria(\n    proposal_id='1180',\n    instrument_name='NIRCAM',\n    filters='F150W'\n)"
+    }
+  },
+  "populated_data_products": {
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_11_JWST_NIRCam_'wisp'_artefact_pa",
+    "files": [
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "oid": "ZTF20aamttiw",
+  "ndethist": "215",
+  "ncovhist": 2147,
+  "mjdstarthist": 58891.472870400175,
+  "mjdendhist": 59050.279884300195,
+  "corrected": false,
+  "stellar": false,
+  "ndet": 73,
+  "g_r_max": -0.25554848,
+  "g_r_max_corr": null,
+  "g_r_mean": 0.28440857,
+  "g_r_mean_corr": null,
+  "firstmjd": 58891.472870400175,
+  "lastmjd": 59050.279884300195,
+  "deltajd": 158.80701390001923,
+  "meanra": 261.65718096849315,
+  "meandec": 38.20817609726028,
+  "sigmara": 5.2142371546204234e-05,
+  "sigmadec": 3.721401308885805e-05,
+  "step_id_corr": "corr_bulk_0.0.1"
+}

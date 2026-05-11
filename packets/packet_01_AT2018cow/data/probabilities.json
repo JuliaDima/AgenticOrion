@@ -1,0 +1,912 @@
+[
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNIa",
+    "probability": 0.05336,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "SNIa",
+    "probability": 0.023912,
+    "ranking": 12
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "SNIa",
+    "probability": 0.31386793,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "SNIa",
+    "probability": 0.13272,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "LPV",
+    "probability": 0.02,
+    "ranking": 9
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "Microlensing",
+    "probability": 0.054,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_top",
+    "classifier_version": "2.1.0",
+    "class_name": "Transient",
+    "probability": 0.632,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "SNIa",
+    "probability": 0.21,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "LPV",
+    "probability": 0.09,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_stochastic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "QSO",
+    "probability": 0.326,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_top",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Transient",
+    "probability": 0.184,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_transient",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNIa",
+    "probability": 0.29,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.0",
+    "class_name": "SN",
+    "probability": 0.7676631,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.4",
+    "class_name": "SN",
+    "probability": 0.24046116,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "SN",
+    "probability": 0.19030318,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNIbc",
+    "probability": 0.031648,
+    "ranking": 11
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "SNIbc",
+    "probability": 0.017248,
+    "ranking": 15
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "SNIbc",
+    "probability": 6.5597254e-07,
+    "ranking": 9
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "SESN",
+    "probability": 0.188336,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "EA",
+    "probability": 0.096,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "QSO",
+    "probability": 0.064,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_top",
+    "classifier_version": "2.1.0",
+    "class_name": "Stochastic",
+    "probability": 0.21,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "SESN",
+    "probability": 0.298,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "E",
+    "probability": 0.142,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier_stochastic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "AGN",
+    "probability": 0.302,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_top",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Stochastic",
+    "probability": 0.572,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_transient",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNIbc",
+    "probability": 0.172,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.0",
+    "class_name": "AGN",
+    "probability": 0.0416516,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.4",
+    "class_name": "AGN",
+    "probability": 0.20191194,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "AGN",
+    "probability": 0.09608141,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNII",
+    "probability": 0.045632,
+    "ranking": 9
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "SNII",
+    "probability": 0.024304,
+    "ranking": 11
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "SNII",
+    "probability": 0.165584,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "EB/EW",
+    "probability": 0.04,
+    "ranking": 8
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "AGN",
+    "probability": 0.074,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_top",
+    "classifier_version": "2.1.0",
+    "class_name": "Periodic",
+    "probability": 0.158,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "SNII",
+    "probability": 0.262,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "DSCT",
+    "probability": 0.258,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_stochastic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Blazar",
+    "probability": 0.048,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_top",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Periodic",
+    "probability": 0.244,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_transient",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SNII",
+    "probability": 0.248,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.0",
+    "class_name": "VS",
+    "probability": 0.08157476,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.4",
+    "class_name": "VS",
+    "probability": 0.04039311,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "VS",
+    "probability": 0.0016976529,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SLSN",
+    "probability": 0.05336,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "SLSN",
+    "probability": 0.032536,
+    "ranking": 8
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "SNII",
+    "probability": 0.6841982,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "SNIIn",
+    "probability": 0.106176,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "Periodic-Other",
+    "probability": 0.226,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "Blazar",
+    "probability": 0.098,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "SNIIn",
+    "probability": 0.168,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "RRL",
+    "probability": 0.252,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_stochastic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "CV/Nova",
+    "probability": 0.192,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_transient",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "SLSN",
+    "probability": 0.29,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.0",
+    "class_name": "asteroid",
+    "probability": 0.051537063,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.4",
+    "class_name": "asteroid",
+    "probability": 0.056817025,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "asteroid",
+    "probability": 1.398374e-08,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "QSO",
+    "probability": 0.186472,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "QSO",
+    "probability": 0.256984,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "SNIIn",
+    "probability": 0.001499289,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "SLSN",
+    "probability": 0.032864,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "RSCVn",
+    "probability": 0.17,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "YSO",
+    "probability": 0.144,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "SLSN",
+    "probability": 0.052,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "CEP",
+    "probability": 0.046,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier_stochastic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "YSO",
+    "probability": 0.132,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.0",
+    "class_name": "bogus",
+    "probability": 0.057573523,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "stamp_classifier",
+    "classifier_version": "stamp_classifier_1.0.4",
+    "class_name": "bogus",
+    "probability": 0.4604168,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "bogus",
+    "probability": 0.7117556,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "AGN",
+    "probability": 0.172744,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "AGN",
+    "probability": 0.23298,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "SLSN",
+    "probability": 2.4446753e-12,
+    "ranking": 19
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "TDE",
+    "probability": 0.00632,
+    "ranking": 20
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "CEP",
+    "probability": 0.052,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_stochastic",
+    "classifier_version": "2.1.0",
+    "class_name": "CV/Nova",
+    "probability": 0.566,
+    "ranking": 1
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_transient",
+    "classifier_version": "2.1.0",
+    "class_name": "TDE",
+    "probability": 0.01,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier_periodic",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Periodic-Other",
+    "probability": 0.212,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "stamp_classifier_2025_beta",
+    "classifier_version": "2.1.1_beta",
+    "class_name": "satellite",
+    "probability": 0.00016224998,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Blazar",
+    "probability": 0.027456,
+    "ranking": 12
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "Blazar",
+    "probability": 0.031064,
+    "ranking": 9
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "TDE",
+    "probability": 8.4442544e-13,
+    "ranking": 20
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "Microlensing",
+    "probability": 0.01134,
+    "ranking": 16
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "RRLab",
+    "probability": 0.07,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "CV/Nova",
+    "probability": 0.109824,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "CV/Nova",
+    "probability": 0.117196,
+    "ranking": 3
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "Microlensing",
+    "probability": 6.4331596e-17,
+    "ranking": 21
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "QSO",
+    "probability": 0.01344,
+    "ranking": 15
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "RRLc",
+    "probability": 0.134,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "YSO",
+    "probability": 0.075504,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "YSO",
+    "probability": 0.067776,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "QSO",
+    "probability": 1.6477416e-05,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "AGN",
+    "probability": 0.01554,
+    "ranking": 13
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot_periodic",
+    "classifier_version": "2.1.0",
+    "class_name": "DSCT",
+    "probability": 0.192,
+    "ranking": 2
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "LPV",
+    "probability": 0.02196,
+    "ranking": 13
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "LPV",
+    "probability": 0.023128,
+    "ranking": 13
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "AGN",
+    "probability": 0.00022278374,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "Blazar",
+    "probability": 0.02058,
+    "ranking": 12
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "E",
+    "probability": 0.034648,
+    "ranking": 10
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "E",
+    "probability": 0.039592,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "Blazar",
+    "probability": 1.7386779e-07,
+    "ranking": 10
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "YSO",
+    "probability": 0.03024,
+    "ranking": 9
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "DSCT",
+    "probability": 0.062952,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "DSCT",
+    "probability": 0.030968,
+    "ranking": 10
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "YSO",
+    "probability": 2.1574062e-08,
+    "ranking": 17
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "CV/Nova",
+    "probability": 0.11886,
+    "ranking": 4
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "RRL",
+    "probability": 0.061488,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "RRL",
+    "probability": 0.039984,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "CV/Nova",
+    "probability": 0.00017030185,
+    "ranking": 5
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "LPV",
+    "probability": 0.00316,
+    "ranking": 21
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "CEP",
+    "probability": 0.011224,
+    "ranking": 14
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "CEP",
+    "probability": 0.022736,
+    "ranking": 14
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "LPV",
+    "probability": 4.7106696e-09,
+    "ranking": 18
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "EA",
+    "probability": 0.015168,
+    "ranking": 14
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "hierarchical_rf_1.1.0",
+    "class_name": "Periodic-Other",
+    "probability": 0.051728,
+    "ranking": 8
+  },
+  {
+    "classifier_name": "lc_classifier",
+    "classifier_version": "lc_classifier_1.1.13",
+    "class_name": "Periodic-Other",
+    "probability": 0.039592,
+    "ranking": 7
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "EA",
+    "probability": 1.4703468e-06,
+    "ranking": 8
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "EB/EW",
+    "probability": 0.00632,
+    "ranking": 19
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "EB/EW",
+    "probability": 6.504541e-08,
+    "ranking": 15
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "Periodic-Other",
+    "probability": 0.035708,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "Periodic-Other",
+    "probability": 6.193526e-08,
+    "ranking": 16
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "RSCVn",
+    "probability": 0.02686,
+    "ranking": 10
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "RSCVn",
+    "probability": 7.0181045e-08,
+    "ranking": 14
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "CEP",
+    "probability": 0.008216,
+    "ranking": 18
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "CEP",
+    "probability": 1.3443383e-07,
+    "ranking": 11
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "RRLab",
+    "probability": 0.01106,
+    "ranking": 17
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "RRLab",
+    "probability": 2.2136952e-05,
+    "ranking": 6
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "RRLc",
+    "probability": 0.021172,
+    "ranking": 11
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "RRLc",
+    "probability": 9.878706e-08,
+    "ranking": 12
+  },
+  {
+    "classifier_name": "lc_classifier_BHRF_forced_phot",
+    "classifier_version": "2.1.0",
+    "class_name": "DSCT",
+    "probability": 0.030336,
+    "ranking": 8
+  },
+  {
+    "classifier_name": "LC_classifier_ATAT_forced_phot(beta)",
+    "classifier_version": "1.0.0",
+    "class_name": "DSCT",
+    "probability": 7.399218e-08,
+    "ranking": 13
+  }
+]

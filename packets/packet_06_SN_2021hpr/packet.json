@@ -1,0 +1,70 @@
+{
+  "mission": "ZTF/Rubin-precursor broker (Fink)",
+  "experiment_type": "TRIAGE",
+  "source": {
+    "alert_broker": "Fink https://fink-portal.org",
+    "mission_archive": "IRSA ZTF",
+    "curated_demo": "https://fink-portal.org/ZTF21aaxtctv"
+  },
+  "object_or_event_id": {
+    "ZTF_oid": "ZTF21aaxtctv",
+    "Fink_url": "https://fink-portal.org/ZTF21aaxtctv",
+    "TNS_name": "SN 2021hpr",
+    "RA_deg": null,
+    "Dec_deg": null,
+    "Fink_class": "SN Ia (peculiar early-excess candidate)"
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout"
+  ],
+  "short_summary": "ZTF21aaxtctv / SN 2021hpr is a ZTF SN Ia-candidate that Fink flagged via its Early SN Ia module due to an anomalous pre-maximum blue excess. Real broker workflow: demonstrates the novelty/rarity branch of the triage agent, where early excess emission may signal a companion interaction.",
+  "metadata": {
+    "broker": "Fink",
+    "survey": "ZTF",
+    "Fink_modules": [
+      "Early SN Ia",
+      "SN Ia peculiar"
+    ],
+    "anomaly_flag": "blue pre-maximum excess"
+  },
+  "small_data_product": {
+    "image_url": "https://fink-portal.org/ZTF21aaxtctv",
+    "lightcurve_url": "https://api.ztf.fink-portal.org/api/v1/objects  (POST, body: objectId=ZTF21aaxtctv)",
+    "spectrum_url": null,
+    "cutout_metadata": {
+      "survey": "ZTF",
+      "filter": "g, r, i"
+    }
+  },
+  "initial_pipeline_labels": [
+    "SN_Ia_peculiar",
+    "early_excess",
+    "novelty_flag",
+    "triage_priority"
+  ],
+  "query_hints": {
+    "light_curve": {
+      "endpoint": "POST https://api.ztf.fink-portal.org/api/v1/objects\nbody: {\"objectId\": \"ZTF21aaxtctv\", \"output-format\": \"json\"}"
+    },
+    "classification": {
+      "endpoint": "POST https://api.ztf.fink-portal.org/api/v1/objects\nbody: {\"objectId\": \"ZTF21aaxtctv\", \"columns\": \"d:classification,d:rf_snia_vs_nonia\"}"
+    },
+    "cutouts": {
+      "endpoint": "POST https://fink-portal.org/api/v1/cutouts\nbody: {\"objectId\": \"ZTF21aaxtctv\", \"kind\": \"Science\", \"output-format\": \"array\"}"
+    }
+  },
+  "populated_data_products": {
+    "lightcurve_csv": "data/lightcurve.csv",
+    "classification": "data/classification.json"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_06_SN_2021hpr",
+    "files": [
+      "data/lightcurve.csv",
+      "data/classification.json"
+    ],
+    "errors": []
+  }
+}

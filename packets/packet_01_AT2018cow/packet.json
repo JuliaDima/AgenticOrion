@@ -1,0 +1,101 @@
+{
+  "mission": "Rubin/ZTF-style optical transient",
+  "experiment_type": "RETRO",
+  "source": {
+    "alert_broker": "ALeRCE (https://alerce.science/object/AT2018cow)",
+    "mission_archive": "NASA/IPAC TNS https://www.wis-tns.org/object/2018cow",
+    "curated_demo": "https://www.wis-tns.org/object/2018cow"
+  },
+  "object_or_event_id": {
+    "TNS_name": "AT2018cow",
+    "ATLAS_name": "ATLAS18qqn",
+    "IAU_name": "SN 2018cow",
+    "ZTF_oid": "ZTF18abcfcoo",
+    "ALeRCE_url": "https://alerce.science/object/ZTF18abcfcoo",
+    "TNS_URL": "https://www.wis-tns.org/object/2018cow",
+    "SIMBAD_id": "AT2018COW",
+    "RA_deg": 244.000917,
+    "Dec_deg": 22.268031,
+    "host_galaxy": "CGCG 137-068",
+    "redshift": 0.014145,
+    "discovery_MJD": 58285.44141
+  },
+  "modality": [
+    "alert",
+    "light_curve",
+    "image_cutout",
+    "spectrum"
+  ],
+  "short_summary": "AT2018cow is the canonical fast blue optical transient (FBOT), discovered 2018-06-16 by ATLAS at m_o=14.74. Peak bolometric luminosity ~4e44 erg/s. Nature debated: magnetar vs IMBH TDE. Ambiguous classification at discovery; huge multi-wavelength follow-up.",
+  "metadata": {
+    "discovery_survey": "ATLAS",
+    "host_galaxy": "CGCG 137-068",
+    "distance_Mpc": 66.3,
+    "redshift": 0.014145,
+    "peak_mag_orange": 14.74,
+    "class_debate": [
+      "FBOT",
+      "TDE-IMBH",
+      "magnetar-engine SN"
+    ],
+    "key_paper_arXiv": "1807.05965"
+  },
+  "small_data_product": {
+    "image_url": "https://www.wis-tns.org/object/2018cow",
+    "lightcurve_url": "https://alerce.science/object/AT2018cow",
+    "spectrum_url": "https://ui.adsabs.harvard.edu/abs/1807.05965",
+    "cutout_metadata": {
+      "survey": "ATLAS orange-band",
+      "pixel_scale_arcsec": 1.86,
+      "filter": "o-band"
+    }
+  },
+  "initial_pipeline_labels": [
+    "FBOT_candidate",
+    "high_cadence_priority",
+    "ambiguous_class"
+  ],
+  "query_hints": {
+    "alert": {
+      "broker": "ALeRCE",
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/{oid}",
+      "oid_note": "Use TNS name 'AT2018cow'; ALeRCE cross-matches TNS."
+    },
+    "light_curve": {
+      "broker": "ALeRCE",
+      "endpoint": "GET https://api.alerce.online/ztf/v1/objects/AT2018cow/lightcurve",
+      "fallback_TNS": "https://www.wis-tns.org/object/2018cow  \u2192 Photometry tab"
+    },
+    "image_cutout": {
+      "service": "PS1 image cutout",
+      "url_template": "https://ps1images.stsci.edu/cgi-bin/ps1cutouts?pos=244.000917+22.268031&filter=r&size=240"
+    },
+    "spectrum": {
+      "service": "TNS / WISeREP",
+      "wiserep_url": "https://www.wiserep.org/object/5862",
+      "note": "Spectral series from NOT, FLOYDS, SPRAT publicly available."
+    },
+    "catalogue_entry": {
+      "SIMBAD": "https://simbad.u-strasbg.fr/simbad/sim-id?Ident=AT2018COW",
+      "NED": "https://ned.ipac.caltech.edu/cgi-bin/objsearch?objname=AT2018cow"
+    }
+  },
+  "populated_data_products": {
+    "alert_meta": "data/alert_meta.json",
+    "probabilities": "data/probabilities.json",
+    "lightcurve_csv": "data/lightcurve.csv",
+    "non_detections_csv": "data/non_detections.csv",
+    "cutout_r_fits": "data/cutout_r.fits"
+  },
+  "fetch_log": {
+    "packet_dir": "packets/packet_01_AT2018cow",
+    "files": [
+      "data/alert_meta.json",
+      "data/probabilities.json",
+      "data/lightcurve.csv",
+      "data/non_detections.csv",
+      "data/cutout_r.fits"
+    ],
+    "errors": []
+  }
+}
