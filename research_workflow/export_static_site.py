@@ -11,6 +11,7 @@ import json
 import shutil
 from pathlib import Path
 
+from benchmark import write_benchmark_outputs
 from web_server import AGENTS, EDGES, _read_manifest, list_runs, run_detail
 
 ROOT = Path(__file__).resolve().parent
@@ -39,6 +40,8 @@ def main() -> None:
         detail = run_detail(run["run_id"])
         if detail:
             _write_json(STATIC_ROOT / "runs" / f"{run['run_id']}.json", detail)
+
+    write_benchmark_outputs(STATIC_ROOT)
 
     main_image = REPO_ROOT / "assets" / "main_page.png"
     if main_image.exists():

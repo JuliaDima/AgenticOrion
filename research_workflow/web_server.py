@@ -527,6 +527,11 @@ class OrionHandler(SimpleHTTPRequestHandler):
         if path == "/api/runs":
             self._send_json(list_runs())
             return
+        if path == "/api/benchmark":
+            from benchmark import build_benchmark_payload
+
+            self._send_json(build_benchmark_payload(write_plots=True))
+            return
         if path.startswith("/api/runs/"):
             run_id = path.rsplit("/", 1)[-1]
             detail = run_detail(run_id)

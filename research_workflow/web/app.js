@@ -2,6 +2,7 @@ const state = {
   workflow: null,
   packets: [],
   runs: [],
+  benchmark: null,
   current: null,
   selectedAgent: null,
   staticMode: false,
@@ -118,6 +119,11 @@ function fmtCost(value) {
   return `$${n.toFixed(2)}`;
 }
 
+function fmtPct(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? `${Math.round(n * 100)}%` : "--";
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -136,6 +142,7 @@ function staticDataUrl(url) {
   if (url === "/api/workflow") return `${STATIC_DATA_ROOT}/workflow.json`;
   if (url === "/api/packets") return `${STATIC_DATA_ROOT}/packets.json`;
   if (url === "/api/runs") return `${STATIC_DATA_ROOT}/runs.json`;
+  if (url === "/api/benchmark") return `${STATIC_DATA_ROOT}/benchmark.json`;
   if (url.startsWith("/api/runs/")) {
     return `${STATIC_DATA_ROOT}/runs/${encodeURIComponent(url.split("/").pop())}.json`;
   }
@@ -169,6 +176,7 @@ async function init() {
   bindHeroPhotos();
   state.workflow = await fetchJson("/api/workflow");
   state.packets = await fetchJson("/api/packets");
+  state.benchmark = await fetchJson("/api/benchmark").catch(() => null);
   populatePackets();
   renderProject();
   await refreshRuns();
@@ -560,7 +568,7 @@ function renderInspector(agent) {
     </div>
     <div class="inspector-section" ${hasRunTrace ? "" : "hidden"}>
       <h4>Structured Output</h4>
-      <pre class="json-block">${escapeHtml(JSON.stringify(outputs, null, 2) || "{}")}</pre>
+      ${renderStructuredOutput(agent.id, outputs)}
     </div>
     <div class="inspector-section" ${hasRunTrace ? "" : "hidden"}>
       <h4>Tools</h4>
@@ -583,6 +591,223 @@ function renderToolList(tools) {
       </div>
     `)
     .join("");
+}
+
+function renderStructuredOutput(agentId, outputs) {
+  if (!outputs || !Object.keys(outputs).length) return `<p class="muted">No structured output recorded.</p>`;
+
+  const scoreBar = (v) => {
+    const pct = Math.round(Math.max(0, Math.min(1, Number(v) || 0)) * 100);
+    return `<div class="so-score-row"><div class="so-score-track"><div class="so-score-fill" style="width:${pct}%"></div></div><span class="so-score-label">${fmtNum(Number(v))}</span></div>`;
+  };
+
+  const evidenceList = (items, type) => {
+    if (!items?.length) return "";
+    return `<ul class="so-evidence-list so-evidence-${type}">${items.map(e => `<li>${escapeHtml(e)}</li>`).join("")}</ul>`;
+  };
+
+  const chip = (text, cls) => `<span class="so-chip so-chip-${cls}">${escapeHtml(text)}</span>`;
+
+  // ── Astrophysical Interpreter ───────────────────────────────────────────────
+  if (agentId === "astrophysical_interpreter") {
+    const d = outputs.astrophysical_interpretation || {};
+    const classes = d.candidate_classes || [];
+    return `
+      <div class="so-lead">
+        <div class="so-lead-label">Best explanation</div>
+        <div class="so-lead-value">${escapeHtml(d.best_explanation || "—")}</div>
+        ${scoreBar(d.confidence)}
+        ${d.uncertainty_notes ? `<p class="so-note">${escapeHtml(d.uncertainty_notes)}</p>` : ""}
+      </div>
+      ${classes.map(c => `
+        <div class="so-candidate">
+          <div class="so-candidate-header">
+            <strong>${escapeHtml(c.name)}</strong>
+            ${scoreBar(c.probability)}
+          </div>
+          ${evidenceList(c.evidence_for, "for")}
+          ${evidenceList(c.evidence_against, "against")}
+        </div>
+      `).join("")}
+    `;
+  }
+
+  // ── Artefact Checker ────────────────────────────────────────────────────────
+  if (agentId === "artefact_checker") {
+    const d = outputs.artefact_assessment || {};
+    const modes = d.possible_artefact_modes || [];
+    return `
+      <div class="so-lead">
+        <div class="so-lead-label">Artefact probability</div>
+        ${scoreBar(d.artefact_probability)}
+        <div class="so-lead-value">${escapeHtml(d.most_likely_non_astrophysical || "—")}</div>
+      </div>
+      ${modes.map(m => `
+        <div class="so-candidate">
+          <div class="so-candidate-header">
+            <strong>${escapeHtml(m.name)}</strong>
+            ${scoreBar(m.probability)}
+          </div>
+          ${evidenceList(m.evidence_for, "for")}
+          ${evidenceList(m.evidence_against, "against")}
+        </div>
+      `).join("")}
+      ${(d.recommended_quality_checks || []).length ? `
+        <div class="so-section-label">Recommended checks</div>
+        <ul class="so-checks-list">${(d.recommended_quality_checks || []).map(c => `<li>${escapeHtml(c)}</li>`).join("")}</ul>
+      ` : ""}
+    `;
+  }
+
+  // ── Novelty Assessor ────────────────────────────────────────────────────────
+  if (agentId === "novelty_assessor") {
+    const d = outputs.novelty_rarity_assessment || {};
+    return `
+      ${d.time_sensitive ? `<div class="so-alert">⚡ Time-sensitive observation</div>` : ""}
+      <div class="so-scores-grid">
+        ${[["Rarity", d.rarity_score], ["Novelty", d.novelty_score], ["Uncertainty", d.uncertainty_score], ["Follow-up value", d.followup_value_score], ["Overall interest", d.overall_interest_score]].map(([label, val]) => `
+          <div class="so-score-card">
+            <div class="so-section-label">${label}</div>
+            ${scoreBar(val)}
+          </div>
+        `).join("")}
+      </div>
+      ${d.reason_for_scientific_interest ? `<p class="so-reason">${escapeHtml(d.reason_for_scientific_interest)}</p>` : ""}
+      ${d.ood_notes ? `<p class="so-note">${escapeHtml(d.ood_notes)}</p>` : ""}
+    `;
+  }
+
+  // ── Context Retriever ───────────────────────────────────────────────────────
+  if (agentId === "context_retriever") {
+    const d = outputs.context_retrieval_results || {};
+    const papers = d.related_papers || [];
+    const arxiv = d.raw_arxiv_papers || [];
+    return `
+      ${papers.map(p => `
+        <div class="so-paper">
+          <div class="so-paper-title">${escapeHtml(p.title || "Untitled")}</div>
+          ${p.key_finding ? `<p class="so-paper-finding">${escapeHtml(p.key_finding)}</p>` : ""}
+          ${p.relevance ? `<p class="so-note">${escapeHtml(p.relevance)}</p>` : ""}
+        </div>
+      `).join("")}
+      ${arxiv.length ? `
+        <div class="so-section-label" style="margin-top:12px">arXiv references</div>
+        ${arxiv.slice(0, 5).map(p => `
+          <div class="so-paper so-paper-arxiv">
+            <a class="so-paper-title so-paper-link" href="${escapeHtml(p.url || "#")}" target="_blank" rel="noopener">${escapeHtml(p.title || "Untitled")}</a>
+            <p class="so-note">${escapeHtml(p.abstract?.slice(0, 180) || "")}…</p>
+          </div>
+        `).join("")}
+      ` : ""}
+      ${d.relevant_catalogue_context ? `<p class="so-note"><strong>Catalogue:</strong> ${escapeHtml(d.relevant_catalogue_context)}</p>` : ""}
+      ${d.mission_instrument_notes ? `<p class="so-note"><strong>Mission notes:</strong> ${escapeHtml(d.mission_instrument_notes)}</p>` : ""}
+      ${(d.known_failure_modes || []).length ? `
+        <div class="so-section-label">Known failure modes</div>
+        <ul class="so-evidence-list so-evidence-against">${(d.known_failure_modes || []).map(f => `<li>${escapeHtml(f)}</li>`).join("")}</ul>
+      ` : ""}
+    `;
+  }
+
+  // ── Evidence Aggregator ─────────────────────────────────────────────────────
+  if (agentId === "evidence_aggregator") {
+    const d = outputs.aggregated_evidence || {};
+    const hypotheses = d.ranked_hypotheses || [];
+    const verdictCls = { HIGH_PRIORITY: "high", MEDIUM_PRIORITY: "medium", LOW_PRIORITY: "low", REJECT_ARTEFACT: "reject", REJECT_CONTROL: "reject" }[d.triage_verdict] || "medium";
+    return `
+      <div class="so-verdict so-verdict-${verdictCls}">${escapeHtml(d.triage_verdict || "UNKNOWN")} — ${fmtNum(d.overall_interest_score)} interest</div>
+      ${hypotheses.map(h => `
+        <div class="so-candidate">
+          <div class="so-candidate-header">
+            <strong>${escapeHtml(h.hypothesis)}</strong>
+            ${scoreBar(h.updated_confidence)}
+          </div>
+          ${(h.supporting_branches || []).length ? `<div class="so-branch-tags">${(h.supporting_branches || []).map(b => chip(b, "for")).join("")}</div>` : ""}
+          ${(h.opposing_branches || []).length ? `<div class="so-branch-tags">${(h.opposing_branches || []).map(b => chip(b, "against")).join("")}</div>` : ""}
+          ${h.key_discriminant ? `<p class="so-note">Discriminant: ${escapeHtml(h.key_discriminant)}</p>` : ""}
+        </div>
+      `).join("")}
+      ${(d.agreement_points || []).length ? `
+        <div class="so-section-label">Agreement</div>
+        ${evidenceList(d.agreement_points, "for")}
+      ` : ""}
+      ${(d.disagreement_points || []).length ? `
+        <div class="so-section-label">Disagreement</div>
+        ${evidenceList(d.disagreement_points, "against")}
+      ` : ""}
+      ${(d.unresolved_questions || []).length ? `
+        <div class="so-section-label">Unresolved</div>
+        <ul class="so-checks-list">${(d.unresolved_questions || []).map(q => `<li>${escapeHtml(q)}</li>`).join("")}</ul>
+      ` : ""}
+    `;
+  }
+
+  // ── Observation Characterizer ───────────────────────────────────────────────
+  if (agentId === "observation_characterizer") {
+    const d = outputs.observation_characterization || {};
+    return `
+      <p class="so-reason">${escapeHtml(d.one_line_summary || "—")}</p>
+      <p class="so-note">${escapeHtml(d.modality_summary || "")}</p>
+      ${(d.salient_features || []).length ? `
+        <div class="so-section-label">Salient features</div>
+        ${evidenceList(d.salient_features, "for")}
+      ` : ""}
+      ${(d.missing_evidence || []).length ? `
+        <div class="so-section-label">Missing evidence</div>
+        ${evidenceList(d.missing_evidence, "against")}
+      ` : ""}
+      ${(d.data_quality_notes || []).length ? `
+        <div class="so-section-label">Data quality</div>
+        <ul class="so-checks-list">${(d.data_quality_notes || []).map(n => `<li>${escapeHtml(n)}</li>`).join("")}</ul>
+      ` : ""}
+    `;
+  }
+
+  // ── Follow-up Prioritizer ───────────────────────────────────────────────────
+  if (agentId === "followup_prioritizer") {
+    const d = outputs.followup_recommendations || {};
+    const actions = d.priority_actions || [];
+    return `
+      ${d.time_sensitivity_note ? `<div class="so-alert">${escapeHtml(d.time_sensitivity_note)}</div>` : ""}
+      ${actions.map((a, i) => `
+        <div class="so-action">
+          <div class="so-action-num">${i + 1}</div>
+          <div>
+            <strong>${escapeHtml(a.action || a)}</strong>
+            ${a.facility ? `${chip(a.facility, "neutral")}` : ""}
+            ${a.urgency ? `${chip(a.urgency, a.urgency === "IMMEDIATE" ? "against" : "neutral")}` : ""}
+            ${a.rationale ? `<p class="so-note">${escapeHtml(a.rationale)}</p>` : ""}
+          </div>
+        </div>
+      `).join("")}
+      ${d.scientific_value_summary ? `<p class="so-note">${escapeHtml(d.scientific_value_summary)}</p>` : ""}
+    `;
+  }
+
+  // ── Supervisor ──────────────────────────────────────────────────────────────
+  if (agentId === "supervisor") {
+    return `
+      <div class="so-lead">
+        <div class="so-lead-label">Mission</div>
+        <div class="so-lead-value">${escapeHtml(outputs.mission || "—")}</div>
+      </div>
+      ${kv("Modality", outputs.primary_modality || "—")}
+      ${kv("Code needed", outputs.needs_code ? "Yes" : "No")}
+    `;
+  }
+
+  // ── Code Executor ───────────────────────────────────────────────────────────
+  if (agentId === "code_executor") {
+    const out = outputs.code_execution_output || {};
+    if (out.skipped) return `<p class="muted">Code execution skipped — evidence aggregator determined it was not needed.</p>`;
+    return `
+      ${out.stdout ? `<pre class="so-code-out">${escapeHtml(out.stdout.trim())}</pre>` : ""}
+      ${out.stderr ? `<pre class="so-code-err">${escapeHtml(out.stderr.trim())}</pre>` : ""}
+      ${kv("Exit code", String(out.returncode ?? "—"))}
+    `;
+  }
+
+  // ── Fallback ────────────────────────────────────────────────────────────────
+  return `<pre class="json-block">${escapeHtml(JSON.stringify(outputs, null, 2))}</pre>`;
 }
 
 function shortTime(value) {
@@ -699,6 +924,81 @@ function renderProject() {
 
   drawProjectGraph();
   renderProjectAgentInspector("packet");
+  renderBenchmark();
+}
+
+function renderBenchmark() {
+  const summaryEl = $("benchmarkSummary");
+  const plotsEl = $("benchmarkPlots");
+  const tableEl = $("benchmarkTable");
+  const methodEl = $("benchmarkMethod");
+  if (!summaryEl || !plotsEl || !tableEl || !methodEl) return;
+  const benchmark = state.benchmark;
+  if (!benchmark?.summary) {
+    summaryEl.innerHTML = `<p class="muted">No benchmark artifact is available yet. Run <code>python research_workflow/benchmark.py</code>.</p>`;
+    plotsEl.innerHTML = "";
+    tableEl.innerHTML = "";
+    methodEl.textContent = "";
+    return;
+  }
+
+  const summary = benchmark.summary;
+  summaryEl.innerHTML = [
+    ["Objects", summary.objects_compared, "latest successful packet runs"],
+    ["Speedup", `${fmtNum(summary.comparison.avg_speedup_multi_vs_single)}x`, "multi-agent vs serial single mock"],
+    ["Characterization", `+${fmtNum(summary.comparison.characterization_gain, 3)}`, "score gain from specialist debate"],
+    ["Token tradeoff", `${fmtNum(summary.comparison.token_ratio_multi_over_single)}x`, "multi-agent tokens vs mock single"],
+    ["Priority accuracy", fmtPct(summary.multi_agent.priority_accuracy), "coarse RETRO/TRIAGE/CTRL target"],
+    ["Evidence channels", fmtNum(summary.multi_agent.avg_evidence_channels), "average specialist signals"],
+  ].map(([label, value, note]) => `
+    <div class="benchmark-card">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(value)}</strong>
+      <small>${escapeHtml(note)}</small>
+    </div>
+  `).join("");
+
+  const plots = benchmark.plots || {};
+  plotsEl.innerHTML = [
+    ["Runtime + Tokens", plots.speed_tokens],
+    ["Quality", plots.quality],
+    ["Per Object", plots.per_object],
+  ].filter(([, src]) => src).map(([label, src]) => `
+    <figure class="benchmark-plot">
+      <img src="${escapeHtml(src)}" alt="${escapeHtml(label)} benchmark plot" />
+      <figcaption>${escapeHtml(label)}</figcaption>
+    </figure>
+  `).join("");
+
+  const rows = benchmark.records || [];
+  tableEl.innerHTML = rows.length ? `
+    <table>
+      <thead>
+        <tr>
+          <th>Object</th>
+          <th>Class</th>
+          <th>Speedup</th>
+          <th>Interest</th>
+          <th>Characterization</th>
+          <th>Tokens</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map((row) => `
+          <tr>
+            <td>P${String(row.packet_index).padStart(2, "0")} · ${escapeHtml(row.object_id)}</td>
+            <td>${escapeHtml(row.experiment_type)}</td>
+            <td>${fmtNum(row.delta.wall_speedup)}x</td>
+            <td>${fmtNum(row.multi_agent.interest_score)} vs ${fmtNum(row.single_agent_mock.interest_score)}</td>
+            <td>${fmtNum(row.multi_agent.characterization_score)} vs ${fmtNum(row.single_agent_mock.characterization_score)}</td>
+            <td>${Number(row.multi_agent.total_tokens || 0).toLocaleString()} vs ${Number(row.single_agent_mock.total_tokens || 0).toLocaleString()}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  ` : `<p class="muted">No benchmark rows available.</p>`;
+
+  methodEl.textContent = `${benchmark.methodology.multi_agent} Single-agent baseline: ${benchmark.methodology.single_agent_mock}`;
 }
 
 function renderProjectAgentInspector(nodeId) {
