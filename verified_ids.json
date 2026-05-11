@@ -1,0 +1,70 @@
+{
+  "P01_AT2018cow": {
+    "verified_oid": "ZTF18abcfcoo",
+    "broker": "alerce",
+    "role": "RETRO canonical FBOT",
+    "metadata_sample": {
+      "oid": "ZTF18abcfcoo",
+      "ra": 244.0009126083349,
+      "dec": 22.268006775570058,
+      "ndet": 195,
+      "class": null,
+      "firstdet": 58288.29815969989,
+      "lastdet": 61065.55872689979
+    }
+  },
+  "P05_alerce_triage": {
+    "verified_oid": "ZTF20aamttiw",
+    "broker": "alerce",
+    "role": "TRIAGE ambiguous ALeRCE object",
+    "metadata_sample": {
+      "oid": "ZTF20aamttiw",
+      "ra": 261.65718096849315,
+      "dec": 38.20817609726028,
+      "ndet": 73,
+      "class": null,
+      "firstdet": 58891.472870400175,
+      "lastdet": 59050.279884300195
+    }
+  },
+  "P06_fink_triage": {
+    "verified_oid": "ZTF21aaxtctv",
+    "broker": "fink",
+    "role": "TRIAGE Fink Early SN Ia anomaly",
+    "metadata_sample": {
+      "oid": "ZTF21aaxtctv",
+      "ra": 192.822631,
+      "dec": 0.5207276,
+      "class": null,
+      "jd": 2459537.0520833
+    }
+  },
+  "P09_ctrl_sn": {
+    "verified_oid": "ZTF20aaynrrh",
+    "broker": "alerce",
+    "role": "CTRL normal SN IIP on ALeRCE",
+    "metadata_sample": {
+      "oid": "ZTF20aaynrrh",
+      "ra": 185.46037538808727,
+      "dec": 4.481717476118458,
+      "ndet": 96,
+      "class": null,
+      "firstdet": 58975.20255789999,
+      "lastdet": 61154.38569439994
+    }
+  },
+  "P10_ctrl_artefact": {
+    "verified_oid": "ZTF20aabqifl",
+    "broker": "alerce",
+    "role": "CTRL single-epoch spurious detection",
+    "metadata_sample": {
+      "oid": "ZTF20aabqifl",
+      "ra": 231.059771,
+      "dec": 18.4129279,
+      "ndet": 1,
+      "class": null,
+      "firstdet": 58850.50773150008,
+      "lastdet": 58850.50773150008
+    }
+  }
+}
