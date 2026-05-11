@@ -22,8 +22,8 @@
 <line class="axis" x1="68" y1="432" x2="1036" y2="432"/>
 <rect x="95.6" y="174.4" width="41.2" height="257.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="116.2" y="169.4" text-anchor="middle">0.70</text>
-<rect x="144.2" y="174.4" width="41.2" height="257.6" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="164.8" y="169.4" text-anchor="middle">0.70</text>
+<rect x="144.2" y="229.6" width="41.2" height="202.4" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="164.8" y="224.6" text-anchor="middle">0.55</text>
 <rect x="192.8" y="163.4" width="41.2" height="268.6" rx="4" fill="#c74732" opacity="0.92"/>
 <text class="val" x="213.4" y="158.4" text-anchor="middle">0.73</text>
 <text class="lbl" x="164.8" y="450.0" text-anchor="middle">FRB 20121102A</text>
@@ -36,8 +36,8 @@
 <text class="lbl" x="358.4" y="450.0" text-anchor="middle">Maisie's Galaxy</text>
 <rect x="482.8" y="174.4" width="41.2" height="257.6" rx="4" fill="#176c72" opacity="0.92"/>
 <text class="val" x="503.4" y="169.4" text-anchor="middle">0.70</text>
-<rect x="531.4" y="192.8" width="41.2" height="239.2" rx="4" fill="#7c3aed" opacity="0.92"/>
-<text class="val" x="552.0" y="187.8" text-anchor="middle">0.65</text>
+<rect x="531.4" y="174.4" width="41.2" height="257.6" rx="4" fill="#7c3aed" opacity="0.92"/>
+<text class="val" x="552.0" y="169.4" text-anchor="middle">0.70</text>
 <rect x="580.0" y="170.7" width="41.2" height="261.3" rx="4" fill="#c74732" opacity="0.92"/>
 <text class="val" x="600.6" y="165.7" text-anchor="middle">0.71</text>
 <text class="lbl" x="552.0" y="450.0" text-anchor="middle">JADES 9186</text>

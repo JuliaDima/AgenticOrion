@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-05-11T16:19:01.642120+00:00",
+  "generated_at": "2026-05-11T17:23:15.703011+00:00",
   "methodology": {
     "multi_agent": "Actual latest successful packet runs from SQLite traces.",
     "single_agent_mock": "Single-agent baseline: one generalist performs the same characterization serially. Wall time = sum of all agent call durations (measured from DB); no parallel fan-out.",
     "speed": "Single-agent wall time = sum of all logged agent call durations (what the run would cost with no parallelism). Multi-agent wall time = actual end-to-end wall clock from graph.invoke().",
     "tokens": "Multi-agent tokens are logged model tokens; single-agent tokens are deterministic mock estimates from packet complexity and reduced output scope.",
     "quality": "Priority accuracy uses packet experiment labels as coarse expected classes; characterization score rewards evidence channels, hypotheses, debate points, follow-up actions, code metrics, and context.",
-    "error_bars": "1\u03c3 computed from within-packet variance across repeated runs. Total runs in DB: 17. Packets with \u22652 runs: 0. Error bars are hidden when a packet has only one run."
+    "error_bars": "1\u03c3 computed from within-packet variance across repeated runs. Total runs in DB: 22. Packets with \u22652 runs: 5. Error bars are hidden when a packet has only one run."
   },
   "summary": {
     "objects_compared": 17,
     "multi_agent": {
-      "avg_wall_ms": 55387.2,
-      "avg_total_tokens": 13949.2,
-      "avg_interest_abs_error": 0.106,
+      "avg_wall_ms": 61771.7,
+      "avg_total_tokens": 13716.3,
+      "avg_interest_abs_error": 0.101,
       "priority_accuracy": 0.941,
-      "avg_characterization_score": 0.804,
+      "avg_characterization_score": 0.788,
       "avg_evidence_channels": 7.76,
-      "avg_debate_points": 6.88
+      "avg_debate_points": 6.76
     },
     "single_agent_mock": {
-      "avg_wall_ms": 72887.7,
-      "avg_total_tokens": 7672.2,
+      "avg_wall_ms": 78997.8,
+      "avg_total_tokens": 7544.1,
       "avg_interest_abs_error": 0.071,
       "priority_accuracy": 1.0,
       "avg_characterization_score": 0.277,
@@ -29,10 +29,10 @@
       "avg_debate_points": 0.24
     },
     "comparison": {
-      "avg_speedup_multi_vs_single": 1.32,
+      "avg_speedup_multi_vs_single": 1.28,
       "token_ratio_multi_over_single": 1.82,
-      "characterization_gain": 0.527,
-      "interest_error_reduction": -0.035
+      "characterization_gain": 0.511,
+      "interest_error_reduction": -0.029
     }
   },
   "records": [
@@ -598,24 +598,24 @@
         "priority_class": "priority"
       },
       "multi_agent": {
-        "run_id": "3450da80-8795-4172-ba07-29cfe863a2d7",
-        "wall_ms": 55759.8,
-        "total_tokens": 15227,
-        "interest_score": 0.7,
+        "run_id": "4dc50f11-4877-422b-b936-d3dd0d0b4253",
+        "wall_ms": 192061.9,
+        "total_tokens": 14517,
+        "interest_score": 0.55,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
-        "interest_abs_error": 0.2,
+        "interest_abs_error": 0.05,
         "evidence_channels": 8,
-        "hypotheses": 5,
-        "debate_points": 8,
-        "followup_actions": 3,
+        "hypotheses": 4,
+        "debate_points": 7,
+        "followup_actions": 4,
         "code_metric_lines": 0,
-        "context_items": 4,
-        "characterization_score": 0.913
+        "context_items": 0,
+        "characterization_score": 0.875
       },
       "single_agent_mock": {
-        "wall_ms": 76755.8,
-        "total_tokens": 8375,
+        "wall_ms": 215340.6,
+        "total_tokens": 7984,
         "interest_score": 0.55,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -629,9 +629,9 @@
         "characterization_score": 0.312
       },
       "delta": {
-        "wall_speedup": 1.38,
+        "wall_speedup": 1.12,
         "token_ratio_multi_over_single": 1.82,
-        "characterization_gain": 0.601
+        "characterization_gain": 0.563
       }
     },
     {
@@ -644,24 +644,24 @@
         "priority_class": "priority"
       },
       "multi_agent": {
-        "run_id": "6d8055b1-17ae-4ac9-be06-4a3a97f97e82",
-        "wall_ms": 73993.3,
-        "total_tokens": 14123,
+        "run_id": "a74cddd8-bf5d-4a60-a1a4-0f4010fe2f3c",
+        "wall_ms": 96929.3,
+        "total_tokens": 13712,
         "interest_score": 0.85,
         "triage_verdict": "HIGH_PRIORITY",
         "priority_class": "priority",
         "interest_abs_error": 0.27,
         "evidence_channels": 8,
-        "hypotheses": 4,
-        "debate_points": 7,
-        "followup_actions": 3,
-        "code_metric_lines": 4,
+        "hypotheses": 3,
+        "debate_points": 6,
+        "followup_actions": 2,
+        "code_metric_lines": 0,
         "context_items": 4,
-        "characterization_score": 0.938
+        "characterization_score": 0.775
       },
       "single_agent_mock": {
-        "wall_ms": 96177.3,
-        "total_tokens": 7768,
+        "wall_ms": 111381.8,
+        "total_tokens": 7542,
         "interest_score": 0.57,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -675,9 +675,9 @@
         "characterization_score": 0.312
       },
       "delta": {
-        "wall_speedup": 1.3,
+        "wall_speedup": 1.15,
         "token_ratio_multi_over_single": 1.82,
-        "characterization_gain": 0.626
+        "characterization_gain": 0.463
       }
     },
     {
@@ -690,24 +690,24 @@
         "priority_class": "priority"
       },
       "multi_agent": {
-        "run_id": "845e9b9f-7bcb-41c8-9743-551c59607f79",
-        "wall_ms": 88316.0,
-        "total_tokens": 14383,
-        "interest_score": 0.65,
+        "run_id": "5666909a-ca88-4a33-b2d5-f027e7c64ec4",
+        "wall_ms": 66138.5,
+        "total_tokens": 12925,
+        "interest_score": 0.7,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
-        "interest_abs_error": 0.01,
+        "interest_abs_error": 0.06,
         "evidence_channels": 8,
         "hypotheses": 3,
         "debate_points": 8,
         "followup_actions": 3,
-        "code_metric_lines": 6,
-        "context_items": 4,
-        "characterization_score": 0.912
+        "code_metric_lines": 4,
+        "context_items": 0,
+        "characterization_score": 0.863
       },
       "single_agent_mock": {
-        "wall_ms": 109043.6,
-        "total_tokens": 7911,
+        "wall_ms": 83686.3,
+        "total_tokens": 7109,
         "interest_score": 0.61,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -721,9 +721,9 @@
         "characterization_score": 0.338
       },
       "delta": {
-        "wall_speedup": 1.23,
+        "wall_speedup": 1.27,
         "token_ratio_multi_over_single": 1.82,
-        "characterization_gain": 0.574
+        "characterization_gain": 0.525
       }
     },
     {
@@ -736,24 +736,24 @@
         "priority_class": "priority"
       },
       "multi_agent": {
-        "run_id": "a3ac876c-351e-44a2-8660-cccd81cc09b3",
-        "wall_ms": 69938.8,
-        "total_tokens": 13134,
+        "run_id": "00112d16-b28f-464d-8794-8e8b9cfcf2ef",
+        "wall_ms": 54921.5,
+        "total_tokens": 12636,
         "interest_score": 0.3,
-        "triage_verdict": "REJECT_ARTEFACT",
+        "triage_verdict": "REJECT_CONTROL",
         "priority_class": "reject",
         "interest_abs_error": 0.26,
         "evidence_channels": 8,
-        "hypotheses": 2,
+        "hypotheses": 3,
         "debate_points": 6,
-        "followup_actions": 2,
+        "followup_actions": 3,
         "code_metric_lines": 0,
-        "context_items": 4,
-        "characterization_score": 0.725
+        "context_items": 0,
+        "characterization_score": 0.762
       },
       "single_agent_mock": {
-        "wall_ms": 89306.0,
-        "total_tokens": 7224,
+        "wall_ms": 69077.3,
+        "total_tokens": 6950,
         "interest_score": 0.52,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -767,9 +767,9 @@
         "characterization_score": 0.269
       },
       "delta": {
-        "wall_speedup": 1.28,
+        "wall_speedup": 1.26,
         "token_ratio_multi_over_single": 1.82,
-        "characterization_gain": 0.456
+        "characterization_gain": 0.493
       }
     },
     {
@@ -782,9 +782,9 @@
         "priority_class": "priority"
       },
       "multi_agent": {
-        "run_id": "d6a18661-a49d-4049-9763-493b9affa1b4",
-        "wall_ms": 69466.2,
-        "total_tokens": 13458,
+        "run_id": "99e258b6-4813-476c-a6fd-0b29445f71d3",
+        "wall_ms": 55958.3,
+        "total_tokens": 12576,
         "interest_score": 0.6,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -794,12 +794,12 @@
         "debate_points": 7,
         "followup_actions": 3,
         "code_metric_lines": 4,
-        "context_items": 4,
-        "characterization_score": 0.888
+        "context_items": 0,
+        "characterization_score": 0.838
       },
       "single_agent_mock": {
-        "wall_ms": 88587.7,
-        "total_tokens": 7402,
+        "wall_ms": 84256.1,
+        "total_tokens": 6917,
         "interest_score": 0.48,
         "triage_verdict": "MEDIUM_PRIORITY",
         "priority_class": "priority",
@@ -813,9 +813,9 @@
         "characterization_score": 0.269
       },
       "delta": {
-        "wall_speedup": 1.28,
+        "wall_speedup": 1.51,
         "token_ratio_multi_over_single": 1.82,
-        "characterization_gain": 0.619
+        "characterization_gain": 0.569
       }
     }
   ],
@@ -824,9 +824,9 @@
       "orig_packet_index": 2,
       "object_short": "FRB 20121102A",
       "labeled_interest": 0.7,
-      "blind_interest": 0.7,
+      "blind_interest": 0.55,
       "single_interest": 0.73,
-      "blind_characterization_score": 0.913,
+      "blind_characterization_score": 0.875,
       "labeled_characterization_score": 0.863,
       "single_characterization_score": 0.312,
       "labeled_verdict": "MEDIUM_PRIORITY",
@@ -842,7 +842,7 @@
       "labeled_interest": 0.85,
       "blind_interest": 0.85,
       "single_interest": 0.75,
-      "blind_characterization_score": 0.938,
+      "blind_characterization_score": 0.775,
       "labeled_characterization_score": 0.775,
       "single_characterization_score": 0.312,
       "labeled_verdict": "HIGH_PRIORITY",
@@ -856,9 +856,9 @@
       "orig_packet_index": 7,
       "object_short": "JADES 9186",
       "labeled_interest": 0.7,
-      "blind_interest": 0.65,
+      "blind_interest": 0.7,
       "single_interest": 0.71,
-      "blind_characterization_score": 0.912,
+      "blind_characterization_score": 0.863,
       "labeled_characterization_score": 0.825,
       "single_characterization_score": 0.338,
       "labeled_verdict": "MEDIUM_PRIORITY",
@@ -874,11 +874,11 @@
       "labeled_interest": 0.1,
       "blind_interest": 0.3,
       "single_interest": 0.25,
-      "blind_characterization_score": 0.725,
+      "blind_characterization_score": 0.762,
       "labeled_characterization_score": 0.644,
       "single_characterization_score": 0.181,
       "labeled_verdict": "REJECT_CONTROL",
-      "blind_verdict": "REJECT_ARTEFACT",
+      "blind_verdict": "REJECT_CONTROL",
       "single_verdict": "REJECT_CONTROL",
       "labeled_verdict_ok": true,
       "blind_verdict_ok": true,
@@ -890,7 +890,7 @@
       "labeled_interest": 0.1,
       "blind_interest": 0.6,
       "single_interest": 0.11,
-      "blind_characterization_score": 0.888,
+      "blind_characterization_score": 0.838,
       "labeled_characterization_score": 0.619,
       "single_characterization_score": 0.181,
       "labeled_verdict": "REJECT_ARTEFACT",

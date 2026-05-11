@@ -111,7 +111,7 @@
     },
     {
       "id": "observation_characterizer",
-      "label": "Observation Characterizer",
+      "label": "Characterizer",
       "role": "Extracts salient features, missing evidence, uncertainties, and data-quality notes.",
       "group": "characterization",
       "call": {
@@ -168,7 +168,7 @@
     },
     {
       "id": "astrophysical_interpreter",
-      "label": "Astrophysical Interpreter",
+      "label": "Astro",
       "role": "Tests plausible astrophysical explanations and class confidences.",
       "group": "parallel",
       "call": {
@@ -235,7 +235,7 @@
     },
     {
       "id": "artefact_checker",
-      "label": "Artefact Checker",
+      "label": "Artefact",
       "role": "Estimates whether instrument, detector, or pipeline effects explain the signal.",
       "group": "parallel",
       "call": {
@@ -296,7 +296,7 @@
     },
     {
       "id": "novelty_assessor",
-      "label": "Novelty Assessor",
+      "label": "Novelty",
       "role": "Scores rarity, novelty, uncertainty, follow-up value, and time sensitivity.",
       "group": "parallel",
       "call": {
@@ -338,7 +338,7 @@
     },
     {
       "id": "context_retriever",
-      "label": "Context Retriever",
+      "label": "Context",
       "role": "Searches literature/context and summarizes relevant historical analogues.",
       "group": "parallel",
       "call": {
@@ -473,7 +473,7 @@
     },
     {
       "id": "evidence_aggregator",
-      "label": "Evidence Aggregator",
+      "label": "Aggregator",
       "role": "Debates branch outputs, updates confidences, and sets a triage verdict.",
       "group": "debate",
       "call": {
@@ -561,7 +561,7 @@
     },
     {
       "id": "followup_prioritizer",
-      "label": "Follow-up Prioritizer",
+      "label": "Follow-up",
       "role": "Ranks discriminating follow-up observations by urgency and scientific value.",
       "group": "action",
       "call": {
@@ -609,7 +609,7 @@
     },
     {
       "id": "code_executor",
-      "label": "Code Executor",
+      "label": "Code",
       "role": "Optionally generates and executes lightweight Python metrics on local data.",
       "group": "analysis",
       "call": {},
@@ -623,7 +623,7 @@
     },
     {
       "id": "synthesis",
-      "label": "Synthesis",
+      "label": "Report",
       "role": "Produces the final traceable Agentic Orion scientific report.",
       "group": "report",
       "call": {
