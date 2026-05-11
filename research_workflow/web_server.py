@@ -515,7 +515,7 @@ class OrionHandler(SimpleHTTPRequestHandler):
         print(f"[dashboard] {self.address_string()} - {format % args}")
 
     def end_headers(self) -> None:
-        if self.path.endswith((".js", ".css", ".html", "")):
+        if self.path.endswith((".js", ".css", ".html", ".json", ".svg", "")):
             self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
             self.send_header("Pragma", "no-cache")
             self.send_header("Expires", "0")
