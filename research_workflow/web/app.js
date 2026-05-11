@@ -762,25 +762,9 @@ function markdownLite(md) {
 function drawObjectHero() {
   const canvas = $("skyCanvas");
   const ctx = canvas.getContext("2d");
-  const packet = state.current?.packet || {};
-  const mission = String(packet.mission || "").toLowerCase();
-  const modalities = packet.modality || [];
-  const labels = packet.initial_pipeline_labels || [];
-  const rows = state.current?.data_products?.lightcurve || [];
-
-  if (rows.length && (modalities.includes("light_curve") || modalities.includes("alert"))) {
-    drawTransientHero(ctx, canvas.width, canvas.height, packet, rows);
-  } else if (mission.includes("frb") || labels.some((label) => String(label).toLowerCase().includes("frb"))) {
-    drawFrbHero(ctx, canvas.width, canvas.height, packet);
-  } else if (mission.includes("euclid") || labels.some((label) => String(label).toLowerCase().includes("lens"))) {
-    drawLensHero(ctx, canvas.width, canvas.height, packet);
-  } else if (mission.includes("jwst") || mission.includes("nircam")) {
-    drawDeepFieldHero(ctx, canvas.width, canvas.height, packet);
-  } else if (labels.some((label) => String(label).toLowerCase().includes("artefact") || String(label).toLowerCase().includes("bogus"))) {
-    drawArtefactHero(ctx, canvas.width, canvas.height, packet);
-  } else {
-    drawSurveyHero(ctx, canvas.width, canvas.height);
-  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function heroBackground(ctx, w, h, stops = ["#07131b", "#15323b", "#321e1d"]) {

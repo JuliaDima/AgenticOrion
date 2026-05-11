@@ -111,13 +111,13 @@ EDGES = [
 ]
 
 STATE_BY_AGENT = {
-    "supervisor": ["mission", "primary_modality", "needs_code"],
+    "supervisor": ["mission", "primary_modality", "needs_code", "supervisor_code_decision"],
     "observation_characterizer": ["observation_characterization"],
     "astrophysical_interpreter": ["astrophysical_interpretation"],
     "artefact_checker": ["artefact_assessment"],
     "novelty_assessor": ["novelty_rarity_assessment"],
     "context_retriever": ["context_retrieval_results"],
-    "evidence_aggregator": ["aggregated_evidence"],
+    "evidence_aggregator": ["aggregated_evidence", "aggregator_code_decision", "code_decision_agreement"],
     "followup_prioritizer": ["followup_recommendations"],
     "code_executor": ["code_to_execute", "code_execution_output"],
     "synthesis": ["synthesis_report"],

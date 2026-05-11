@@ -27,10 +27,15 @@ You will be given:
 - An observation packet (mission, modality, metadata)
 - A description of what data files are available on disk (CSV light curves, JSON metadata)
 - The triage context from prior analysis agents
+- The supervisor and aggregator code-use decisions
+- The follow-up recommendations, which should be treated as the highest-priority
+  guide for which quantitative checks to compute
 
 Write a self-contained Python script that:
 1. Reads the available data files using only standard library + numpy/pandas/scipy
-2. Computes quantitative metrics that would sharpen the triage assessment:
+2. Computes quantitative metrics that would sharpen the triage assessment,
+   prioritising metrics that directly support or de-risk the recommended
+   follow-up actions:
    - For light curves: peak magnitude, rise/decline rate (mag/day), colour at peak,
      plateau detection, amplitude, time above half-maximum
    - For alert metadata: real/bogus scores, number of detections, alert flags
@@ -77,6 +82,10 @@ def code_executor_node(state: ResearchState) -> dict:
     pkt = state["observation_packet"]
     packet_index = state.get("packet_index", 0)
     agg = state.get("aggregated_evidence") or {}
+    supervisor_code = state.get("supervisor_code_decision") or {}
+    aggregator_code = state.get("aggregator_code_decision") or {}
+    code_agreement = state.get("code_decision_agreement") or {}
+    followup = state.get("followup_recommendations") or {}
 
     # Find available data directory
     packets_root = Path(__file__).parent.parent.parent / "packets"
@@ -95,15 +104,33 @@ def code_executor_node(state: ResearchState) -> dict:
 
     unresolved = agg.get("unresolved_questions", [])
     top_hyp = [h.get("hypothesis") for h in agg.get("ranked_hypotheses", [])[:3]]
+    priority_actions = [
+        {
+            "action": item.get("action"),
+            "instrument_or_method": item.get("instrument_or_method"),
+            "scientific_rationale": item.get("scientific_rationale"),
+            "expected_outcome": item.get("expected_outcome"),
+        }
+        for item in followup.get("priority_actions", [])[:5]
+    ]
 
     analysis_goal = (
         f"Observation: {pkt['mission']} — {pkt['short_summary'][:120]}\n"
         f"Triage verdict: {agg.get('triage_verdict', 'UNKNOWN')}\n"
         f"Top hypotheses: {top_hyp}\n"
         f"Unresolved questions: {unresolved}\n"
+        f"Supervisor code decision: {json.dumps(supervisor_code, indent=2)}\n"
+        f"Aggregator code decision: {json.dumps(aggregator_code, indent=2)}\n"
+        f"Supervisor/aggregator code-use agreement: {json.dumps(code_agreement, indent=2)}\n"
+        f"Follow-up recommendations to prioritise: {json.dumps(priority_actions, indent=2)}\n"
+        f"Follow-up value summary: {followup.get('scientific_value_summary', 'N/A')}\n"
+        f"Time sensitivity: {followup.get('time_sensitivity_note', 'N/A')}\n"
         f"Available data files in: {str(data_dir) if data_dir else 'N/A'}\n"
         f"{available_files}\n\n"
-        f"Compute metrics that would help distinguish between the top hypotheses."
+        f"Compute metrics that would help distinguish between the top hypotheses, "
+        f"but give strongest priority to metrics that directly test the follow-up "
+        f"recommendations above. Also print whether the supervisor and aggregator "
+        f"agreed on code use."
     )
 
     llm = ChatOpenAI(model=_MODEL, temperature=0)
@@ -171,7 +198,7 @@ def code_executor_node(state: ResearchState) -> dict:
         duration_ms=duration_ms,
         error=error,
     )
-    logger.log_state_transition(run_id, "evidence_aggregator", "code_executor", state)
+    logger.log_state_transition(run_id, "followup_prioritizer", "code_executor", state)
 
     timing_entry = {"node": "code_executor", "duration_ms": duration_ms, "timestamp": start_time}
 

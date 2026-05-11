@@ -100,6 +100,11 @@ def supervisor_node(state: ResearchState) -> dict:
         "mission": decision.mission,
         "primary_modality": decision.primary_modality,
         "needs_code": decision.needs_code_execution,
+        "supervisor_code_decision": {
+            "needs_code": decision.needs_code_execution,
+            "primary_modality": decision.primary_modality,
+            "reasoning": decision.reasoning,
+        },
         "current_step": "supervisor",
         "step_count": 1,
         "errors": [error] if error else [],

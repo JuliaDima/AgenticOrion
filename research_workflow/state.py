@@ -27,6 +27,7 @@ class ResearchState(TypedDict):
     mission: str
     primary_modality: str
     needs_code: bool
+    supervisor_code_decision: Optional[dict]
 
     # ── Observation characterization ──────────────────────────────────────
     observation_characterization: Optional[dict]
@@ -43,6 +44,8 @@ class ResearchState(TypedDict):
 
     # ── Evidence aggregation ──────────────────────────────────────────────
     aggregated_evidence: Optional[dict]
+    aggregator_code_decision: Optional[dict]
+    code_decision_agreement: Optional[dict]
 
     # ── Follow-up + optional code ─────────────────────────────────────────
     followup_recommendations: Optional[dict]

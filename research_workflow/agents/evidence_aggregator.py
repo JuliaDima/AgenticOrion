@@ -204,10 +204,25 @@ Branch duration: {ctx.get('branch_duration_ms', 'N/A')} ms
     logger.log_state_transition(run_id, "parallel_branches", "evidence_aggregator", state)
 
     timing_entry = {"node": "evidence_aggregator", "duration_ms": duration_ms, "timestamp": start_time}
+    supervisor_code_decision = state.get("supervisor_code_decision") or {}
+    supervisor_needs_code = supervisor_code_decision.get("needs_code", state.get("needs_code", False))
+    code_decision_agreement = {
+        "supervisor_needs_code": bool(supervisor_needs_code),
+        "aggregator_needs_code": bool(agg.needs_code_analysis),
+        "agree": bool(supervisor_needs_code) == bool(agg.needs_code_analysis),
+        "supervisor_reasoning": supervisor_code_decision.get("reasoning", ""),
+        "aggregator_reasoning": "Aggregator judged whether quantitative metrics from available data would sharpen the assessment.",
+    }
 
     return {
         "aggregated_evidence": result_dict,
         "needs_code": agg.needs_code_analysis,
+        "aggregator_code_decision": {
+            "needs_code": agg.needs_code_analysis,
+            "triage_verdict": agg.triage_verdict,
+            "unresolved_questions": result_dict.get("unresolved_questions", []),
+        },
+        "code_decision_agreement": code_decision_agreement,
         "current_step": "evidence_aggregator",
         "step_count": 1,
         "errors": [error] if error else [],
