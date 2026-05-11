@@ -5,12 +5,13 @@ Runs one or all observation packets through the Agentic Orion multi-agent triage
 
 Usage
 -----
-    python main.py --packet 1          # AT2018cow (FBOT)
-    python main.py --packet 5          # ALeRCE broker triage
-    python main.py --all               # all 12 packets
-    python main.py --experiment TRIAGE # run only TRIAGE packets
+    python main.py --packet 1           # AT2018cow (FBOT)
+    python main.py --packet 5           # ALeRCE broker triage
+    python main.py --all                # all 24 packets (12 original + 12 BLIND)
+    python main.py --experiment TRIAGE  # run only TRIAGE packets
     python main.py --experiment RETRO
     python main.py --experiment CTRL
+    python main.py --experiment BLIND   # run anonymised BLIND packets (indices 13-24)
 
 Each run logs to research_workflow.db and prints the final Agentic Orion report.
 """
@@ -278,11 +279,12 @@ def main() -> None:
         description="Agentic Orion — automated scientific triage for astronomical observation packets"
     )
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--packet", type=int, metavar="N", help="Run packet N (1–12)")
-    group.add_argument("--all", action="store_true", help="Run all 12 packets")
+    group.add_argument("--packet", type=int, metavar="N", help="Run packet N (1–24)")
+    group.add_argument("--packets", metavar="N,N,...", help="Run comma-separated list of packet indices, e.g. 3,2,7,11,9")
+    group.add_argument("--all", action="store_true", help="Run all 24 packets")
     group.add_argument(
         "--experiment",
-        choices=["RETRO", "TRIAGE", "CTRL"],
+        choices=["RETRO", "TRIAGE", "CTRL", "BLIND"],
         help="Run only packets of this experiment type",
     )
     parser.add_argument("--coverage", action="store_true", help="Print data coverage summary and exit")
@@ -301,12 +303,15 @@ def main() -> None:
             if p["experiment_type"] == args.experiment
         ]
         print(f"\nRunning {len(indices)} {args.experiment} packets: {indices}")
+    elif args.packets:
+        indices = [int(x.strip()) for x in args.packets.split(",") if x.strip()]
+        print(f"\nRunning {len(indices)} packets: {indices}")
     elif args.packet:
         indices = [args.packet]
     else:
         # Default: run packet 1 (AT2018cow — the canonical FBOT demo)
         print("No packet specified — running packet 1 (AT2018cow, FBOT demo).")
-        print("Use --packet N (1–12), --all, --experiment TRIAGE|RETRO|CTRL, or --coverage")
+        print("Use --packet N (1–24), --packets N,N,..., --all, --experiment TRIAGE|RETRO|CTRL|BLIND, or --coverage")
         indices = [1]
 
     print_coverage_summary()

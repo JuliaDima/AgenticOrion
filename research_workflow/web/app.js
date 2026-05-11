@@ -288,9 +288,10 @@ function renderRunList() {
       const active = run.run_id === currentId ? " active" : "";
       const score = run.interest_score !== null && run.interest_score !== undefined ? `interest ${fmtNum(run.interest_score)}` : "summary only";
       const tokens = run.total_tokens ? ` | ${Number(run.total_tokens).toLocaleString()} tok` : "";
+      const blindBadge = run.experiment_type === "BLIND" ? `<span class="blind-badge">BLIND</span>` : "";
       return `
         <button class="run-item${active}" data-run="${escapeHtml(run.run_id)}">
-          <strong>${escapeHtml(run.object_id || run.query || "Run")}</strong>
+          <strong>${blindBadge}${escapeHtml(run.object_id || run.query || "Run")}</strong>
           <span>${escapeHtml(run.status)} | ${fmtMs(run.duration_ms)} | ${escapeHtml(score)}${tokens}</span>
         </button>
       `;
@@ -362,9 +363,14 @@ function renderHeader() {
     ["Parallel speedup", "fan-out efficiency"],
     ["Consumption", "tokens and estimated cost"],
   ]);
-  $("objectTitle").textContent = `${run.object_id || "Observation"} | ${packet.experiment_type || "workflow run"}`;
+  const isBlind = (packet.experiment_type || run.experiment_type) === "BLIND";
+  $("objectTitle").innerHTML = isBlind
+    ? `<span class="blind-badge blind-badge-lg">BLIND</span> ${escapeHtml(run.object_id || "Observation")}`
+    : escapeHtml(`${run.object_id || "Observation"} | ${packet.experiment_type || "workflow run"}`);
   $("statusPill").textContent = run.status || "idle";
-  $("missionLabel").textContent = packet.mission || run.query || "Mission";
+  $("missionLabel").textContent = isBlind
+    ? `${packet.mission || run.query || "Mission"} — anonymised run`
+    : (packet.mission || run.query || "Mission");
   $("verdictLabel").textContent = verdict;
   $("summaryLabel").textContent = packet.short_summary || metrics.metric_note || "Existing database trace without full final state. Run a packet from the dashboard to persist complete structured outputs.";
   renderHeroFacts(packet, run, agg, novel, metrics);
@@ -963,12 +969,49 @@ function renderBenchmark() {
     ["Runtime + Tokens", plots.speed_tokens],
     ["Quality", plots.quality],
     ["Per Object", plots.per_object],
+    ["Interest: Labeled vs Blind vs Single", plots.blind_interest],
   ].filter(([, src]) => src).map(([label, src]) => `
     <figure class="benchmark-plot">
       <img src="${escapeHtml(src)}" alt="${escapeHtml(label)} benchmark plot" />
       <figcaption>${escapeHtml(label)}</figcaption>
     </figure>
   `).join("");
+
+  const blindPairs = benchmark.blind_comparison || [];
+  if (blindPairs.length) {
+    plotsEl.innerHTML += `
+      <div class="blind-comparison-table" style="grid-column:1/-1">
+        <h4>Blind Experiment Results</h4>
+        <table>
+          <thead><tr>
+            <th>Object</th>
+            <th>Labeled interest</th>
+            <th><span class="blind-badge">BLIND</span> interest</th>
+            <th>Δ interest</th>
+            <th>Labeled char.</th>
+            <th><span class="blind-badge">BLIND</span> char.</th>
+            <th>Labeled verdict</th>
+            <th><span class="blind-badge">BLIND</span> verdict</th>
+          </tr></thead>
+          <tbody>${blindPairs.map(p => {
+            const delta = (p.blind_interest - p.labeled_interest).toFixed(2);
+            const deltaStyle = p.blind_interest >= p.labeled_interest ? "color:#19724f" : "color:#b3261e";
+            return `
+            <tr>
+              <td>P${String(p.orig_packet_index).padStart(2,"0")} · ${escapeHtml(p.object_short)}</td>
+              <td>${fmtNum(p.labeled_interest)}</td>
+              <td style="color:#7c3aed;font-weight:700">${fmtNum(p.blind_interest)}</td>
+              <td style="${deltaStyle};font-weight:700">${delta > 0 ? "+" : ""}${delta}</td>
+              <td>${fmtNum(p.labeled_characterization_score ?? "—")}</td>
+              <td style="color:#7c3aed">${fmtNum(p.blind_characterization_score ?? "—")}</td>
+              <td>${p.labeled_verdict_ok ? "✅" : "❌"} <span class="muted">${escapeHtml(p.labeled_verdict || "")}</span></td>
+              <td>${p.blind_verdict_ok ? "✅" : "❌"} <span class="muted">${escapeHtml(p.blind_verdict || "")}</span></td>
+            </tr>`;
+          }).join("")}
+          </tbody>
+        </table>
+      </div>`;
+  }
 
   const rows = benchmark.records || [];
   tableEl.innerHTML = rows.length ? `

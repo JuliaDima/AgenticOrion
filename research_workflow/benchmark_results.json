@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-05-11T12:55:37.999490+00:00",
+  "generated_at": "2026-05-11T13:57:54.778556+00:00",
   "methodology": {
     "multi_agent": "Actual latest successful packet runs from SQLite traces.",
     "single_agent_mock": "Deterministic offline baseline: one generalist performs the same characterization serially, uses packet labels/local files only, and has no independent branch debate.",
     "speed": "Single-agent wall time is estimated from serial same-work timing; multi-agent wall time is the logged run wall time.",
     "tokens": "Multi-agent tokens are logged model tokens; single-agent tokens are deterministic mock estimates from packet complexity and reduced output scope.",
     "quality": "Priority accuracy uses packet experiment labels as coarse expected classes; characterization score rewards evidence channels, hypotheses, debate points, follow-up actions, code metrics, and context.",
-    "error_bars": "1\u03c3 computed from within-packet variance across repeated runs. Total runs in DB: 12. Packets with \u22652 runs: 0. Error bars are hidden when a packet has only one run."
+    "error_bars": "1\u03c3 computed from within-packet variance across repeated runs. Total runs in DB: 17. Packets with \u22652 runs: 0. Error bars are hidden when a packet has only one run."
   },
   "summary": {
-    "objects_compared": 12,
+    "objects_compared": 17,
     "multi_agent": {
-      "avg_wall_ms": 48675.8,
-      "avg_total_tokens": 13900.9,
-      "avg_interest_abs_error": 0.081,
-      "priority_accuracy": 1.0,
-      "avg_characterization_score": 0.774,
-      "avg_evidence_channels": 7.67,
-      "avg_debate_points": 6.75
+      "avg_wall_ms": 52028.8,
+      "avg_total_tokens": 13506.6,
+      "avg_interest_abs_error": 0.13,
+      "priority_accuracy": 0.882,
+      "avg_characterization_score": 0.778,
+      "avg_evidence_channels": 7.65,
+      "avg_debate_points": 6.65
     },
     "single_agent_mock": {
-      "avg_wall_ms": 57434.4,
-      "avg_total_tokens": 7645.6,
-      "avg_interest_abs_error": 0.088,
+      "avg_wall_ms": 61450.6,
+      "avg_total_tokens": 7428.7,
+      "avg_interest_abs_error": 0.071,
       "priority_accuracy": 1.0,
-      "avg_characterization_score": 0.268,
-      "avg_evidence_channels": 3.5,
-      "avg_debate_points": 0.25
+      "avg_characterization_score": 0.277,
+      "avg_evidence_channels": 3.53,
+      "avg_debate_points": 0.24
     },
     "comparison": {
       "avg_speedup_multi_vs_single": 1.18,
       "token_ratio_multi_over_single": 1.82,
-      "characterization_gain": 0.506,
-      "interest_error_reduction": 0.008
+      "characterization_gain": 0.501,
+      "interest_error_reduction": -0.059
     }
   },
   "records": [
@@ -587,11 +587,324 @@
         "token_ratio_multi_over_single": 1.82,
         "characterization_gain": 0.5
       }
+    },
+    {
+      "packet_index": 14,
+      "object_id": "Unknown",
+      "mission": "CHIME/FRB",
+      "experiment_type": "BLIND",
+      "expected": {
+        "interest_score": 0.5,
+        "priority_class": "priority"
+      },
+      "multi_agent": {
+        "run_id": "57a55bfa-5fe5-4e91-bf5b-2d1d2c8f2d5c",
+        "wall_ms": 69391.1,
+        "total_tokens": 14823,
+        "interest_score": 0.7,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.2,
+        "evidence_channels": 8,
+        "hypotheses": 4,
+        "debate_points": 8,
+        "followup_actions": 3,
+        "code_metric_lines": 3,
+        "context_items": 4,
+        "characterization_score": 0.95
+      },
+      "single_agent_mock": {
+        "wall_ms": 79799.8,
+        "total_tokens": 8153,
+        "interest_score": 0.55,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.05,
+        "evidence_channels": 4,
+        "hypotheses": 2,
+        "debate_points": 0,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 0,
+        "characterization_score": 0.312
+      },
+      "delta": {
+        "wall_speedup": 1.15,
+        "token_ratio_multi_over_single": 1.82,
+        "characterization_gain": 0.638
+      }
+    },
+    {
+      "packet_index": 15,
+      "object_id": "Unknown",
+      "mission": "JWST/NIRCam",
+      "experiment_type": "BLIND",
+      "expected": {
+        "interest_score": 0.58,
+        "priority_class": "priority"
+      },
+      "multi_agent": {
+        "run_id": "5d41ecb4-f7a3-4c93-81ba-bd0d0b70121d",
+        "wall_ms": 60559.7,
+        "total_tokens": 12394,
+        "interest_score": 0.85,
+        "triage_verdict": "HIGH_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.27,
+        "evidence_channels": 8,
+        "hypotheses": 4,
+        "debate_points": 7,
+        "followup_actions": 2,
+        "code_metric_lines": 3,
+        "context_items": 0,
+        "characterization_score": 0.838
+      },
+      "single_agent_mock": {
+        "wall_ms": 73617.6,
+        "total_tokens": 6817,
+        "interest_score": 0.57,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.01,
+        "evidence_channels": 4,
+        "hypotheses": 2,
+        "debate_points": 0,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 0,
+        "characterization_score": 0.312
+      },
+      "delta": {
+        "wall_speedup": 1.22,
+        "token_ratio_multi_over_single": 1.82,
+        "characterization_gain": 0.526
+      }
+    },
+    {
+      "packet_index": 19,
+      "object_id": "Unknown",
+      "mission": "JWST/NIRCam+NIRSpec",
+      "experiment_type": "BLIND",
+      "expected": {
+        "interest_score": 0.64,
+        "priority_class": "priority"
+      },
+      "multi_agent": {
+        "run_id": "dcb46ab9-856b-42e5-b9c0-7a75b58a6ad1",
+        "wall_ms": 100691.5,
+        "total_tokens": 12989,
+        "interest_score": 0.75,
+        "triage_verdict": "HIGH_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.11,
+        "evidence_channels": 8,
+        "hypotheses": 3,
+        "debate_points": 7,
+        "followup_actions": 3,
+        "code_metric_lines": 3,
+        "context_items": 0,
+        "characterization_score": 0.825
+      },
+      "single_agent_mock": {
+        "wall_ms": 115795.2,
+        "total_tokens": 7144,
+        "interest_score": 0.61,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.03,
+        "evidence_channels": 4,
+        "hypotheses": 2,
+        "debate_points": 1,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 0,
+        "characterization_score": 0.338
+      },
+      "delta": {
+        "wall_speedup": 1.15,
+        "token_ratio_multi_over_single": 1.82,
+        "characterization_gain": 0.487
+      }
+    },
+    {
+      "packet_index": 21,
+      "object_id": "Unknown",
+      "mission": "ZTF/ALeRCE (control SN IIP)",
+      "experiment_type": "BLIND",
+      "expected": {
+        "interest_score": 0.56,
+        "priority_class": "priority"
+      },
+      "multi_agent": {
+        "run_id": "44eae597-3340-49c4-af3e-2d5aaf946c1a",
+        "wall_ms": 40083.9,
+        "total_tokens": 11704,
+        "interest_score": 0.3,
+        "triage_verdict": "REJECT_CONTROL",
+        "priority_class": "reject",
+        "interest_abs_error": 0.26,
+        "evidence_channels": 7,
+        "hypotheses": 3,
+        "debate_points": 7,
+        "followup_actions": 2,
+        "code_metric_lines": 0,
+        "context_items": 4,
+        "characterization_score": 0.756
+      },
+      "single_agent_mock": {
+        "wall_ms": 49394.7,
+        "total_tokens": 6437,
+        "interest_score": 0.52,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.04,
+        "evidence_channels": 3,
+        "hypotheses": 2,
+        "debate_points": 0,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 0,
+        "characterization_score": 0.269
+      },
+      "delta": {
+        "wall_speedup": 1.23,
+        "token_ratio_multi_over_single": 1.82,
+        "characterization_gain": 0.487
+      }
+    },
+    {
+      "packet_index": 23,
+      "object_id": "Unknown",
+      "mission": "JWST/NIRCam",
+      "experiment_type": "BLIND",
+      "expected": {
+        "interest_score": 0.5,
+        "priority_class": "priority"
+      },
+      "multi_agent": {
+        "run_id": "6fe2c109-676c-435a-83d8-7bcd437c7cfc",
+        "wall_ms": 29654.1,
+        "total_tokens": 10891,
+        "interest_score": 0.1,
+        "triage_verdict": "REJECT_ARTEFACT",
+        "priority_class": "reject",
+        "interest_abs_error": 0.4,
+        "evidence_channels": 7,
+        "hypotheses": 2,
+        "debate_points": 3,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 4,
+        "characterization_score": 0.569
+      },
+      "single_agent_mock": {
+        "wall_ms": 36840.7,
+        "total_tokens": 5990,
+        "interest_score": 0.48,
+        "triage_verdict": "MEDIUM_PRIORITY",
+        "priority_class": "priority",
+        "interest_abs_error": 0.02,
+        "evidence_channels": 3,
+        "hypotheses": 2,
+        "debate_points": 0,
+        "followup_actions": 1,
+        "code_metric_lines": 0,
+        "context_items": 0,
+        "characterization_score": 0.269
+      },
+      "delta": {
+        "wall_speedup": 1.24,
+        "token_ratio_multi_over_single": 1.82,
+        "characterization_gain": 0.3
+      }
+    }
+  ],
+  "blind_comparison": [
+    {
+      "orig_packet_index": 2,
+      "object_short": "FRB 20121102A",
+      "labeled_interest": 0.7,
+      "blind_interest": 0.7,
+      "single_interest": 0.73,
+      "blind_characterization_score": 0.95,
+      "labeled_characterization_score": 0.863,
+      "single_characterization_score": 0.312,
+      "labeled_verdict": "MEDIUM_PRIORITY",
+      "blind_verdict": "MEDIUM_PRIORITY",
+      "single_verdict": "MEDIUM_PRIORITY",
+      "labeled_verdict_ok": true,
+      "blind_verdict_ok": true,
+      "single_verdict_ok": true
+    },
+    {
+      "orig_packet_index": 3,
+      "object_short": "Maisie's Galaxy",
+      "labeled_interest": 0.85,
+      "blind_interest": 0.85,
+      "single_interest": 0.75,
+      "blind_characterization_score": 0.838,
+      "labeled_characterization_score": 0.775,
+      "single_characterization_score": 0.312,
+      "labeled_verdict": "HIGH_PRIORITY",
+      "blind_verdict": "HIGH_PRIORITY",
+      "single_verdict": "MEDIUM_PRIORITY",
+      "labeled_verdict_ok": true,
+      "blind_verdict_ok": true,
+      "single_verdict_ok": true
+    },
+    {
+      "orig_packet_index": 7,
+      "object_short": "JADES 9186",
+      "labeled_interest": 0.7,
+      "blind_interest": 0.75,
+      "single_interest": 0.71,
+      "blind_characterization_score": 0.825,
+      "labeled_characterization_score": 0.825,
+      "single_characterization_score": 0.338,
+      "labeled_verdict": "MEDIUM_PRIORITY",
+      "blind_verdict": "HIGH_PRIORITY",
+      "single_verdict": "MEDIUM_PRIORITY",
+      "labeled_verdict_ok": true,
+      "blind_verdict_ok": true,
+      "single_verdict_ok": true
+    },
+    {
+      "orig_packet_index": 9,
+      "object_short": "SN 2020jfo",
+      "labeled_interest": 0.1,
+      "blind_interest": 0.3,
+      "single_interest": 0.25,
+      "blind_characterization_score": 0.756,
+      "labeled_characterization_score": 0.644,
+      "single_characterization_score": 0.181,
+      "labeled_verdict": "REJECT_CONTROL",
+      "blind_verdict": "REJECT_CONTROL",
+      "single_verdict": "REJECT_CONTROL",
+      "labeled_verdict_ok": true,
+      "blind_verdict_ok": true,
+      "single_verdict_ok": true
+    },
+    {
+      "orig_packet_index": 11,
+      "object_short": "JWST NIRCam 'wisp'",
+      "labeled_interest": 0.1,
+      "blind_interest": 0.1,
+      "single_interest": 0.11,
+      "blind_characterization_score": 0.569,
+      "labeled_characterization_score": 0.619,
+      "single_characterization_score": 0.181,
+      "labeled_verdict": "REJECT_ARTEFACT",
+      "blind_verdict": "REJECT_ARTEFACT",
+      "single_verdict": "REJECT_ARTEFACT",
+      "labeled_verdict_ok": true,
+      "blind_verdict_ok": true,
+      "single_verdict_ok": true
     }
   ],
   "plots": {
     "speed_tokens": "static-data/plots/benchmark_speed_tokens.svg",
     "quality": "static-data/plots/benchmark_quality.svg",
-    "per_object": "static-data/plots/benchmark_per_object.svg"
+    "per_object": "static-data/plots/benchmark_per_object.svg",
+    "blind_interest": "static-data/plots/benchmark_blind_interest.svg"
   }
 }

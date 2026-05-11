@@ -6,6 +6,7 @@ Retrieves external context to help judge the observation:
 - Uses LLM knowledge about catalogue context, mission properties, known failure modes
 """
 
+import concurrent.futures
 import json
 import time
 from datetime import datetime, timezone
@@ -107,14 +108,20 @@ def context_retriever_node(state: ResearchState) -> dict:
     pkt = state["observation_packet"]
     char = state.get("observation_characterization") or {}
 
-    # ArXiv search
     arxiv_query = _build_arxiv_query(pkt)
-    papers_raw: list[dict] = []
+
+    # Fire arXiv fetch and build the LLM client concurrently — arXiv HTTP
+    # latency (1-4 s) otherwise dominates and serialises this branch.
     arxiv_error: str | None = None
-    try:
-        papers_raw = search_arxiv(arxiv_query, max_results=4)
-    except Exception as exc:
-        arxiv_error = str(exc)
+    papers_raw: list[dict] = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        arxiv_future = ex.submit(search_arxiv, arxiv_query, max_results=4)
+        llm = ChatOpenAI(model=_MODEL, temperature=0)
+        structured_llm = llm.with_structured_output(ContextRetrievalResults, include_raw=True)
+        try:
+            papers_raw = arxiv_future.result()
+        except Exception as exc:
+            arxiv_error = str(exc)
 
     logger.log_tool_call(
         run_id=run_id,
@@ -143,9 +150,6 @@ def context_retriever_node(state: ResearchState) -> dict:
         f"arXiv search query used: {arxiv_query!r}\n\n"
         f"Retrieved papers:\n{papers_block}"
     )
-
-    llm = ChatOpenAI(model=_MODEL, temperature=0)
-    structured_llm = llm.with_structured_output(ContextRetrievalResults, include_raw=True)
 
     messages = [
         SystemMessage(content=_SYSTEM),

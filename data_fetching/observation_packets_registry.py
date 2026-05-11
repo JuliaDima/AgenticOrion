@@ -34,9 +34,12 @@ Experiment types
   RETRO  – retrospective rediscovery
   TRIAGE – blind interesting-object triage
   CTRL   – control (should NOT trigger excessive interest)
+  BLIND  – anonymised versions of the 12 objects; no identifying names or papers
 """
 
 from __future__ import annotations
+import json
+from pathlib import Path
 from typing import Any
 
 # ---------------------------------------------------------------------------
@@ -896,8 +899,43 @@ OBSERVATION_PACKETS: list[dict] = [
 ]
 
 
+# ===========================================================================
+# BLIND packets — loaded dynamically from packets/packet_NN_BLIND/packet.json
+# Appended as indices 13–24 in OBSERVATION_PACKETS.
+# ===========================================================================
+
+def _load_blind_packets() -> list[dict[str, Any]]:
+    """Load anonymised BLIND packets from the packets directory."""
+    _repo_root = Path(__file__).resolve().parent.parent
+    _packets_root = _repo_root / "packets"
+    blind_dirs = sorted(_packets_root.glob("packet_[0-9][0-9]_BLIND"))
+    result = []
+    for d in blind_dirs:
+        json_path = d / "packet.json"
+        if not json_path.exists():
+            continue
+        pkt = json.loads(json_path.read_text())
+        # Resolve populated_data_products paths to absolute paths
+        if "populated_data_products" in pkt:
+            abs_products = {}
+            for key, rel_path in pkt["populated_data_products"].items():
+                if not isinstance(rel_path, str):
+                    abs_products[key] = rel_path
+                    continue
+                abs_path = d / rel_path
+                abs_products[key] = str(abs_path) if abs_path.exists() else rel_path
+            pkt["populated_data_products"] = abs_products
+        result.append(pkt)
+    return result
+
+
+BLIND_PACKETS: list[dict[str, Any]] = _load_blind_packets()
+
+# Extend master registry so --packet 13..24 and --experiment BLIND both work
+OBSERVATION_PACKETS.extend(BLIND_PACKETS)
+
+
 if __name__ == "__main__":
-    import json
     for i, pkt in enumerate(OBSERVATION_PACKETS, 1):
         print(f"\n{'='*60}")
         print(f"PACKET {i:02d}  [{pkt['experiment_type']}]  {pkt['mission']}")

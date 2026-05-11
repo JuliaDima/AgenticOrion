@@ -232,6 +232,27 @@ select {
   text-transform: uppercase;
 }
 
+.blind-badge {
+  display: inline-block;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.blind-badge-lg {
+  font-size: 13px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  letter-spacing: 0.1em;
+}
+
 .overview {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.9fr);
@@ -614,8 +635,8 @@ select {
 .benchmark-plots {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 24px;
 }
 
 .benchmark-plot {
@@ -623,22 +644,28 @@ select {
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
+  border-radius: 10px;
+  background: #f8fafc;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .benchmark-plot img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 10px 10px 0 0;
 }
 
 .benchmark-plot figcaption {
   border-top: 1px solid var(--line);
-  padding: 10px 14px;
+  padding: 10px 16px;
   color: var(--muted);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
 }
 
 .benchmark-table {
@@ -702,6 +729,7 @@ select {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 380px;
   gap: 16px;
+  align-items: start;
 }
 
 .graph-stage {
@@ -764,8 +792,8 @@ select {
 
 .agent-inspector {
   min-height: 560px;
-  max-height: 72vh;
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
   padding: 18px;
 }
 

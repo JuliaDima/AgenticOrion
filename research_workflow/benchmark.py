@@ -464,65 +464,273 @@ def _build_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+_SERIES_COLORS   = ["#0d9488", "#7c3aed", "#64748b", "#f59e0b", "#3b82f6"]
+_SERIES_DEFAULTS = ["Multi-agent", "Blind multi-agent", "Single mock", "Series 4", "Series 5"]
+
+# Lighter fill variants for hover-like visual depth (10% opacity overlay baked in)
+_SERIES_COLORS_LIGHT = ["#ccfbf1", "#ede9fe", "#f1f5f9", "#fef3c7", "#dbeafe"]
+
+
 def _svg_bar_chart(
     title: str,
     groups: list[dict[str, Any]],
     y_label: str,
     path: Path,
     errors: list[list[float]] | None = None,
+    series_labels: list[str] | None = None,
+    series_colors: list[str] | None = None,
 ) -> None:
-    width, height = 980, 560
-    margin_l, margin_r, margin_t, margin_b = 112, 30, 74, 116
-    plot_w = width - margin_l - margin_r
-    plot_h = height - margin_t - margin_b
-    all_values = [value for group in groups for value in group["values"]]
+    colors  = series_colors or _SERIES_COLORS
+    legends = series_labels or _SERIES_DEFAULTS
+    n_groups  = len(groups)
+    n_series  = max((len(g["values"]) for g in groups), default=2)
+
+    # Adaptive width: wider for many groups so bars don't crowd
+    base_w   = max(760, 60 * n_groups * n_series + 160)
+    width    = min(base_w, 1400)
+    height   = 520
+    # Legend lives below the title on its own row; give it enough top margin
+    leg_h    = 36          # height of legend row
+    margin_t = 28 + leg_h  # title (28) + legend row
+    margin_b = 88          # x-labels + y-label
+    margin_l = 68
+    margin_r = 24
+    plot_w   = width  - margin_l - margin_r
+    plot_h   = height - margin_t - margin_b
+
+    all_values = [v for g in groups for v in g["values"]]
     all_sigmas = [s for row in (errors or []) for s in row]
-    max_v = max((all_values[i] + (all_sigmas[i] if errors else 0) for i in range(len(all_values))), default=1)
-    scale = plot_h / max_v if max_v else 1
-    group_w = plot_w / max(1, len(groups))
-    bar_w = min(74, group_w / 3.4)
-    cap_w = bar_w * 0.3
-    colors = ["#176c72", "#c74732"]
+    raw_max    = max(
+        (all_values[i] + (all_sigmas[i] if errors else 0) for i in range(len(all_values))),
+        default=1.0,
+    )
+    # Round max up to a clean tick value so top tick sits above tallest bar
+    tick_count = 4
+    tick_step  = raw_max / tick_count
+    # Snap tick_step to 0.1 / 0.25 / 0.5 / 1 / 5 / 10 etc.
+    magnitudes = [0.05, 0.1, 0.2, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100, 500, 1000, 5000, 10000]
+    tick_step  = next((m for m in magnitudes if m >= tick_step), magnitudes[-1])
+    max_v      = tick_step * tick_count
+    scale      = plot_h / max_v if max_v else 1
+
+    group_w = plot_w / max(1, n_groups)
+    # Leave ~30% of group width as padding between groups
+    usable  = group_w * 0.70
+    bar_w   = max(8, min(52, usable / n_series - 4))
+    gap     = max(3, bar_w * 0.18)
+    cap_w   = bar_w * 0.35
+
+    # Rotate x-axis labels when there are many groups
+    rotate_labels = n_groups > 6
+
+    css = (
+        "text{font-family:'Inter',system-ui,Arial,sans-serif;fill:#1e293b}"
+        ".dim{fill:#94a3b8}"
+        ".grid{stroke:#e2e8f0;stroke-width:1}"
+        ".axis{stroke:#cbd5e1;stroke-width:1.5}"
+        ".val{font-size:11px;font-weight:600;fill:#475569}"
+        ".lbl{font-size:12px;fill:#64748b}"
+        ".title{font-size:17px;font-weight:700;fill:#0f172a}"
+        ".ylbl{font-size:11px;fill:#94a3b8}"
+        ".leg-text{font-size:12px;fill:#334155}"
+    )
+
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img">',
-        "<style>text{font-family:Inter,Arial,sans-serif;fill:#17202a}.muted{fill:#66717e}.grid{stroke:#d9dee5}.axis{stroke:#17202a}.bartext{font-size:20px;font-weight:700}.title{font-size:36px;font-weight:800}</style>",
-        f'<rect width="{width}" height="{height}" fill="#fff"/>',
-        f'<text class="title" x="{margin_l}" y="48">{title}</text>',
+        f"<style>{css}</style>",
+        f'<rect width="{width}" height="{height}" fill="#f8fafc" rx="10"/>',
+        f'<rect x="1" y="1" width="{width-2}" height="{height-2}" fill="none" stroke="#e2e8f0" stroke-width="1" rx="10"/>',
+        # Title — left-aligned inside left margin
+        f'<text class="title" x="{margin_l}" y="22">{title}</text>',
     ]
-    for i in range(5):
-        y = margin_t + plot_h - (plot_h / 4) * i
-        value = max_v * i / 4
-        parts.append(f'<line class="grid" x1="{margin_l}" y1="{y:.1f}" x2="{width-margin_r}" y2="{y:.1f}"/>')
-        parts.append(f'<text class="muted" x="10" y="{y+7:.1f}" font-size="21">{value:.1f}</text>')
-    parts.append(f'<line class="axis" x1="{margin_l}" y1="{margin_t+plot_h}" x2="{width-margin_r}" y2="{margin_t+plot_h}"/>')
+
+    # Legend row — sits directly below title, left-aligned
+    leg_item_w = 118
+    leg_y_rect = 32
+    leg_y_text = 43
+    for k in range(n_series):
+        lbl = legends[k] if k < len(legends) else f"Series {k+1}"
+        c   = colors[k % len(colors)]
+        lx  = margin_l + k * leg_item_w
+        # Pill/rounded rect swatch
+        parts.append(f'<rect x="{lx}" y="{leg_y_rect}" width="12" height="12" rx="3" fill="{c}"/>')
+        parts.append(f'<text class="leg-text" x="{lx+17}" y="{leg_y_text}">{lbl}</text>')
+
+    # Horizontal grid lines + y-axis tick labels
+    for i in range(tick_count + 1):
+        y_pos  = margin_t + plot_h - (plot_h / tick_count) * i
+        v      = tick_step * i
+        fmt    = f"{v:.0f}" if tick_step >= 1 else (f"{v:.1f}" if tick_step >= 0.1 else f"{v:.2f}")
+        parts.append(f'<line class="grid" x1="{margin_l}" y1="{y_pos:.1f}" x2="{width-margin_r}" y2="{y_pos:.1f}"/>')
+        parts.append(f'<text class="ylbl" x="{margin_l-6}" y="{y_pos+4:.1f}" text-anchor="end">{fmt}</text>')
+
+    # Baseline axis
+    baseline = margin_t + plot_h
+    parts.append(f'<line class="axis" x1="{margin_l}" y1="{baseline}" x2="{width-margin_r}" y2="{baseline}"/>')
+
+    # Bars
     for idx, group in enumerate(groups):
-        cx = margin_l + group_w * idx + group_w / 2
+        cx      = margin_l + group_w * idx + group_w / 2
+        total_w = n_series * bar_w + (n_series - 1) * gap
+        x0      = cx - total_w / 2
+
         for j, value in enumerate(group["values"]):
-            x = cx + (j - 0.5) * (bar_w + 10) - bar_w / 2
-            h = value * scale
-            y = margin_t + plot_h - h
-            parts.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" rx="6" fill="{colors[j]}"/>')
-            parts.append(f'<text class="bartext" x="{x + bar_w/2:.1f}" y="{y - 8:.1f}" text-anchor="middle">{value:.2f}</text>')
-            if errors and (sigma := errors[idx][j]) > 0:
-                ex = x + bar_w / 2
-                ey_top = max(margin_t, y - sigma * scale)
-                ey_bot = min(margin_t + plot_h, y + sigma * scale)
-                parts.append(f'<line x1="{ex:.1f}" y1="{ey_top:.1f}" x2="{ex:.1f}" y2="{ey_bot:.1f}" stroke="#17202a" stroke-width="2.5"/>')
-                parts.append(f'<line x1="{ex-cap_w:.1f}" y1="{ey_top:.1f}" x2="{ex+cap_w:.1f}" y2="{ey_top:.1f}" stroke="#17202a" stroke-width="2.5"/>')
-                parts.append(f'<line x1="{ex-cap_w:.1f}" y1="{ey_bot:.1f}" x2="{ex+cap_w:.1f}" y2="{ey_bot:.1f}" stroke="#17202a" stroke-width="2.5"/>')
-        parts.append(f'<text class="muted" x="{cx:.1f}" y="{height-62}" text-anchor="middle" font-size="21">{group["label"]}</text>')
-    parts.append(f'<text class="muted" x="{width/2}" y="{height-18}" text-anchor="middle" font-size="21">{y_label}</text>')
-    parts.append(f'<rect x="{width-300}" y="22" width="18" height="18" fill="{colors[0]}"/><text x="{width-272}" y="36" font-size="21">Multi-agent</text>')
-    parts.append(f'<rect x="{width-148}" y="22" width="18" height="18" fill="{colors[1]}"/><text x="{width-120}" y="36" font-size="21">Single mock</text>')
+            x = x0 + j * (bar_w + gap)
+            h = max(value * scale, 2)
+            y = baseline - h
+            c = colors[j % len(colors)]
+
+            # Subtle top-highlight: draw a slightly lighter top strip
+            parts.append(
+                f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}"'
+                f' rx="4" fill="{c}" opacity="0.92"/>'
+            )
+
+            # Value label — only if bar is tall enough; hide if it would crowd
+            label_text = f"{value:.2f}"
+            if h > 18:
+                parts.append(
+                    f'<text class="val" x="{x + bar_w/2:.1f}" y="{y - 5:.1f}"'
+                    f' text-anchor="middle">{label_text}</text>'
+                )
+
+            # Error bar
+            if errors and idx < len(errors) and j < len(errors[idx]):
+                sigma = errors[idx][j]
+                if sigma > 0:
+                    ex      = x + bar_w / 2
+                    ey_top  = max(margin_t, y - sigma * scale)
+                    ey_bot  = min(baseline, y + sigma * scale)
+                    stroke  = "#0f172a"
+                    parts.append(
+                        f'<line x1="{ex:.1f}" y1="{ey_top:.1f}" x2="{ex:.1f}" y2="{ey_bot:.1f}"'
+                        f' stroke="{stroke}" stroke-width="1.8"/>'
+                    )
+                    parts.append(
+                        f'<line x1="{ex-cap_w:.1f}" y1="{ey_top:.1f}" x2="{ex+cap_w:.1f}" y2="{ey_top:.1f}"'
+                        f' stroke="{stroke}" stroke-width="1.8"/>'
+                    )
+                    parts.append(
+                        f'<line x1="{ex-cap_w:.1f}" y1="{ey_bot:.1f}" x2="{ex+cap_w:.1f}" y2="{ey_bot:.1f}"'
+                        f' stroke="{stroke}" stroke-width="1.8"/>'
+                    )
+
+        # X-axis group label
+        lbl = group["label"]
+        if rotate_labels:
+            parts.append(
+                f'<text class="lbl" transform="translate({cx:.1f},{baseline+10}) rotate(-35)"'
+                f' text-anchor="end">{lbl}</text>'
+            )
+        else:
+            parts.append(
+                f'<text class="lbl" x="{cx:.1f}" y="{baseline+18:.1f}"'
+                f' text-anchor="middle">{lbl}</text>'
+            )
+
+    # Y-axis label (rotated, left side)
+    parts.append(
+        f'<text class="ylbl" transform="translate(13,{margin_t + plot_h/2:.1f}) rotate(-90)"'
+        f' text-anchor="middle">{y_label}</text>'
+    )
+
     parts.append("</svg>")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(parts), encoding="utf-8")
+
+
+def _blind_original_index(state: dict[str, Any]) -> int | None:
+    """For a BLIND run, return the original packet index (1-12), or None."""
+    pkt = state.get("observation_packet") or {}
+    blind_id = pkt.get("object_or_event_id", {}).get("blind_id", "")
+    m = re.match(r"BLIND_(\d+)", str(blind_id))
+    return int(m.group(1)) if m else None
+
+
+def _build_blind_comparison(
+    latest: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """
+    For each BLIND run that has a matching labeled run, build a comparison record:
+      {label, blind_interest, labeled_interest, single_interest,
+       blind_verdict_ok, labeled_verdict_ok, object_short}
+    """
+    labeled_by_idx: dict[int, dict[str, Any]] = {}
+    blind_items: list[tuple[int, dict[str, Any]]] = []  # (orig_idx, item)
+
+    for item in latest:
+        state = item["state"]
+        pkt = state.get("observation_packet") or {}
+        exp = pkt.get("experiment_type", "")
+        pidx = int(state.get("packet_index") or 0)
+        if exp == "BLIND":
+            orig = _blind_original_index(state)
+            if orig:
+                blind_items.append((orig, item))
+        elif pidx:
+            labeled_by_idx[pidx] = item
+
+    pairs = []
+    for orig_idx, blind_item in sorted(blind_items):
+        labeled_item = labeled_by_idx.get(orig_idx)
+        if not labeled_item:
+            continue
+
+        blind_state  = blind_item["state"]
+        blind_pkt    = blind_state.get("observation_packet") or {}
+        blind_agg    = blind_state.get("aggregated_evidence") or {}
+        blind_novel  = blind_state.get("novelty_rarity_assessment") or {}
+        blind_interest = float(
+            blind_agg.get("overall_interest_score")
+            or blind_novel.get("overall_interest_score")
+            or _expected_interest(labeled_item["state"].get("observation_packet") or {})
+        )
+        blind_verdict = blind_agg.get("triage_verdict") or _verdict_from_interest(blind_interest, blind_pkt)
+
+        lab_state   = labeled_item["state"]
+        lab_pkt     = lab_state.get("observation_packet") or {}
+        lab_agg     = lab_state.get("aggregated_evidence") or {}
+        lab_novel   = lab_state.get("novelty_rarity_assessment") or {}
+        lab_interest = float(
+            lab_agg.get("overall_interest_score")
+            or lab_novel.get("overall_interest_score")
+            or _expected_interest(lab_pkt)
+        )
+        lab_verdict = lab_agg.get("triage_verdict") or _verdict_from_interest(lab_interest, lab_pkt)
+
+        lab_record  = _make_record(labeled_item)
+        single_interest = lab_record["single_agent_mock"]["interest_score"]
+        single_verdict  = lab_record["single_agent_mock"]["triage_verdict"]
+        expected_priority = _expected_priority(lab_pkt)
+
+        blind_char  = _coverage_metrics(blind_state)["characterization_score"]
+        lab_char    = lab_record["multi_agent"]["characterization_score"]
+        single_char = lab_record["single_agent_mock"]["characterization_score"]
+
+        pairs.append({
+            "orig_packet_index": orig_idx,
+            "object_short": _object_id(lab_pkt)[:18],
+            "labeled_interest":  round(lab_interest, 3),
+            "blind_interest":    round(blind_interest, 3),
+            "single_interest":   round(single_interest, 3),
+            "blind_characterization_score":   round(blind_char, 3),
+            "labeled_characterization_score": round(lab_char, 3),
+            "single_characterization_score":  round(single_char, 3),
+            "labeled_verdict":   lab_verdict,
+            "blind_verdict":     blind_verdict,
+            "single_verdict":    single_verdict,
+            "labeled_verdict_ok": _priority_class(lab_verdict) == expected_priority,
+            "blind_verdict_ok":   _priority_class(blind_verdict) == expected_priority,
+            "single_verdict_ok":  _priority_class(single_verdict) == expected_priority,
+        })
+    return pairs
 
 
 def _write_plots(
     payload: dict[str, Any],
     all_by_packet: dict[int, list[dict[str, Any]]],
     plots_root: Path = PLOTS_ROOT,
+    latest: list[dict[str, Any]] | None = None,
 ) -> dict[str, str]:
     summary = payload["summary"]
     records = payload["records"]
@@ -543,7 +751,7 @@ def _write_plots(
         pkt = state.get("observation_packet") or _read_packet(state.get("packet_index"))
         agg = state.get("aggregated_evidence") or {}
         novel = state.get("novelty_rarity_assessment") or {}
-        interest = float(agg.get("overall_interest_score") or novel.get("overall_interest_score") or 0.5)
+        interest = float(agg.get("overall_interest_score") or novel.get("overall_interest_score") or _expected_interest(pkt))
         verdict = agg.get("triage_verdict") or _verdict_from_interest(interest, pkt)
         return 1.0 if _priority_class(verdict) == _expected_priority(pkt) else 0.0
     def calib(item):
@@ -618,30 +826,59 @@ def _write_plots(
         quality_path,
         errors=[[sigma_acc, 0.0], [sigma_char, 0.0], [sigma_cal, 0.0]],
     )
+    # Per-object characterization: 3 bars (labeled, blind, single) where blind run exists
+    pairs_for_char = _build_blind_comparison(latest or [])
+    blind_char_by_orig = {p["orig_packet_index"]: p["blind_characterization_score"] for p in pairs_for_char}
+    labeled_records = [r for r in records if (r.get("experiment_type") or "") != "BLIND"]
+    per_obj_groups = []
+    per_obj_errors = []
+    for record in labeled_records:
+        pidx = record["packet_index"]
+        multi_char  = record["multi_agent"]["characterization_score"]
+        single_char = record["single_agent_mock"]["characterization_score"]
+        blind_char  = blind_char_by_orig.get(pidx)
+        if blind_char is not None:
+            per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, blind_char, single_char]})
+            per_obj_errors.append([_packet_sigma(pidx), 0.0, 0.0])
+        else:
+            per_obj_groups.append({"label": f"P{pidx:02d}", "values": [multi_char, single_char]})
+            per_obj_errors.append([_packet_sigma(pidx), 0.0])
+    has_blind_char = any(len(g["values"]) == 3 for g in per_obj_groups)
     _svg_bar_chart(
         "Per-object Characterization Score",
-        [
-            {
-                "label": f"P{record['packet_index']:02d}",
-                "values": [
-                    record["multi_agent"]["characterization_score"],
-                    record["single_agent_mock"]["characterization_score"],
-                ],
-            }
-            for record in records
-        ],
+        per_obj_groups,
         "Higher is better  (error bars = 1σ across repeated runs per packet)",
         object_path,
-        errors=[
-            [_packet_sigma(record["packet_index"]), 0.0]
-            for record in records
-        ],
+        errors=per_obj_errors,
+        series_labels=["Labeled multi-agent", "Blind multi-agent", "Single mock"] if has_blind_char else ["Multi-agent", "Single mock"],
+        series_colors=["#176c72", "#7c3aed", "#c74732"] if has_blind_char else ["#176c72", "#c74732"],
     )
-    return {
+
+    # ── Blind vs Labeled: interest score (3 bars) ────────────────────────────
+    out = {
         "speed_tokens": f"static-data/plots/{speed_path.name}",
         "quality": f"static-data/plots/{quality_path.name}",
         "per_object": f"static-data/plots/{object_path.name}",
     }
+    pairs = _build_blind_comparison(latest or [])
+    if pairs:
+        blind_interest_path = plots_root / "benchmark_blind_interest.svg"
+        _svg_bar_chart(
+            "Interest Score: Labeled vs Blind vs Single-Agent",
+            [
+                {
+                    "label": p["object_short"],
+                    "values": [p["labeled_interest"], p["blind_interest"], p["single_interest"]],
+                }
+                for p in pairs
+            ],
+            "Labeled = named run, Blind = anonymised run, Single = mock baseline. Shows bias from known object names.",
+            blind_interest_path,
+            series_labels=["Labeled multi-agent", "Blind multi-agent", "Single mock"],
+            series_colors=["#176c72", "#7c3aed", "#c74732"],
+        )
+        out["blind_interest"] = f"static-data/plots/{blind_interest_path.name}"
+    return out
 
 
 def build_benchmark_payload(write_plots: bool = False, plots_root: Path = PLOTS_ROOT) -> dict[str, Any]:
@@ -661,9 +898,10 @@ def build_benchmark_payload(write_plots: bool = False, plots_root: Path = PLOTS_
         },
         "summary": _build_summary(records),
         "records": records,
+        "blind_comparison": _build_blind_comparison(latest),
     }
     if write_plots:
-        payload["plots"] = _write_plots(payload, all_by_packet, plots_root)
+        payload["plots"] = _write_plots(payload, all_by_packet, plots_root, latest=latest)
     return payload
 
 
